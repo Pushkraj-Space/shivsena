@@ -1,0 +1,218 @@
+import React, { useState } from 'react'
+
+const CartoonsSection = () => {
+    const [selectedCartoon, setSelectedCartoon] = useState(null)
+
+    const cartoons = [
+        {
+            id: 1,
+            image: '/images/vyang/balasaheb image black and white.jpg',
+            title: 'शिवसेना संस्थापक',
+            size: 'large'
+        },
+        {
+            id: 2,
+            image: '/images/vyang/career as cartoonist.jpg',
+            title: 'मुंबईचे शेर',
+            size: 'medium'
+        },
+        {
+            id: 3,
+            image: '/images/vyang/Gallery-Cartoonist 1.jpg',
+            title: 'लोकशाही आणि जनता',
+            size: 'small'
+        },
+        {
+            id: 4,
+            image: '/images/vyang/Gallery-Cartoonist 2.jpg',
+            title: 'शेतकरी आणि शेती',
+            size: 'medium'
+        },
+        {
+            id: 5,
+            image: '/images/vyang/Gallery-Cartoonist 3.jpg',
+            title: 'युवा शक्ती',
+            size: 'large'
+        },
+        {
+            id: 6,
+            image: '/images/vyang/Gallery-Cartoonist 4.jpg',
+            title: 'महाराष्ट्राचा गौरव',
+            size: 'small'
+        },
+        {
+            id: 7,
+            image: '/images/vyang/Gallery-Cartoonist 5.jpg',
+            title: 'शिवसेना आंदोलन',
+            size: 'medium'
+        },
+        {
+            id: 8,
+            image: '/images/vyang/Gallery-Cartoonist 6.jpg',
+            title: 'मराठी माणूस',
+            size: 'small'
+        },
+        // {
+        //     id: 9,
+        //     image: '/images/vyang/balasaheb image black and white.jpg',
+        //     title: 'शिवसेना शक्ती',
+        //     size: 'large'
+        // },
+        // {
+        //     id: 10,
+        //     image: '/images/vyang/career as cartoonist.jpg',
+        //     title: 'बाळासाहेब ठाकरे',
+        //     size: 'medium'
+        // },
+        // {
+        //     id: 11,
+        //     image: '/images/vyang/Gallery-Cartoonist 1.jpg',
+        //     title: 'मुंबई दर्शन',
+        //     size: 'small'
+        // },
+        // {
+        //     id: 12,
+        //     image: '/images/vyang/Gallery-Cartoonist 2.jpg',
+        //     title: 'शिवसेना विचार',
+        //     size: 'medium'
+        // },
+        // {
+        //     id: 13,
+        //     image: '/images/vyang/Gallery-Cartoonist 3.jpg',
+        //     title: 'मराठी अस्मिता',
+        //     size: 'large'
+        // },
+        // {
+        //     id: 14,
+        //     image: '/images/vyang/Gallery-Cartoonist 4.jpg',
+        //     title: 'शिवसेना संघर्ष',
+        //     size: 'small'
+        // },
+        // {
+        //     id: 15,
+        //     image: '/images/vyang/Gallery-Cartoonist 5.jpg',
+        //     title: 'बाळासाहेब विचार',
+        //     size: 'medium'
+        // },
+        // {
+        //     id: 16,
+        //     image: '/images/vyang/Gallery-Cartoonist 6.jpg',
+        //     title: 'शिवसेना विजय',
+        //     size: 'large'
+        // },
+        // {
+        //     id: 17,
+        //     image: '/images/vyang/balasaheb image black and white.jpg',
+        //     title: 'मराठी राज्य',
+        //     size: 'small'
+        // },
+        // {
+        //     id: 18,
+        //     image: '/images/vyang/career as cartoonist.jpg',
+        //     title: 'शिवसेना नेतृत्व',
+        //     size: 'medium'
+        // },
+        // {
+        //     id: 19,
+        //     image: '/images/vyang/Gallery-Cartoonist 1.jpg',
+        //     title: 'बाळासाहेब कार्य',
+        //     size: 'small'
+        // },
+        // {
+        //     id: 20,
+        //     image: '/images/vyang/Gallery-Cartoonist 2.jpg',
+        //     title: 'शिवसेना भविष्य',
+        //     size: 'large'
+        // },
+        // {
+        //     id: 21,
+        //     image: '/images/vyang/Gallery-Cartoonist 3.jpg',
+        //     title: 'मराठी भाषा',
+        //     size: 'medium'
+        // },
+        // {
+        //     id: 22,
+        //     image: '/images/vyang/Gallery-Cartoonist 4.jpg',
+        //     title: 'शिवसेना संस्कृती',
+        //     size: 'small'
+        // },
+        // {
+        //     id: 23,
+        //     image: '/images/vyang/Gallery-Cartoonist 5.jpg',
+        //     title: 'बाळासाहेब स्मृती',
+        //     size: 'medium'
+        // },
+        // {
+        //     id: 24,
+        //     image: '/images/vyang/Gallery-Cartoonist 6.jpg',
+        //     title: 'शिवसेना परंपरा',
+        //     size: 'large'
+        // }
+    ]
+
+    const openModal = (cartoon) => {
+        setSelectedCartoon(cartoon)
+    }
+
+    const closeModal = () => {
+        setSelectedCartoon(null)
+    }
+
+    return (
+        <section className="section cartoons-section">
+            <div className="cartoons-header">
+                <h2 className="section-title">व्यंगचित्र</h2>
+                <p className="section-subtitle">
+                    बाळासाहेब ठाकरे यांचे राजकीय व्यंगचित्रे
+                </p>
+            </div>
+
+            <div className="cartoons-gallery">
+                {cartoons.map((cartoon, index) => (
+                    <div
+                        key={cartoon.id}
+                        className={`gallery-item ${cartoon.size}`}
+                        onClick={() => openModal(cartoon)}
+                    >
+                        <div className="item-image">
+                            <img src={cartoon.image} alt={cartoon.title} />
+                            <div className="item-overlay">
+                                <div className="overlay-content">
+                                    <i className="fas fa-search-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="item-title">
+                            <h3>{cartoon.title}</h3>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <div className="cartoons-footer">
+                <div className="artist-signature">
+                    <i className="fas fa-palette"></i>
+                    <span>बाळासाहेब ठाकरे</span>
+                </div>
+                <a href="#gallery" className="btn btn-outline-light">
+                    सर्व व्यंगचित्रे पहा
+                </a>
+            </div>
+
+            {/* Modal */}
+            {selectedCartoon && (
+                <div className="cartoon-modal" onClick={closeModal}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <button className="modal-close" onClick={closeModal}>
+                            <i className="fas fa-times"></i>
+                        </button>
+                        <img src={selectedCartoon.image} alt={selectedCartoon.title} />
+                        <h3>{selectedCartoon.title}</h3>
+                    </div>
+                </div>
+            )}
+        </section>
+    )
+}
+
+export default CartoonsSection 
