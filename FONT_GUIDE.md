@@ -1,11 +1,17 @@
 # Font Switching System Guide
 
 ## Overview
-This system allows you to easily switch between 4 different fonts across your entire website:
+This system allows you to easily switch between 9 different fonts across your entire website:
 - **Poppins** - Modern, geometric sans-serif font
+- **Mukta (Devanagari)** - Versatile Devanagari font with excellent readability
 - **Anek Devanagari** - Contemporary Devanagari font
 - **Munda Devanagari** - Classic Devanagari font
 - **Yatra One** - Decorative Devanagari font
+- **Noto Sans Devanagari** - Google's comprehensive sans-serif Devanagari font
+- **Noto Serif Devanagari** - Google's serif Devanagari font
+- **Tiro Devanagari Marathi** - Elegant serif font for Marathi text
+- **Teko** - Modern display font with geometric design
+- **Proxima Nova Devanagari** - Premium Devanagari font with modern design
 
 ## How to Use
 
@@ -26,23 +32,41 @@ You can also switch fonts programmatically using the utility functions:
 ```javascript
 import { 
   setPoppins, 
+  setMukta,
   setAnekDevanagari, 
   setMundaDevanagari, 
   setYatraOne,
+  setNotoSansDevanagari,
+  setNotoSerifDevanagari,
+  setTiroDevanagariMarathi,
+  setTeko,
+  setProximaNova,
   applyFont 
 } from './src/utils/fontUtils';
 
 // Quick functions for each font
 setPoppins();
+setMukta();
 setAnekDevanagari();
 setMundaDevanagari();
 setYatraOne();
+setNotoSansDevanagari();
+setNotoSerifDevanagari();
+setTiroDevanagariMarathi();
+setTeko();
+setProximaNova();
 
 // Or use the generic function
 applyFont('poppins');
+applyFont('mukta');
 applyFont('anekDevanagari');
 applyFont('mundaDevanagari');
 applyFont('yatraOne');
+applyFont('notoSansDevanagari');
+applyFont('notoSerifDevanagari');
+applyFont('tiroDevanagariMarathi');
+applyFont('teko');
+applyFont('proximaNova');
 ```
 
 ## Font Details
@@ -52,6 +76,12 @@ applyFont('yatraOne');
 - **Best for**: Clean, professional look
 - **Supports**: Latin characters
 - **Weights**: 100-900
+
+### Mukta (Devanagari)
+- **Type**: Versatile sans-serif
+- **Best for**: General purpose Hindi text
+- **Supports**: Devanagari script
+- **Weights**: 200-800
 
 ### Anek Devanagari
 - **Type**: Contemporary Devanagari
@@ -70,6 +100,36 @@ applyFont('yatraOne');
 - **Best for**: Artistic, decorative text
 - **Supports**: Devanagari script
 - **Weights**: 400 (single weight)
+
+### Noto Sans Devanagari
+- **Type**: Comprehensive sans-serif
+- **Best for**: Universal Hindi text support
+- **Supports**: Devanagari script with extensive coverage
+- **Weights**: 100-900
+
+### Noto Serif Devanagari
+- **Type**: Traditional serif
+- **Best for**: Formal Hindi text and publications
+- **Supports**: Devanagari script with extensive coverage
+- **Weights**: 200-900
+
+### Tiro Devanagari Marathi
+- **Type**: Elegant serif
+- **Best for**: Marathi text and literature
+- **Supports**: Devanagari script (Marathi optimized)
+- **Weights**: 400 (with italic variants)
+
+### Teko
+- **Type**: Modern display font
+- **Best for**: Headlines and display text
+- **Supports**: Latin characters
+- **Weights**: 300-700
+
+### Proxima Nova Devanagari
+- **Type**: Premium sans-serif
+- **Best for**: Professional Hindi text and branding
+- **Supports**: Devanagari script
+- **Weights**: 300-800
 
 ## Technical Implementation
 
@@ -118,10 +178,17 @@ You can test fonts directly in the browser console:
 // Import the utility (if available)
 import('./src/utils/fontUtils.js').then(module => {
   module.setPoppins();
+  module.setMukta();
   module.setAnekDevanagari();
   module.setMundaDevanagari();
   module.setYatraOne();
+  module.setNotoSansDevanagari();
+  module.setNotoSerifDevanagari();
+  module.setTiroDevanagariMarathi();
+  module.setTeko();
+  module.setProximaNova();
 });
+```
 
 // Or apply directly
 document.documentElement.style.setProperty('--primary-font', 'Poppins, sans-serif');

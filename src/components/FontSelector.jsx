@@ -13,6 +13,12 @@ const FontSelector = () => {
             preview: 'Aa'
         },
         {
+            id: 'mukta',
+            name: 'Mukta (Devanagari)',
+            family: 'Mukta, sans-serif',
+            preview: 'आ'
+        },
+        {
             id: 'anek-devanagari',
             name: 'Anek Devanagari',
             family: 'Anek Devanagari, sans-serif',
@@ -28,6 +34,36 @@ const FontSelector = () => {
             id: 'yatra-one',
             name: 'Yatra One',
             family: 'Yatra One, cursive',
+            preview: 'आ'
+        },
+        {
+            id: 'noto-sans-devanagari',
+            name: 'Noto Sans Devanagari',
+            family: 'Noto Sans Devanagari, sans-serif',
+            preview: 'आ'
+        },
+        {
+            id: 'noto-serif-devanagari',
+            name: 'Noto Serif Devanagari',
+            family: 'Noto Serif Devanagari, serif',
+            preview: 'आ'
+        },
+        {
+            id: 'tiro-devanagari-marathi',
+            name: 'Tiro Devanagari Marathi',
+            family: 'Tiro Devanagari Marathi, serif',
+            preview: 'आ'
+        },
+        {
+            id: 'teko',
+            name: 'Teko',
+            family: 'Teko, sans-serif',
+            preview: 'Aa'
+        },
+        {
+            id: 'proxima-nova',
+            name: 'Proxima Nova Devanagari',
+            family: 'Proxima Nova, sans-serif',
             preview: 'आ'
         }
     ];

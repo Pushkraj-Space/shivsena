@@ -10,6 +10,12 @@ const FontTest = () => {
             description: 'Modern, geometric sans-serif font with excellent readability'
         },
         {
+            id: 'mukta',
+            name: 'Mukta (Devanagari)',
+            family: 'Mukta, sans-serif',
+            description: 'Versatile Devanagari font with excellent readability and multiple weights'
+        },
+        {
             id: 'anek-devanagari',
             name: 'Anek Devanagari',
             family: 'Anek Devanagari, sans-serif',
@@ -26,6 +32,36 @@ const FontTest = () => {
             name: 'Yatra One',
             family: 'Yatra One, cursive',
             description: 'Decorative Devanagari font with artistic flair'
+        },
+        {
+            id: 'noto-sans-devanagari',
+            name: 'Noto Sans Devanagari',
+            family: 'Noto Sans Devanagari, sans-serif',
+            description: 'Google\'s comprehensive sans-serif Devanagari font with excellent coverage'
+        },
+        {
+            id: 'noto-serif-devanagari',
+            name: 'Noto Serif Devanagari',
+            family: 'Noto Serif Devanagari, serif',
+            description: 'Google\'s serif Devanagari font with traditional typography'
+        },
+        {
+            id: 'tiro-devanagari-marathi',
+            name: 'Tiro Devanagari Marathi',
+            family: 'Tiro Devanagari Marathi, serif',
+            description: 'Elegant serif font specifically designed for Marathi text'
+        },
+        {
+            id: 'teko',
+            name: 'Teko',
+            family: 'Teko, sans-serif',
+            description: 'Modern display font with geometric design and excellent readability'
+        },
+        {
+            id: 'proxima-nova',
+            name: 'Proxima Nova Devanagari',
+            family: 'Proxima Nova, sans-serif',
+            description: 'Premium Devanagari font with modern design and excellent readability'
         }
     ];
 
