@@ -1,0 +1,156 @@
+.font-test {
+    background: var(--light-gray);
+    padding: 4rem 0;
+    min-height: 100vh;
+}
+
+.font-test-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.font-test-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.font-test-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.font-test-card {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: var(--shadow-light);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.font-test-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+    border-color: var(--primary-color);
+}
+
+.font-test-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--light-gray);
+}
+
+.font-test-header h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.font-description {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.font-test-content {
+    margin-bottom: 2rem;
+}
+
+.test-text-section {
+    margin-bottom: 1.5rem;
+}
+
+.test-text-section h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.test-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+    padding: 1rem;
+    background: var(--light-gray);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.font-test-footer {
+    text-align: center;
+}
+
+.font-test-footer .btn {
+    width: 100%;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .font-test {
+        padding: 2rem 0;
+    }
+
+    .font-test-title {
+        font-size: 2rem;
+    }
+
+    .font-test-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .font-test-card {
+        padding: 1.5rem;
+    }
+
+    .font-test-header h3 {
+        font-size: 1.5rem;
+    }
+
+    .test-text {
+        font-size: 1rem;
+        padding: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .font-test-title {
+        font-size: 1.8rem;
+    }
+
+    .font-test-subtitle {
+        font-size: 1rem;
+    }
+
+    .font-test-card {
+        padding: 1rem;
+    }
+
+    .font-test-header h3 {
+        font-size: 1.3rem;
+    }
+
+    .test-text {
+        font-size: 0.9rem;
+    }
+}

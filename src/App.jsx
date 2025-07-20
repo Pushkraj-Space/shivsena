@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from './components/Header'
 import HeroSection from './components/HeroSection'
+import FontTest from './components/FontTest'
 import InspirationSection from './components/InspirationSection'
 import EknathSection from './components/EknathSection'
 import StrengthSection from './components/StrengthSection'
@@ -15,6 +16,7 @@ function App() {
         <div className="App">
             <Header />
             <HeroSection />
+            {/* <FontTest /> */}
             <InspirationSection />
             <EknathSection />
             <StrengthSection />

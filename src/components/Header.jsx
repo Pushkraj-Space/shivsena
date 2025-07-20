@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import FontSelector from './FontSelector'
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -35,6 +36,10 @@ const Header = () => {
                             </ul>
                         </nav>
 
+                        <div className="header-actions">
+                            <FontSelector />
+                        </div>
+
                         <div className="mobile-menu-toggle" onClick={toggleMobileMenu}>
                             <span></span>
                             <span></span>
@@ -51,6 +56,9 @@ const Header = () => {
                         <li><a href="#media">मीडिया</a></li>
                         <li><a href="#news">बातमी</a></li>
                         <li><a href="#contact">संपर्क</a></li>
+                        <li className="mobile-font-selector">
+                            <FontSelector />
+                        </li>
                     </ul>
                 </div>
             </div>
