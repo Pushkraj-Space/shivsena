@@ -16,6 +16,13 @@ import PastLeaderPage from './components/PastLeaderPage'
 import CurrentLeadershipPage from './components/CurrentLeadershipPage'
 import AnglePage from './components/AnglePage'
 import OrganizationalStructurePage from './components/OrganizationalStructurePage'
+import InitiativesAndProjects from './components/InitiativesAndProjects'
+import SuccessStoriesPage from './components/SuccessStoriesPage'
+import MedicalInfoPage from './components/MedicalInfoPage'
+import MedicalWorkPage from './components/MedicalWorkPage'
+import MedicalMembersPage from './components/MedicalMembersPage'
+import MediaNewsPage from './components/MediaNewsPage'
+import ContactPage from './components/ContactPage'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -43,6 +50,13 @@ function App() {
                     <Route path="/current-leadership" element={<CurrentLeadershipPage />} />
                     <Route path="/angle" element={<AnglePage />} />
                     <Route path="/organizational-structure" element={<OrganizationalStructurePage />} />
+                    <Route path="/initiatives-and-projects" element={<InitiativesAndProjects />} />
+                    <Route path="/success-stories" element={<SuccessStoriesPage />} />
+                    <Route path="/medical-info" element={<MedicalInfoPage />} />
+                    <Route path="/medical-work" element={<MedicalWorkPage />} />
+                    <Route path="/medical-members" element={<MedicalMembersPage />} />
+                    <Route path="/media-news" element={<MediaNewsPage />} />
+                    <Route path="/contact" element={<ContactPage />} />
                 </Routes>
                 <Footer />
             </div>
