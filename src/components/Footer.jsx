@@ -44,16 +44,16 @@ const Footer = () => {
 
                 <div className="footer-bottom">
                     <div className="social-icons">
-                        <a href="#" aria-label="Facebook">
+                        <a href="https://www.facebook.com/Shivsenaofc" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                             <i className="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" aria-label="Twitter">
-                            <i className="fab fa-twitter"></i>
+                        <a href="https://twitter.com/shivsenaofc" aria-label="X" target="_blank" rel="noopener noreferrer">
+                            <i className="fab fa-x-twitter"></i>
                         </a>
-                        <a href="#" aria-label="Instagram">
+                        <a href="https://www.instagram.com/shivsenaofc/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                             <i className="fab fa-instagram"></i>
                         </a>
-                        <a href="#" aria-label="YouTube">
+                        <a href="https://www.youtube.com" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
                             <i className="fab fa-youtube"></i>
                         </a>
                     </div>

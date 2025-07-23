@@ -27,9 +27,9 @@ const contactInfo = [
 
 const socialLinks = [
     { icon: 'fa-facebook', url: 'https://www.facebook.com/Shivsenaofc' },
-    { icon: 'fa-twitter', url: 'https://x.com/shivsenaofc' },
+    { icon: 'fa-x-twitter', url: 'https://twitter.com/shivsenaofc' },
     { icon: 'fa-instagram', url: 'https://www.instagram.com/shivsenaofc/' },
-    { icon: 'fa-youtube', url: 'https://www.youtube.com/@shivsenaofc' },
+    { icon: 'fa-youtube', url: 'https://www.youtube.com' },
 ];
 
 const containerVariant = {
