@@ -55,12 +55,8 @@ const CTASection = () => {
                     {ctaItems.map((item, index) => (
                         <div
                             key={item.id}
-                            // Add 'animate-in' class when isVisible is true
-                            // This class will trigger the CSS animation
-                            className={`col-33 ${isVisible ? 'animate-in' : ''}`}
-                            // Apply a staggered delay for each item
-                            // This makes them appear one after another
-                            style={{ transitionDelay: `${index * 0.2}s` }} // 0.2s delay between each card
+                            className={`col-33 fade-in-up ${isVisible ? 'animate-in' : ''}`}
+                            style={{ transitionDelay: `${index * 0.2}s` }}
                         >
                             <div className="cta-card">
                                 <i className={item.icon} style={{ fontSize: '3rem', color: 'var(--primary-color)', marginBottom: '2rem' }}></i>

@@ -151,16 +151,16 @@ const MediaSection = () => {
     };
 
     const happeningAnimations = [
-        'funny-bounce',
+        'fade-in',
         'slide-in-left',
         'scale-in',
         'rotate-in',
         'fade-in-up',
     ];
     const videoAnimations = [
-        'scale-in',
+        'zoom-in',
         'slide-in-right',
-        'funny-bounce',
+        'fade-in',
     ];
     const programAnimations = [
         'fade-in-down',
@@ -206,7 +206,7 @@ const MediaSection = () => {
                             {latestHappenings.map((happening, index) => (
                                 <AnimatedOnScroll
                                     key={happening.id}
-                                    animation={happeningAnimations[index % happeningAnimations.length]}
+                                    animation="fade-in-up"
                                     delay={index * 0.25}
                                 >
                                     <div
@@ -257,8 +257,8 @@ const MediaSection = () => {
                                 {featuredVideos.map((video, index) => (
                                     <AnimatedOnScroll
                                         key={video.id}
-                                        animation={videoAnimations[index % videoAnimations.length]}
-                                        delay={index * 0.3}
+                                        animation="fade-in-up"
+                                        delay={index * 0.25}
                                     >
                                         <div
                                             className={`video-thumbnail ${index === currentVideo ? 'active' : ''}`}
@@ -288,8 +288,8 @@ const MediaSection = () => {
                             {upcomingPrograms.map((program, index) => (
                                 <AnimatedOnScroll
                                     key={program.id}
-                                    animation={programAnimations[index % programAnimations.length]}
-                                    delay={index * 0.28}
+                                    animation="fade-in-up"
+                                    delay={index * 0.25}
                                 >
                                     <div className={`program-card`}>
                                         <div className="program-date-badge">

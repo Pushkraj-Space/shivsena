@@ -64,7 +64,7 @@ const NewsCarousel = () => {
     ];
 
     const newsAnimations = [
-        'funny-bounce',
+        'fade-in',
         'slide-in-left',
         'scale-in',
         'rotate-in',
@@ -124,8 +124,8 @@ const NewsCarousel = () => {
                             {newsItems.map((item, index) => (
                                 <AnimatedOnScroll
                                     key={item.id}
-                                    animation={newsAnimations[index % newsAnimations.length]}
-                                    delay={index * 0.28}
+                                    animation="fade-in-up"
+                                    delay={index * 0.25}
                                 >
                                     <div
                                         className={`news-card ${index === activeIndex ? 'active' : ''}`}

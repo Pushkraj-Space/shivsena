@@ -42,10 +42,15 @@ const EknathSection = () => {
     ]
 
     const cardAnimations = [
-        'funny-bounce',
+        'slide-in-right',
         'slide-in-left',
         'scale-in',
-        'rotate-in',
+        // 'rotate-in-up-left',
+        // 'rotate-in-up-right',
+        // 'rotate-in-down-left',
+        // 'rotate-in-down-right',
+        // 'rotate-in-left-up',
+        // 'rotate-in-up-right',
     ];
 
     // Set section to visible when component mounts
@@ -155,8 +160,8 @@ const EknathSection = () => {
                             {activities.map((activity, index) => (
                                 <AnimatedOnScroll
                                     key={activity.id}
-                                    animation={cardAnimations[index % cardAnimations.length]}
-                                    delay={index * 0.35}
+                                    animation="fade-in-up"
+                                    delay={index * 0.25}
                                 >
                                     <div
                                         className={`highlighted-card ${index === currentCard ? 'active' : ''}`}

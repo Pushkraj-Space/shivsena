@@ -152,14 +152,14 @@ const CartoonsSection = () => {
     ]
 
     const cartoonAnimations = [
-        'funny-bounce',
-        'scale-in',
-        'rotate-in',
+        'fade-in',
+        'zoom-in',
+        'slide-in-up',
         'slide-in-left',
         'slide-in-right',
         'fade-in-up',
         'fade-in-down',
-        'funny-bounce',
+        'zoom-in',
     ];
 
     const openModal = (cartoon) => {
@@ -183,8 +183,8 @@ const CartoonsSection = () => {
                 {cartoons.map((cartoon, index) => (
                     <AnimatedOnScroll
                         key={cartoon.id}
-                        animation={cartoonAnimations[index % cartoonAnimations.length]}
-                        delay={index * 0.35} // slower, more playful
+                        animation="fade-in-up"
+                        delay={index * 0.25}
                     >
                         <div
                             className={`gallery-item ${cartoon.size}`}

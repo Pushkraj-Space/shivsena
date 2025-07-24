@@ -1,39 +1,49 @@
 .animated-on-scroll {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s cubic-bezier(.4, 0, .2, 1), transform 0.6s cubic-bezier(.4, 0, .2, 1);
 }
 
 .animated-on-scroll.fade-in-up {
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.animated-on-scroll.fade-in-up.animate-in {
   opacity: 1;
   transform: translateY(0);
 }
 
 .animated-on-scroll.fade-in-down {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 0;
+  transform: translateY(-40px);
 }
+
 .animated-on-scroll.fade-in-down.animate-in {
   opacity: 1;
   transform: translateY(0);
 }
+
 .animated-on-scroll.fade-in-down.animate-out {
   opacity: 0;
   transform: translateY(-40px);
 }
 
 .animated-on-scroll.slide-in-left {
-  opacity: 1;
-  transform: translateX(0);
+  opacity: 0;
+  transform: translateX(-40px);
 }
+
 .animated-on-scroll.slide-in-left.animate-in {
   opacity: 1;
   transform: translateX(0) scale(1.05);
-  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.12);
-  transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1), box-shadow 0.7s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
+  transition: opacity 0.6s cubic-bezier(.4, 0, .2, 1), transform 0.7s cubic-bezier(.4, 0, .2, 1), box-shadow 0.7s cubic-bezier(.4, 0, .2, 1);
+  animation: pop-in 0.7s cubic-bezier(.4, 0, .2, 1);
 }
+
 .animated-on-scroll.slide-in-left.animate-in {
-  animation: pop-in 0.7s cubic-bezier(.4,0,.2,1);
+  animation: pop-in 0.7s cubic-bezier(.4, 0, .2, 1);
 }
 
 @keyframes pop-in {
@@ -42,15 +52,17 @@
     opacity: 0;
     box-shadow: none;
   }
+
   70% {
     transform: translateX(0) scale(1.08);
     opacity: 1;
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.18);
   }
+
   100% {
     transform: translateX(0) scale(1.05);
     opacity: 1;
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
   }
 }
 
@@ -60,13 +72,15 @@
 }
 
 .animated-on-scroll.slide-in-right {
-  opacity: 1;
-  transform: translateX(0);
+  opacity: 0;
+  transform: translateX(40px);
 }
+
 .animated-on-scroll.slide-in-right.animate-in {
   opacity: 1;
   transform: translateX(0);
 }
+
 .animated-on-scroll.slide-in-right.animate-out {
   opacity: 0;
   transform: translateX(40px);
@@ -76,10 +90,12 @@
   opacity: 1;
   transform: scale(1);
 }
+
 .animated-on-scroll.scale-in.animate-in {
   opacity: 1;
   transform: scale(1);
 }
+
 .animated-on-scroll.scale-in.animate-out {
   opacity: 0;
   transform: scale(0.8);
@@ -89,10 +105,12 @@
   opacity: 1;
   transform: rotate(0deg);
 }
+
 .animated-on-scroll.rotate-in.animate-in {
   opacity: 1;
   transform: rotate(0deg);
 }
+
 .animated-on-scroll.rotate-in.animate-out {
   opacity: 0;
   transform: rotate(-15deg);
@@ -101,8 +119,8 @@
 .animated-on-scroll.funny-bounce.animate-in {
   opacity: 1;
   transform: translateY(0) scale(1.08) rotate(-2deg);
-  animation: funny-bounce-in 0.9s cubic-bezier(.4,0,.2,1);
-  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.13);
+  animation: funny-bounce-in 0.9s cubic-bezier(.4, 0, .2, 1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.13);
 }
 
 @keyframes funny-bounce-in {
@@ -111,25 +129,39 @@
     transform: translateY(60px) scale(0.85) rotate(8deg);
     box-shadow: none;
   }
+
   40% {
     opacity: 1;
     transform: translateY(-18px) scale(1.12) rotate(-6deg);
-    box-shadow: 0 12px 36px 0 rgba(0,0,0,0.18);
+    box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.18);
   }
+
   60% {
     transform: translateY(8px) scale(0.98) rotate(3deg);
   }
+
   80% {
     transform: translateY(-4px) scale(1.05) rotate(-2deg);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0) scale(1.08) rotate(-2deg);
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.13);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.13);
   }
 }
 
 /* Staggered animation support */
 .animated-on-scroll[data-delay] {
   transition-delay: var(--aos-delay, 0s);
-} 
+}
+
+.strength-block {
+  min-height: 180px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}

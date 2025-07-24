@@ -32,11 +32,17 @@ const StrengthSection = () => {
             title: 'निर्भय नेतृत्व',
             description: 'कोणत्याही परिस्थितीत निर्भयपणे निर्णय घेणे आणि त्यांची अंमलबजावणी करणे.',
             background: 'white'
+        },
+        {
+            id: 6,
+            title: 'निर्भय नेतृत्व',
+            description: 'कोणत्याही परिस्थितीत निर्भयपणे निर्णय घेणे आणि त्यांची अंमलबजावणी करणे.',
+            background: 'white'
         }
     ];
 
     const blockAnimations = [
-        'funny-bounce',
+        'fade-in',
         'slide-in-left',
         'scale-in',
         'rotate-in',
@@ -54,18 +60,25 @@ const StrengthSection = () => {
                 </p>
 
                 <div className="strength-grid">
-                    {strengthBlocks.map((block, index) => (
-                        <AnimatedOnScroll
-                            key={block.id}
-                            animation={blockAnimations[index % blockAnimations.length]}
-                            delay={index * 0.32}
-                        >
-                            <div className={`strength-block strength-block-${block.background}`}>
-                                <h3>{block.title}</h3>
-                                <p>{block.description}</p>
-                            </div>
-                        </AnimatedOnScroll>
-                    ))}
+                    {strengthBlocks.map((block, index) => {
+                        let animation = "fade-in-up";
+                        if (block.id === 1 || block.id === 4) animation = "slide-in-left";
+                        else if (block.id === 3 || block.id === 5) animation = "slide-in-right";
+                        else if (block.id === 2) animation = "fade-in-down";
+                        else if (block.id === 6) animation = "fade-in-up";
+                        return (
+                            <AnimatedOnScroll
+                                key={block.id}
+                                animation={animation}
+                                delay={index * 0.25}
+                            >
+                                <div className={`strength-block strength-block-${block.background}`}>
+                                    <h3>{block.title}</h3>
+                                    <p>{block.description}</p>
+                                </div>
+                            </AnimatedOnScroll>
+                        );
+                    })}
                 </div>
             </div>
         </section>
