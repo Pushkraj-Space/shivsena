@@ -50,20 +50,20 @@ const Header = () => {
     };
     const handleMedicalLeave = () => setMedicalDropdownOpen(false);
     return (
-        <header className="header">
-            <div className="header-top">
+        <header className="header" style={{ background: 'transparent', backdropFilter: 'blur(2px)', zIndex: 2, position: 'relative' }}>
+            {/* <div className="header-top">
                 <div className="container">
                     <div className="text-center">
                         <span>शिवसेना - गर्व से कहो हम हिंदू हैं </span>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className="header-main">
                 <div className="container">
                     <div className="header-content">
                         <div className="logo">
-                            <div className="logo-text">शिवसेना</div>
+                            <div className="logo-text" style={{ position: 'sticky', top: 0, zIndex: 1000, display: 'none', width: `100%` }}>&nbsp;</div>
                         </div>
 
                         <nav className="nav-menu" aria-label="Main navigation">

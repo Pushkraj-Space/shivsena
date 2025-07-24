@@ -43,12 +43,14 @@ const HeroSection = () => {
 
     return (
         <main>
-            <section className="hero-section" aria-label="Hero" role="region">
-                <motion.div
+            <section className="hero-section" aria-label="Hero" role="region" style={{ position: 'relative', overflow: 'hidden' }}>
+
+                {/* <motion.div
                     className="hero-content"
-                    variants={containerVariants} // Apply container variants
+                    variants={containerVariants}
                     initial="hidden"
                     animate="visible"
+                    style={{ position: 'relative', zIndex: 1 }}
                 >
                     <motion.h1 className="hero-title" variants={itemVariants}>
                         शिवसेना
@@ -61,7 +63,7 @@ const HeroSection = () => {
                             href="#about"
                             className="btn btn-primary btn-lg"
                             aria-label="Learn about us"
-                            variants={buttonVariants} // Apply button variants
+                            variants={buttonVariants}
                         >
                             आमच्याबद्दल जाणून घ्या
                         </motion.a>
@@ -69,13 +71,13 @@ const HeroSection = () => {
                             href="#contact"
                             className="btn btn-secondary btn-lg"
                             aria-label="Contact us"
-                            variants={buttonVariants} // Apply button variants
-                            style={{ marginLeft: '1rem' }} // Add some spacing between buttons
+                            variants={buttonVariants}
+                            style={{ marginLeft: '1rem' }}
                         >
                             संपर्क साधा
                         </motion.a>
                     </motion.div>
-                </motion.div>
+                </motion.div> */}
             </section>
         </main>
     );
