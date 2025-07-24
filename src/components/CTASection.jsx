@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 
 const CTASection = () => {
+    // State to control when the animation starts
+    const [isVisible, setIsVisible] = useState(false);
+
     const ctaItems = [
         {
             id: 1,
@@ -26,7 +29,19 @@ const CTASection = () => {
             buttonText: 'देणगी द्या',
             buttonLink: '#donate'
         }
-    ]
+    ];
+
+    // useEffect to trigger the animation when the component mounts
+    useEffect(() => {
+        // A small delay ensures the component has rendered before
+        // the `isVisible` state changes, allowing the CSS transition to work.
+        const timer = setTimeout(() => {
+            setIsVisible(true);
+        }, 150); // Adjust this delay as needed
+
+        // Cleanup the timer if the component unmounts before the timer fires
+        return () => clearTimeout(timer);
+    }, []); // Empty dependency array means this effect runs once on mount
 
     return (
         <section className="section cta-section">
@@ -37,8 +52,16 @@ const CTASection = () => {
                 </p>
 
                 <div className="row">
-                    {ctaItems.map((item) => (
-                        <div key={item.id} className="col-33">
+                    {ctaItems.map((item, index) => (
+                        <div
+                            key={item.id}
+                            // Add 'animate-in' class when isVisible is true
+                            // This class will trigger the CSS animation
+                            className={`col-33 ${isVisible ? 'animate-in' : ''}`}
+                            // Apply a staggered delay for each item
+                            // This makes them appear one after another
+                            style={{ transitionDelay: `${index * 0.2}s` }} // 0.2s delay between each card
+                        >
                             <div className="cta-card">
                                 <i className={item.icon} style={{ fontSize: '3rem', color: 'var(--primary-color)', marginBottom: '2rem' }}></i>
                                 <h3>{item.title}</h3>
@@ -52,7 +75,7 @@ const CTASection = () => {
                 </div>
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default CTASection 
+export default CTASection;

@@ -24,6 +24,7 @@ import MedicalMembersPage from './components/MedicalMembersPage'
 import MediaNewsPage from './components/MediaNewsPage'
 import ContactPage from './components/ContactPage'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import AnimatedOnScroll from "./components/AnimatedOnScroll";
 
 function App() {
     return (
@@ -33,15 +34,15 @@ function App() {
                 <Routes>
                     <Route path="/" element={
                         <>
-                            <HeroSection />
+                            <AnimatedOnScroll animation="fade-in-up" delay={0}><HeroSection /></AnimatedOnScroll>
                             {/* <FontTest /> */}
-                            <InspirationSection />
-                            <EknathSection />
-                            <StrengthSection />
-                            <NewsCarousel />
-                            <MediaSection />
-                            <CartoonsSection />
-                            <CTASection />
+                            <AnimatedOnScroll animation="slide-in-left" delay={0.4}><InspirationSection /></AnimatedOnScroll>
+                            <AnimatedOnScroll animation="slide-in-right" delay={0.4}><EknathSection /></AnimatedOnScroll>
+                            <AnimatedOnScroll animation="scale-in" delay={0.6}><StrengthSection /></AnimatedOnScroll>
+                            <AnimatedOnScroll animation="fade-in-down" delay={0.4}><NewsCarousel /></AnimatedOnScroll>
+                            <AnimatedOnScroll animation="rotate-in" delay={0.4}><MediaSection /></AnimatedOnScroll>
+                            <AnimatedOnScroll animation="slide-in-left" delay={0.4}><CartoonsSection /></AnimatedOnScroll>
+                            <AnimatedOnScroll animation="fade-in-up" delay={0.4}><CTASection /></AnimatedOnScroll>
                         </>
                     } />
                     <Route path="/history" element={<HistoryPage />} />

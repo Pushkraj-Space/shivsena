@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import AnimatedOnScroll from './AnimatedOnScroll';
 
 const StrengthSection = () => {
     const strengthBlocks = [
@@ -32,27 +33,43 @@ const StrengthSection = () => {
             description: 'कोणत्याही परिस्थितीत निर्भयपणे निर्णय घेणे आणि त्यांची अंमलबजावणी करणे.',
             background: 'white'
         }
-    ]
+    ];
+
+    const blockAnimations = [
+        'funny-bounce',
+        'slide-in-left',
+        'scale-in',
+        'rotate-in',
+        'fade-in-up',
+    ];
 
     return (
         <section className="section strength-section">
             <div className="container">
-                <h2 className="section-title">मराठी मनाची ताकद शिवसेना</h2>
+                <h2 className="section-title">
+                    मराठी मनाची ताकद शिवसेना
+                </h2>
                 <p className="section-subtitle">
                     आमच्या पक्षाची मूलभूत तत्त्वे आणि ध्येये
                 </p>
 
                 <div className="strength-grid">
-                    {strengthBlocks.map((block) => (
-                        <div key={block.id} className={`strength-block strength-block-${block.background}`}>
-                            <h3>{block.title}</h3>
-                            <p>{block.description}</p>
-                        </div>
+                    {strengthBlocks.map((block, index) => (
+                        <AnimatedOnScroll
+                            key={block.id}
+                            animation={blockAnimations[index % blockAnimations.length]}
+                            delay={index * 0.32}
+                        >
+                            <div className={`strength-block strength-block-${block.background}`}>
+                                <h3>{block.title}</h3>
+                                <p>{block.description}</p>
+                            </div>
+                        </AnimatedOnScroll>
                     ))}
                 </div>
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default StrengthSection 
+export default StrengthSection;

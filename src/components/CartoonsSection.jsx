@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import AnimatedOnScroll from './AnimatedOnScroll'
 
 const CartoonsSection = () => {
     const [selectedCartoon, setSelectedCartoon] = useState(null)
@@ -150,6 +151,17 @@ const CartoonsSection = () => {
         // }
     ]
 
+    const cartoonAnimations = [
+        'funny-bounce',
+        'scale-in',
+        'rotate-in',
+        'slide-in-left',
+        'slide-in-right',
+        'fade-in-up',
+        'fade-in-down',
+        'funny-bounce',
+    ];
+
     const openModal = (cartoon) => {
         setSelectedCartoon(cartoon)
     }
@@ -169,23 +181,28 @@ const CartoonsSection = () => {
 
             <div className="cartoons-gallery">
                 {cartoons.map((cartoon, index) => (
-                    <div
+                    <AnimatedOnScroll
                         key={cartoon.id}
-                        className={`gallery-item ${cartoon.size}`}
-                        onClick={() => openModal(cartoon)}
+                        animation={cartoonAnimations[index % cartoonAnimations.length]}
+                        delay={index * 0.35} // slower, more playful
                     >
-                        <div className="item-image">
-                            <img src={cartoon.image} alt={cartoon.title} />
-                            <div className="item-overlay">
-                                <div className="overlay-content">
-                                    <i className="fas fa-search-plus"></i>
+                        <div
+                            className={`gallery-item ${cartoon.size}`}
+                            onClick={() => openModal(cartoon)}
+                        >
+                            <div className="item-image">
+                                <img src={cartoon.image} alt={cartoon.title} />
+                                <div className="item-overlay">
+                                    <div className="overlay-content">
+                                        <i className="fas fa-search-plus"></i>
+                                    </div>
                                 </div>
                             </div>
+                            <div className="item-title">
+                                <h3>{cartoon.title}</h3>
+                            </div>
                         </div>
-                        <div className="item-title">
-                            <h3>{cartoon.title}</h3>
-                        </div>
-                    </div>
+                    </AnimatedOnScroll>
                 ))}
             </div>
 
