@@ -53,7 +53,7 @@ function Layout() {
                         }}
                     />
                     {/* <div className="logo"> */}
-                    <div className="logo-text" style={{ position: 'absolute', top: 0, zIndex: 1000, display: 'none' }}>शिवसेना</div>
+                    {/* <div className="logo-text" style={{ position: 'fixed', top: 0, zIndex: 1000, display: 'block' }}>शिवसेना</div> */}
                     {/* </div> */}
 
                     <Header />
