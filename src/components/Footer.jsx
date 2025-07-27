@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import './Footer.css';
 
 const Footer = () => {
     return (
@@ -45,16 +46,16 @@ const Footer = () => {
                 <div className="footer-bottom">
                     <div className="social-icons">
                         <a href="https://www.facebook.com/Shivsenaofc" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                            <i className="fab fa-facebook-f"></i>
+                            <i className="fa-brands fa-facebook-f"></i>
                         </a>
                         <a href="https://twitter.com/shivsenaofc" aria-label="X" target="_blank" rel="noopener noreferrer">
-                            <i className="fab fa-x-twitter"></i>
+                            <i className="fa-brands fa-twitter"></i>
                         </a>
                         <a href="https://www.instagram.com/shivsenaofc/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                            <i className="fab fa-instagram"></i>
+                            <i className="fa-brands fa-instagram"></i>
                         </a>
                         <a href="https://www.youtube.com" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
-                            <i className="fab fa-youtube"></i>
+                            <i className="fa-brands fa-youtube"></i>
                         </a>
                     </div>
 
@@ -64,7 +65,7 @@ const Footer = () => {
                 </div>
             </div>
         </footer>
-    )
-}
+    );
+};
 
-export default Footer 
+export default Footer;

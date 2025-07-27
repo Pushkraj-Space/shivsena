@@ -1,156 +1,207 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const leaders = [
+    {
+        name: 'हिंदू हृदयसम्राट बाळासाहेब ठाकरे',
+        image: '/images/thakresaheb.jpeg',
+        description:
+            'शिवसेना संस्थापक बाळासाहेब ठाकरे यांचे नेतृत्व आणि विचारधारा आमच्या पक्षाचे प्रेरणास्थान आहे. त्यांच्या मार्गदर्शनाखाली शिवसेना महाराष्ट्रातील जनतेच्या हितासाठी कार्य करत आहे.',
+        quotes: [
+            "मी झुकणार नाही, वाकणार नाही, मी फक्त मराठी माणसासाठी लढत राहणार!",
+            "जो हिंदुत्वाशी गद्दारी करेल, तो या देशात टिकू शकत नाही.",
+            "शिवसेना ही मराठी माणसाच्या अस्मितेची चळवळ आहे.",
+        ],
+    },
+    {
+        name: 'धर्मवीर आनंद दिघे साहेब',
+        image: '/images/dighesaheb.jpeg',
+        description:
+            'धर्मवीर आनंद दिघे साहेब यांचे नेतृत्व आणि त्याग आमच्या पक्षाचे प्रेरणास्थान आहे. त्यांच्या कार्यशैलीने शिवसेनेला नवीन दिशा मिळाली.',
+        quotes: [
+            "कार्यकर्ता हा माझा आत्मा आहे.",
+            "समाजासाठी झिजा, राजकारण आपोआप मागे लागेल.",
+            "जनतेच्या हाकेला प्रतिसाद देणं म्हणजेच खरं नेतृत्व.",
+        ]
+    },
+];
+
+const cardFlipTransition = {
+    type: 'spring',
+    stiffness: 55,
+    damping: 16,
+    duration: 1.05,
+};
 
 const InspirationSection = () => {
-    // Parent container variants for the whole section content
-    const sectionContainerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.15, // Stagger children (title, subtitle, then rows)
-                delayChildren: 0.1,    // Initial delay before first child starts
-            },
-        },
+    const [flipped, setFlipped] = useState(Array(leaders.length).fill(false));
+    const [quoteIndices, setQuoteIndices] = useState(
+        leaders.map(() => Math.floor(Math.random() * 3))
+    );
+
+    const handleFlip = idx => {
+        setFlipped(prev => prev.map((val, i) => (i === idx ? !val : val)));
     };
 
-    // Variants for the main section title and subtitle
-    const textVariants = {
-        hidden: { opacity: 0, y: 40 }, // Increased y for more pronounced slide-up
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                type: 'spring',
-                stiffness: 85, // Slightly more stiffness
-                damping: 17,
-                mass: 0.8, // Added mass for a heavier, smoother feel
-            },
-        },
-    };
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setQuoteIndices(prev =>
+                prev.map((_, idx) => Math.floor(Math.random() * leaders[idx].quotes.length))
+            );
+        }, 4000);
 
-    // Variants for the row containing leader cards, to stagger the cards
-    const rowVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.3, // Delay between each leader card
-                delayChildren: 0.2,   // Delay before the first card in the row starts
-            },
-        },
-    };
-
-    // Variants for the individual leader cards
-    const cardVariants = {
-        hidden: { opacity: 0, scale: 0.7, rotateY: 90 }, // Start smaller and rotated
-        visible: {
-            opacity: 1,
-            scale: 1,
-            rotateY: 0, // Rotate back to normal
-            transition: {
-                type: 'spring',
-                stiffness: 120, // Snappier spring for the card's main entry
-                damping: 25,
-                mass: 1, // More mass for a substantial feel
-                duration: 0.8, // Overall duration for control
-            },
-        },
-    };
-
-    // Variants for the image within the leader card (more dynamic zoom/pan)
-    const imageVariants = {
-        hidden: { scale: 1.1, x: -10, filter: 'grayscale(100%)' }, // Slightly zoomed, shifted, grayscale
-        visible: {
-            scale: 1,
-            x: 0,
-            filter: 'grayscale(0%)', // Remove grayscale
-            transition: {
-                type: 'spring',
-                stiffness: 60, // Softer spring for subtle image movement
-                damping: 10,
-                delay: 0.3, // Image animation starts slightly after card
-            },
-        },
-    };
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <section className="section inspiration-section">
-            <motion.div
-                className="container"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }} // Trigger when 30% of container is in view
-                variants={sectionContainerVariants} // Apply container orchestration
-            >
-                <motion.h2
-                    className="section-title"
-                    variants={textVariants} // Inherits from sectionContainerVariants
-                >
-                    आमचे प्रेरणास्थान
-                </motion.h2>
-                <motion.p
-                    className="section-subtitle"
-                    variants={textVariants} // Inherits from sectionContainerVariants
-                >
+            <style>{`
+                .flip-card {
+                    width: 100%;
+                    max-width: 500px;
+                    margin: 20px auto;
+                    aspect-ratio: 3/3.5;
+                    perspective: 1200px;
+                }
+
+                .flip-card-inner {
+                    width: 100%;
+                    height: 100%;
+                    position: relative;
+                    transform-style: preserve-3d;
+                }
+
+                .flip-card-face {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    backface-visibility: hidden;
+                    border-radius: 20px;
+                    overflow: hidden;
+                }
+
+                .flip-card-back {
+                    transform: rotateY(180deg);
+                }
+
+                .flip-card-front img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    filter: grayscale(100%);
+                    transition: filter 0.6s ease;
+                }
+
+                .flip-card:hover .flip-card-front img {
+                    filter: grayscale(0%);
+                }
+
+                .black-overlay {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    background: rgba(0, 0, 0, 0.56);
+                    color: #f37021;
+                    font-size: 20px;
+                    font-weight: 600;
+                    letter-spacing: 1px;
+                    text-align: center;
+                    padding: 16px 10px;
+                    transition: all 0.3s ease;
+                }
+
+                @media (min-width: 768px) {
+                    .flip-card {
+                        margin: 20px;
+                    }
+                    .black-overlay {
+                        font-size: 22px;
+                        padding: 20px 12px;
+                    }
+                }
+
+                .row {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 20px;
+                }
+            `}</style>
+
+            <div className="container">
+                <h2 className="section-title">आमचे प्रेरणास्थान</h2>
+                <p className="section-subtitle">
                     आमच्या पक्षाच्या प्रेरणास्थान असलेल्या महान नेत्यांची ओळख
-                </motion.p>
+                </p>
 
-                <motion.div
-                    className="row"
-                    variants={rowVariants} // Orchestrates card animations
-                >
-                    <motion.div
-                        className="col-50"
-                        variants={cardVariants} // Individual card animation
-                    >
-                        <div className="leader-card">
+                <div className="row">
+                    {leaders.map((leader, idx) => (
+                        <div
+                            key={idx}
+                            className="flip-card"
+                            onClick={() => handleFlip(idx)}
+                            style={{ cursor: 'pointer' }}
+                        >
                             <motion.div
-                                className="leader-image"
-                                variants={imageVariants} // Image animation within card
+                                className="flip-card-inner"
+                                animate={{ rotateY: flipped[idx] ? 180 : 0 }}
+                                transition={cardFlipTransition}
                             >
-                                <img
-                                    src="/images/balkadu.jpg"
-                                    alt="हिंदू हृदयसम्राट बाळासाहेब ठाकरे"
-                                />
-                            </motion.div>
-                            <div className="leader-info">
-                                <h3 className="leader-name">हिंदू हृदयसम्राट बाळासाहेब ठाकरे</h3>
-                                <p className="leader-description">
-                                    शिवसेना संस्थापक बाळासाहेब ठाकरे यांचे नेतृत्व आणि विचारधारा
-                                    आमच्या पक्षाचे प्रेरणास्थान आहे. त्यांच्या मार्गदर्शनाखाली
-                                    शिवसेना महाराष्ट्रातील जनतेच्या हितासाठी कार्य करत आहे.
-                                </p>
-                            </div>
-                        </div>
-                    </motion.div>
+                                {/* Front */}
+                                <div className="flip-card-face flip-card-front" style={{ position: 'relative' }}>
+                                    <img src={leader.image} alt={leader.name} />
+                                    <div className="black-overlay">{leader.name}</div>
+                                </div>
 
-                    <motion.div
-                        className="col-50"
-                        variants={cardVariants} // Individual card animation
-                    >
-                        <div className="leader-card">
-                            <motion.div
-                                className="leader-image"
-                                variants={imageVariants} // Image animation within card
-                            >
-                                <img
-                                    src="/images/saheb.jpeg"
-                                    alt="धर्मवीर आनंद दिघे साहेब"
-                                />
+                                {/* Back */}
+                                <div
+                                    className="flip-card-face flip-card-back"
+                                    style={{
+                                        background: '#1a1a1a',
+                                        color: '#fff',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        padding: 28,
+                                        textAlign: 'center',
+                                    }}
+                                >
+                                    <h3 className="leader-name" style={{ fontSize: 20 }}>
+                                        {leader.name}
+                                    </h3>
+                                    <p className="leader-description" style={{ marginTop: 15, color: '#fff' }}>
+                                        {leader.description}
+                                    </p>
+
+                                    <AnimatePresence mode="wait">
+                                        <motion.div
+                                            key={quoteIndices[idx]}
+                                            initial={{ opacity: 0, y: 40 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -40 }}
+                                            transition={{ duration: 1 }}
+                                            style={{
+                                                marginTop: 24,
+                                                fontStyle: 'italic',
+                                                fontSize: 16,
+                                                color: '#f37021',
+                                                maxWidth: '90%',
+                                                textAlign: 'center',
+                                            }}
+                                        >
+                                            “{leader.quotes[quoteIndices[idx]]}”
+                                        </motion.div>
+                                    </AnimatePresence>
+                                </div>
                             </motion.div>
-                            <div className="leader-info">
-                                <h3 className="leader-name">धर्मवीर आनंद दिघे साहेब</h3>
-                                <p className="leader-description">
-                                    धर्मवीर आनंद दिघे साहेब यांचे नेतृत्व आणि त्याग आमच्या पक्षाचे
-                                    प्रेरणास्थान आहे. त्यांच्या कार्यशैलीने शिवसेनेला नवीन दिशा
-                                    मिळाली.
-                                </p>
-                            </div>
                         </div>
-                    </motion.div>
-                </motion.div>
-            </motion.div>
+                    ))}
+                </div>
+            </div>
         </section>
     );
 };
