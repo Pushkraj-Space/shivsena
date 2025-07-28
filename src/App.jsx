@@ -31,7 +31,7 @@ function Layout() {
     const isHome = location.pathname === "/"
 
     return (
-        <div className="App">
+        <div className="App" style={{ overflowX: 'hidden', width: '100%' }}>
             {isHome ? (
                 <>
                     <video
@@ -45,11 +45,12 @@ function Layout() {
                             position: 'absolute',
                             top: 0,
                             left: 0,
-                            width: '100vw',
+                            width: '100%',
                             height: '100vh',
                             objectFit: 'cover',
                             zIndex: 0,
                             pointerEvents: 'none',
+                            maxWidth: '100vw',
                         }}
                     />
                     {/* <div className="logo"> */}
