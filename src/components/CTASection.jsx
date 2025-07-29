@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const CTASection = () => {
+    const { t } = useTranslation();
     // State to control when the animation starts
     const [isVisible, setIsVisible] = useState(false);
 
@@ -8,25 +10,25 @@ const CTASection = () => {
         {
             id: 1,
             icon: 'fas fa-user-plus',
-            title: 'सदस्यता नोंदणी करा',
-            description: 'शिवसेना पक्षात सामील व्हा आणि आमच्या कार्यात सहभागी व्हा. जनतेच्या हितासाठी कार्य करण्यासाठी आपल्या सहकार्याची आवश्यकता आहे.',
-            buttonText: 'नोंदणी करा',
+            title: t('registerMembership'),
+            description: t('registerMembershipDescription'),
+            buttonText: t('register'),
             buttonLink: '#register'
         },
         {
             id: 2,
             icon: 'fas fa-hands-helping',
-            title: 'स्वयंसेवक व्हा',
-            description: 'स्वयंसेवक म्हणून आमच्या कार्यात सहभागी व्हा. जनतेच्या सेवेसाठी आपल्या कौशल्यांचा वापर करा.',
-            buttonText: 'स्वयंसेवक व्हा',
+            title: t('becomeVolunteer'),
+            description: t('becomeVolunteerDescription'),
+            buttonText: t('becomeVolunteer'),
             buttonLink: '#volunteer'
         },
         {
             id: 3,
             icon: 'fas fa-hand-holding-heart',
-            title: 'देणगी द्या',
-            description: 'आमच्या कार्यासाठी देणगी द्या. आपली देणगी जनतेच्या कल्याणासाठी वापरली जाईल.',
-            buttonText: 'देणगी द्या',
+            title: t('makeDonation'),
+            description: t('makeDonationDescription'),
+            buttonText: t('makeDonation'),
             buttonLink: '#donate'
         }
     ];
@@ -46,9 +48,9 @@ const CTASection = () => {
     return (
         <section className="section cta-section">
             <div className="container">
-                <h2 className="section-title">सक्रियपणे सहभागी व्हा</h2>
+                <h2 className="section-title">{t('activelyParticipate')}</h2>
                 <p className="section-subtitle">
-                    आमच्या कार्यात सहभागी होऊन जनतेच्या सेवेसाठी कार्य करा
+                    {t('participateInOurWork')}
                 </p>
 
                 <div className="row">

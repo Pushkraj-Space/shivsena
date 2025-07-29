@@ -1,39 +1,40 @@
 import React from 'react';
 import './Footer.css';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+    const { t } = useTranslation();
     return (
         <footer className="footer">
             <div className="container">
                 <div className="footer-main">
                     <div className="footer-content">
-                        <h3>शिवसेना</h3>
+                        <h3>{t('shivsena')}</h3>
                         <p>
-                            शिवसेना हा महाराष्ट्रातील एक प्रमुख राजकीय पक्ष आहे. हिंदू हृदयसम्राट बाळासाहेब ठाकरे यांनी
-                            स्थापन केलेल्या या पक्षाचे मुख्य ध्येय मराठी अस्मितेचे संरक्षण आणि जनतेच्या हितासाठी कार्य करणे आहे.
+                            {t('aboutDescription')}
                         </p>
                     </div>
 
                     <div className="footer-headquarters">
-                        <h4>शिवसेना मुख्यालय</h4>
+                        <h4>{t('shivsena')} {t('headquarters')}</h4>
                         <ul>
-                            <li>शिवसेना भवन</li>
-                            <li>दादर, मुंबई - 400028</li>
-                            <li>फोन: +91 22 2430 0000</li>
-                            <li>ईमेल: info@shivsena.org</li>
+                            <li>{t('shivsena')} {t('building')}</li>
+                            <li>{t('dadar')}, {t('mumbai')} - 400028</li>
+                            <li>{t('phone')}: +91 22 2430 0000</li>
+                            <li>{t('email')}: info@shivsena.org</li>
                         </ul>
                     </div>
                 </div>
 
                 <div className="footer-links">
-                    <h4>त्वरित लिंक्स</h4>
+                    <h4>{t('quickLinks')}</h4>
                     <ul>
-                        <li><a href="#home">मुख्यपृष्ठ</a></li>
-                        <li><a href="#about">आमची माहिती</a></li>
-                        <li><a href="#programs">कार्यक्रम</a></li>
-                        <li><a href="#media">मीडिया</a></li>
-                        <li><a href="#news">बातमी</a></li>
-                        <li><a href="#contact">संपर्क</a></li>
+                        <li><a href="#home">{t('home')}</a></li>
+                        <li><a href="#about">{t('about')}</a></li>
+                        <li><a href="#programs">{t('programs')}</a></li>
+                        <li><a href="#media">{t('media')}</a></li>
+                        <li><a href="#news">{t('news')}</a></li>
+                        <li><a href="#contact">{t('contact')}</a></li>
                     </ul>
                 </div>
 
@@ -54,7 +55,7 @@ const Footer = () => {
                     </div>
 
                     <div className="copyright">
-                        <p>&copy; 2025 शिवसेना. सर्व हक्क राखीव.</p>
+                        <p>&copy; 2025 {t('shivsena')}. {t('allRightsReserved')}.</p>
                     </div>
                 </div>
             </div>

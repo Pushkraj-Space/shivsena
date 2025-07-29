@@ -1,56 +1,58 @@
 import React, { useState } from 'react'
 import AnimatedOnScroll from './AnimatedOnScroll'
+import { useTranslation } from 'react-i18next'
 
 const CartoonsSection = () => {
+    const { t } = useTranslation();
     const [selectedCartoon, setSelectedCartoon] = useState(null)
 
     const cartoons = [
         {
             id: 1,
             image: '/images/vyang/balasaheb image black and white.jpg',
-            title: 'शिवसेना संस्थापक',
+            title: t('shivsenaFounder'),
             size: 'large'
         },
         {
             id: 2,
             image: '/images/vyang/career as cartoonist.jpg',
-            title: 'मुंबईचे शेर',
+            title: t('mumbaiSher'),
             size: 'medium'
         },
         {
             id: 3,
             image: '/images/vyang/Gallery-Cartoonist 1.jpg',
-            title: 'लोकशाही आणि जनता',
+            title: t('democracyAndPeople'),
             size: 'small'
         },
         {
             id: 4,
             image: '/images/vyang/Gallery-Cartoonist 2.jpg',
-            title: 'शेतकरी आणि शेती',
+            title: t('farmerAndAgriculture'),
             size: 'medium'
         },
         {
             id: 5,
             image: '/images/vyang/Gallery-Cartoonist 3.jpg',
-            title: 'युवा शक्ती',
+            title: t('youthPower'),
             size: 'large'
         },
         {
             id: 6,
             image: '/images/vyang/Gallery-Cartoonist 4.jpg',
-            title: 'महाराष्ट्राचा गौरव',
+            title: t('maharashtraPride'),
             size: 'small'
         },
         {
             id: 7,
             image: '/images/vyang/Gallery-Cartoonist 5.jpg',
-            title: 'शिवसेना आंदोलन',
+            title: t('shivsenaMovement'),
             size: 'medium'
         },
         {
             id: 8,
             image: '/images/vyang/Gallery-Cartoonist 6.jpg',
-            title: 'मराठी माणूस',
+            title: t('marathiMan'),
             size: 'small'
         },
         // {
@@ -173,9 +175,9 @@ const CartoonsSection = () => {
     return (
         <section className="section cartoons-section">
             <div className="cartoons-header">
-                <h2 className="section-title">व्यंगचित्र</h2>
+                <h2 className="section-title">{t('cartoons')}</h2>
                 <p className="section-subtitle">
-                    बाळासाहेब ठाकरे यांचे राजकीय व्यंगचित्रे
+                    {t('balasahebPoliticalCartoons')}
                 </p>
             </div>
 
@@ -209,10 +211,10 @@ const CartoonsSection = () => {
             <div className="cartoons-footer">
                 <div className="artist-signature">
                     <i className="fas fa-palette"></i>
-                    <span>बाळासाहेब ठाकरे</span>
+                    <span>{t('balasahebThackeray')}</span>
                 </div>
                 <a href="#gallery" className="btn btn-outline-light">
-                    सर्व व्यंगचित्रे पहा
+                    {t('viewAllCartoons')}
                 </a>
             </div>
 

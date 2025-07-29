@@ -1,77 +1,70 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
-const leaders = [
-  {
-    name: 'मा. मुख्यमंत्री एकनाथ शिंदे',
-    title: 'मुख्य नेते',
-    img: '/leaders/eknath_shinde.jpg',
-    description: [
-      'एकनाथ शिंदे यांनी २०२२ पासून महाराष्ट्र राज्याचे मुख्यमंत्री म्हणून कार्यभार सांभाळला आहे.',
-      'त्यांनी ठाणे जिल्ह्यातून आपल्या राजकीय कारकिर्दीची सुरुवात केली आणि हजारो कार्यकर्त्यांना संघटित केले.',
-      'शिवसेनेच्या संघटनात्मक बांधणीमध्ये त्यांचा मोठा वाटा आहे.',
-      'त्यांनी नेहमीच कार्यकर्त्यांच्या समस्या सोडवण्यावर भर दिला आहे.'
-    ],
-    highlights: [
-      'मुख्यमंत्री, महाराष्ट्र राज्य',
-      'शिवसेना पक्षाचे मुख्य नेते',
-      'ठाणे जिल्ह्यातील लोकप्रिय नेतृत्व',
-      'कार्यकर्त्यांमध्ये विशेष विश्वास'
-    ]
-  },
-  {
-    name: 'गुलाबराव पाटील',
-    title: 'मंत्री',
-    img: '/leaders/gulabraopatil.jpg',
-  },
-  {
-    name: 'उदय सामंत',
-    title: 'मंत्री',
-    img: '/leaders/Uday_Samant.jpg',
-  },
-  {
-    name: 'दादाजी भुसे',
-    title: 'मंत्री',
-    img: '/leaders/dadaji_bhuse.jpg',
-  },
-  {
-    name: 'शंभूराज देसाई',
-    title: 'मंत्री',
-    img: '/leaders/shambhuraj_desai.jpg',
-  },
-  {
-    name: 'संदीपन भुमरे',
-    title: 'मंत्री',
-    img: '/leaders/sandipan_bhumre.jpg',
-  },
-  {
-    name: 'श्रीकांत शिंदे',
-    title: 'खासदार',
-    img: '/leaders/shrikan_shinde.jpg',
-  },
-  {
-    name: 'दीपक केसरकर',
-    title: 'मंत्री',
-    img: '/leaders/deepak_kesarkar.jpg',
-  },
-  {
-    name: 'प्रताप सरनाईक',
-    title: 'आमदार',
-    img: '/leaders/pratap_sernaik.jpg',
-  },
-];
-
-const containerVariant = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
-};
-
-const cardVariant = {
-  hidden: { opacity: 0, y: 40, scale: 0.95 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, type: 'spring' } },
-};
+import { useTranslation } from 'react-i18next';
 
 const CurrentLeadershipPage = () => {
+  const { t } = useTranslation();
+
+  const leaders = [
+    {
+      name: t('eknathShindeFull'),
+      title: t('mainLeader'),
+      img: '/leaders/eknath_shinde.jpg',
+      description: t('eknathShindeDescription', { returnObjects: true }),
+      highlights: t('eknathShindeHighlights', { returnObjects: true })
+    },
+    {
+      name: 'गुलाबराव पाटील',
+      title: t('minister'),
+      img: '/leaders/gulabraopatil.jpg',
+    },
+    {
+      name: 'उदय सामंत',
+      title: t('minister'),
+      img: '/leaders/Uday_Samant.jpg',
+    },
+    {
+      name: 'दादाजी भुसे',
+      title: t('minister'),
+      img: '/leaders/dadaji_bhuse.jpg',
+    },
+    {
+      name: 'शंभूराज देसाई',
+      title: t('minister'),
+      img: '/leaders/shambhuraj_desai.jpg',
+    },
+    {
+      name: 'संदीपन भुमरे',
+      title: t('minister'),
+      img: '/leaders/sandipan_bhumre.jpg',
+    },
+    {
+      name: 'श्रीकांत शिंदे',
+      title: t('mp'),
+      img: '/leaders/shrikan_shinde.jpg',
+    },
+    {
+      name: 'दीपक केसरकर',
+      title: t('minister'),
+      img: '/leaders/deepak_kesarkar.jpg',
+    },
+    {
+      name: 'प्रताप सरनाईक',
+      title: t('mla'),
+      img: '/leaders/pratap_sernaik.jpg',
+    },
+  ];
+
+  const containerVariant = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
+  };
+
+  const cardVariant = {
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, type: 'spring' } },
+  };
+
   return (
     <motion.div
       className="current-leadership-page"
@@ -86,7 +79,7 @@ const CurrentLeadershipPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        वर्तमान नेतृत्व
+        {t('currentLeadershipTitle')}
       </motion.h1>
       {/* Main Leader Card */}
       <motion.div

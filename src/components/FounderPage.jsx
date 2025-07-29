@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const founderImg = '/images/balasaheb.jpg';
 
@@ -35,6 +36,7 @@ const useIsMobile = () => {
 };
 
 const FounderPage = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   return (
     <motion.div
@@ -50,7 +52,7 @@ const FounderPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        संस्थापक: बाळासाहेब ठाकरे
+        {t('founderBalasahebThackeray')}
       </motion.h1>
       <motion.div
         className="founder-content"
@@ -96,7 +98,7 @@ const FounderPage = () => {
           variants={fadeInRight}
           style={{ flex: 2, color: '#333', fontSize: isMobile ? '1.05rem' : '1.18rem', lineHeight: 1.7, fontWeight: 500 }}
         >
-          <span style={{ color: '#b45309', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem' }}>हिंदुहृदयसम्राट बाळासाहेब ठाकरे</span> हे शिवसेनेचे संस्थापक आणि मराठी जनतेचे प्रेरणास्थान. २३ जानेवारी १९२६ रोजी जन्मलेले बाळासाहेब एक प्रतिभावंत व्यंगचित्रकार, पत्रकार, आणि प्रभावी वक्ते होते. त्यांनी <b>“मराठी माणसाला न्याय मिळवून देणे आणि हिंदुत्वाला बळ देणे”</b> या उद्देशाने १९६६ साली शिवसेनेची स्थापना केली.<br /><br />
+          <span style={{ color: '#b45309', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem' }}>{t('hindudaySamratBalasaheb')}</span> हे शिवसेनेचे संस्थापक आणि मराठी जनतेचे प्रेरणास्थान. २३ जानेवारी १९२६ रोजी जन्मलेले बाळासाहेब एक प्रतिभावंत व्यंगचित्रकार, पत्रकार, आणि प्रभावी वक्ते होते. त्यांनी <b>“मराठी माणसाला न्याय मिळवून देणे आणि हिंदुत्वाला बळ देणे”</b> या उद्देशाने १९६६ साली शिवसेनेची स्थापना केली.<br /><br />
           बाळासाहेबांनी नेहमीच स्पष्ट, रोखठोक आणि बिनधास्त भूमिका घेतली. त्यांनी शिवसेनेला केवळ राजकीय पक्ष न ठेवता ती एक भावनिक लाट, एक चळवळ बनवली. मराठी अस्मिता, हिंदू एकता, राष्ट्रप्रेम, आणि जनतेसाठी सततचा लढा हे त्यांचे प्रमुख मुद्दे होते.<br /><br />
           <motion.div variants={quoteVariant} style={{ background: '#fffbe7', borderLeft: '6px solid #b45309', padding: '12px 18px', borderRadius: 12, margin: '18px 0', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem', color: '#b45309', boxShadow: '0 2px 12px #e0c97f33' }}>
             “माझा कार्यकर्ता माझ्या लेकरासारखा आहे“, ही त्यांची भावना आजही प्रत्येक शिवसैनिकाच्या मनात जिवंत आहे...............

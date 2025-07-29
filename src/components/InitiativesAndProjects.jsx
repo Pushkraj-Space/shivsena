@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 
 const containerVariant = {
     hidden: { opacity: 0 },
@@ -31,6 +32,8 @@ const useIsMobile = () => {
 
 const InitiativesAndProjects = () => {
     const isMobile = useIsMobile();
+    const { t } = useTranslation();
+    
     return (
         <motion.div
             className="initiatives-projects-page"
@@ -45,7 +48,7 @@ const InitiativesAndProjects = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
             >
-                उपक्रम आणि प्रकल्प
+                {t('initiativesProjectsTitle')}
             </motion.h1>
             {/* Section 1: 1966-1990 + 1990-2000 */}
             <motion.div
@@ -69,19 +72,19 @@ const InitiativesAndProjects = () => {
                     variants={fadeInLeft}
                     style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24 }}
                 >
-                    <h3 style={{ color: '#b45309', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem', marginBottom: 12 }}>१९६६ - १९९०: मराठी अस्मितेचा लढा</h3>
+                    <h3 style={{ color: '#b45309', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem', marginBottom: 12 }}>{t('period1966_1990')}</h3>
                     <ul style={{ fontSize: isMobile ? '1rem' : '1.08rem', color: '#444', fontWeight: 500, lineHeight: 1.7 }}>
-                        <li>स्थानिक रोजगारासाठी ‘मराठी माणसाला प्राधान्य’ हे धोरण</li>
-                        <li>मिल मजदूरांच्या हक्कांसाठी आंदोलने</li>
-                        <li>मुंबईतील भूमिपुत्रांचे हक्क जपणारी शिवसेनेची पहिली चळवळ</li>
-                        <li>अनधिकृत बांधकामांवरील ‘गावठाण धोरण’</li>
+                        <li>{t('initiative1966_1')}</li>
+                        <li>{t('initiative1966_2')}</li>
+                        <li>{t('initiative1966_3')}</li>
+                        <li>{t('initiative1966_4')}</li>
                     </ul>
-                    <h3 style={{ color: '#b45309', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem', margin: '32px 0 12px' }}>१९९० - २०००: सत्तेची वाटचाल आणि लोकाभिमुख निर्णय</h3>
+                    <h3 style={{ color: '#b45309', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem', margin: '32px 0 12px' }}>{t('period1990_2000')}</h3>
                     <ul style={{ fontSize: isMobile ? '1rem' : '1.08rem', color: '#444', fontWeight: 500, lineHeight: 1.7 }}>
-                        <li>१९९५ मध्ये पहिल्यांदा शिवसेना–भाजप सरकारची स्थापना — बाळासाहेब ठाकरे यांचे बाह्य नेतृत्व आणि मुख्यमंत्री मनोहर जोशी यांच्या नेतृत्वात कार्य</li>
-                        <li>मराठी शाळांना प्रोत्साहन, महिलांसाठी ‘सावित्रीबाई फुले योजना’</li>
-                        <li>आनंद दिघे साहेबांचे ठाण्यातील नेतृत्व, जनतेच्या प्रश्नांसाठी सातत्याने संघर्ष</li>
-                        <li>झोपडपट्टी पुनर्वसन प्रकल्पांची सुरुवात</li>
+                        <li>{t('initiative1990_1')}</li>
+                        <li>{t('initiative1990_2')}</li>
+                        <li>{t('initiative1990_3')}</li>
+                        <li>{t('initiative1990_4')}</li>
                     </ul>
                 </motion.div>
                 <motion.div
@@ -98,24 +101,26 @@ const InitiativesAndProjects = () => {
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 0.7, type: 'spring' }}
                     />
-                    <motion.img
-                        src="/docs/उपक्रम आणि प्रकल्प_files/6.jpg"
-                        alt="Initiative 2"
-                        style={{ width: isMobile ? 220 : 320, height: isMobile ? 180 : 240, objectFit: 'cover', borderRadius: 24, boxShadow: '0 8px 32px #b4530999', border: '6px solid #fffbe7', marginBottom: 0 }}
-                        whileHover={{ scale: 1.07, rotate: 2 }}
-                        whileTap={{ scale: 0.97, rotate: -2 }}
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.7, type: 'spring' }}
-                    />
+                    <motion.div
+                        variants={quoteVariant}
+                        style={{ background: '#fffbe7', borderRadius: 16, padding: isMobile ? 16 : 24, textAlign: 'center', boxShadow: '0 4px 16px #e0c97f33' }}
+                    >
+                        <p style={{ color: '#b45309', fontWeight: 600, fontSize: isMobile ? '1rem' : '1.1rem', margin: 0, fontStyle: 'italic' }}>
+                            "जिथे अन्याय तिथे शिवसेना"
+                        </p>
+                        <p style={{ color: '#666', fontSize: isMobile ? '0.9rem' : '1rem', margin: '8px 0 0 0' }}>
+                            - बाळासाहेब ठाकरे
+                        </p>
+                    </motion.div>
                 </motion.div>
             </motion.div>
-            {/* Section 2: 2000-2014 + 2014-2022 */}
+
+            {/* Section 2: 2000-2010 + 2010-2020 */}
             <motion.div
                 className="initiatives-content"
                 style={{
                     display: 'flex',
-                    flexDirection: isMobile ? 'column-reverse' : 'row',
+                    flexDirection: isMobile ? 'column' : 'row',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: isMobile ? 24 : 48,
@@ -133,41 +138,114 @@ const InitiativesAndProjects = () => {
                     style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'center' }}
                 >
                     <motion.img
-                        src="/docs/उपक्रम आणि प्रकल्प_files/8.jpg"
-                        alt="Initiative 3"
-                        style={{ width: isMobile ? 220 : 320, height: isMobile ? 180 : 240, objectFit: 'cover', borderRadius: 24, boxShadow: '0 8px 32px #b4530999', border: '6px solid #fffbe7', marginBottom: 0 }}
+                        src="/docs/उपक्रम आणि प्रकल्प_files/6.jpg"
+                        alt="Initiative 2"
+                        style={{ width: isMobile ? 220 : 320, height: isMobile ? 180 : 240, objectFit: 'cover', borderRadius: 24, boxShadow: '0 8px 32px #b4530999', border: '6px solid #fffbe7', marginBottom: 16 }}
                         whileHover={{ scale: 1.07, rotate: 2 }}
                         whileTap={{ scale: 0.97, rotate: -2 }}
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 0.7, type: 'spring' }}
                     />
+                    <motion.div
+                        variants={quoteVariant}
+                        style={{ background: '#fffbe7', borderRadius: 16, padding: isMobile ? 16 : 24, textAlign: 'center', boxShadow: '0 4px 16px #e0c97f33' }}
+                    >
+                        <p style={{ color: '#b45309', fontWeight: 600, fontSize: isMobile ? '1rem' : '1.1rem', margin: 0, fontStyle: 'italic' }}>
+                            "कार्यकर्ता हा माझा आत्मा आहे"
+                        </p>
+                        <p style={{ color: '#666', fontSize: isMobile ? '0.9rem' : '1rem', margin: '8px 0 0 0' }}>
+                            - आनंद दिघे साहेब
+                        </p>
+                    </motion.div>
                 </motion.div>
                 <motion.div
                     variants={fadeInRight}
                     style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24 }}
                 >
-                    <h3 style={{ color: '#b45309', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem', marginBottom: 12 }}>२०००-२०१४: संघटन विस्तार व सामाजिक कार्य</h3>
+                    <h3 style={{ color: '#b45309', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem', marginBottom: 12 }}>{t('period2000_2010')}</h3>
                     <ul style={{ fontSize: isMobile ? '1rem' : '1.08rem', color: '#444', fontWeight: 500, lineHeight: 1.7 }}>
-                        <li>ग्रामीण महाराष्ट्रात शिवसेनेची पाळंमुळे बळकट झाली</li>
-                        <li>कामगार सेना, युवासेना, विद्यार्थी सेना, महिला आघाडी यांचे सशक्तीकरण</li>
-                        <li>शेतकरी आंदोलने, विजेच्या दराविरुद्ध मोर्चे</li>
-                        <li>शिवसैनिकांचे पूर, दुष्काळ, आपत्ती काळात मदत कार्य</li>
+                        <li>{t('initiative2000_1')}</li>
+                        <li>{t('initiative2000_2')}</li>
+                        <li>{t('initiative2000_3')}</li>
+                        <li>{t('initiative2000_4')}</li>
                     </ul>
-                    <h3 style={{ color: '#b45309', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem', margin: '32px 0 12px' }}>२०१४-२०२२: विकास आणि राजकीय स्थैर्य</h3>
+                    <h3 style={{ color: '#b45309', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem', margin: '32px 0 12px' }}>{t('period2010_2020')}</h3>
                     <ul style={{ fontSize: isMobile ? '1rem' : '1.08rem', color: '#444', fontWeight: 500, lineHeight: 1.7 }}>
-                        <li>केंद्र आणि राज्यात भागीदारीतून विकासकामे</li>
-                        <li>पालिका आणि स्थानिक स्वराज्य संस्थांमध्ये प्रभावी सहभाग</li>
-                        <li>शिवसेनेच्या नेतृत्वाखाली विविध सामाजिक उपक्रम</li>
+                        <li>{t('initiative2010_1')}</li>
+                        <li>{t('initiative2010_2')}</li>
+                        <li>{t('initiative2010_3')}</li>
+                        <li>{t('initiative2010_4')}</li>
                     </ul>
                 </motion.div>
             </motion.div>
-            {/* Quote Block */}
+
+            {/* Section 3: 2020-Present */}
             <motion.div
-                variants={quoteVariant}
-                style={{ background: '#fffbe7', borderLeft: '6px solid #b45309', padding: '12px 18px', borderRadius: 12, margin: '18px auto', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem', color: '#b45309', boxShadow: '0 2px 12px #e0c97f33', maxWidth: 900 }}
+                className="initiatives-content"
+                style={{
+                    display: 'flex',
+                    flexDirection: isMobile ? 'column' : 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: isMobile ? 24 : 48,
+                    background: '#fff',
+                    borderRadius: 24,
+                    boxShadow: '0 4px 32px #e0c97f55',
+                    padding: isMobile ? 16 : 32,
+                    maxWidth: 1100,
+                    margin: '0 auto 40px',
+                }}
+                variants={containerVariant}
             >
-                “शिवसेनेच्या उपक्रमांनी महाराष्ट्राच्या सामाजिक, आर्थिक आणि सांस्कृतिक जीवनात आमूलाग्र बदल घडवले आहेत.”
+                <motion.div
+                    variants={fadeInLeft}
+                    style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24 }}
+                >
+                    <h3 style={{ color: '#b45309', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem', marginBottom: 12 }}>{t('period2020_present')}</h3>
+                    <ul style={{ fontSize: isMobile ? '1rem' : '1.08rem', color: '#444', fontWeight: 500, lineHeight: 1.7 }}>
+                        <li>{t('initiative2020_1')}</li>
+                        <li>{t('initiative2020_2')}</li>
+                        <li>{t('initiative2020_3')}</li>
+                        <li>{t('initiative2020_4')}</li>
+                    </ul>
+                </motion.div>
+                <motion.div
+                    variants={fadeInRight}
+                    style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'center' }}
+                >
+                    <motion.img
+                        src="/docs/उपक्रम आणि प्रकल्प_files/8.jpg"
+                        alt="Initiative 3"
+                        style={{ width: isMobile ? 220 : 320, height: isMobile ? 180 : 240, objectFit: 'cover', borderRadius: 24, boxShadow: '0 8px 32px #b4530999', border: '6px solid #fffbe7', marginBottom: 16 }}
+                        whileHover={{ scale: 1.07, rotate: -2 }}
+                        whileTap={{ scale: 0.97, rotate: 2 }}
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.7, type: 'spring' }}
+                    />
+                    <motion.div
+                        variants={quoteVariant}
+                        style={{ background: '#fffbe7', borderRadius: 16, padding: isMobile ? 16 : 24, textAlign: 'center', boxShadow: '0 4px 16px #e0c97f33' }}
+                    >
+                        <p style={{ color: '#b45309', fontWeight: 600, fontSize: isMobile ? '1rem' : '1.1rem', margin: 0, fontStyle: 'italic' }}>
+                            "विकास हा आमचा ध्यास"
+                        </p>
+                        <p style={{ color: '#666', fontSize: isMobile ? '0.9rem' : '1rem', margin: '8px 0 0 0' }}>
+                            - एकनाथ शिंदे
+                        </p>
+                    </motion.div>
+                </motion.div>
+            </motion.div>
+
+            {/* Closing Note */}
+            <motion.div
+                style={{ maxWidth: 900, margin: '0 auto 32px', background: '#fffbe7', borderLeft: '6px solid #b45309', borderRadius: 12, boxShadow: '0 2px 12px #e0c97f33', padding: isMobile ? 12 : 24, fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem', color: '#b45309', textAlign: 'center' }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7 }}
+            >
+                शिवसेनेची ही वाटचाल म्हणजे कार्यकर्त्यांची ताकद, नेतृत्वाची दूरदृष्टी आणि जनतेच्या विश्वासाचे बळ. आज एकनाथ शिंदे साहेबांच्या नेतृत्वात ही वाटचाल अधिक गतिमान झाली आहे.
             </motion.div>
         </motion.div>
     );

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const leaderImg = '/images/saheb.jpeg';
 
@@ -35,6 +36,7 @@ const useIsMobile = () => {
 };
 
 const PastLeaderPage = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   return (
     <motion.div
@@ -50,7 +52,7 @@ const PastLeaderPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        ठाण्याचे वाघ – आनंद दिघे साहेब
+        {t('pastLeaderTitle')}
       </motion.h1>
       <motion.div
         className="past-leader-content"
@@ -96,11 +98,8 @@ const PastLeaderPage = () => {
           variants={fadeInRight}
           style={{ flex: 2, color: '#333', fontSize: isMobile ? '1.05rem' : '1.18rem', lineHeight: 1.7, fontWeight: 500 }}
         >
-          ठाण्याचे वाघ – आनंद दिघे साहेब हे शिवसेनेच्या इतिहासातील एक अतिशय प्रभावशाली, निष्ठावान आणि लोकप्रिय नेतृत्व. त्यांचा आवाज जनतेचा आवाज होता. ठाणे जिल्ह्यात त्यांनी शिवसेनेचा मजबूत पाया रचला आणि हजारो कार्यकर्त्यांना विचार, शिस्त आणि सेवा शिकवली.<br /><br />
-          दिघे साहेबांनी पक्षासाठी आपले संपूर्ण आयुष्य समर्पित केले. त्यांनी नेहमीच कार्यकर्त्यांना मदतीसाठी तत्पर राहायला शिकवलं आणि <b>“कार्यकर्त्यांची समस्या म्हणजे माझी स्वतःची जबाबदारी”</b> हे त्यांनी कृतीतून दाखवलं.<br /><br />
-          <motion.div variants={quoteVariant} style={{ background: '#fffbe7', borderLeft: '6px solid #b91c1c', padding: '12px 18px', borderRadius: 12, margin: '18px 0', fontWeight: 700, fontSize: isMobile ? '1.1rem' : '1.2rem', color: '#b91c1c', boxShadow: '0 2px 12px #e0c97f33' }}>
-            आजही, एकनाथ शिंदे साहेबांसह हजारो कार्यकर्त्यांना त्यांच्या शिकवणीने दिशा दिली आहे.
-          </motion.div>
+          {t('pastLeaderIntro')}<br /><br />
+          <span dangerouslySetInnerHTML={{ __html: t('pastLeaderDescription') }} />
         </motion.div>
       </motion.div>
     </motion.div>

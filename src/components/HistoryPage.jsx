@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const balasahebImg = '/images/vyang/balasaheb image black and white.jpg';
 const sahebImg = '/images/saheb.jpeg';
@@ -56,16 +57,17 @@ const useIsMobile = () => {
 };
 
 const HistoryPage = () => {
+  const { t } = useTranslation();
   const isMobile = useIsMobile();
   return (
     <div className="history-page" style={{ background: '#fffbe7', minHeight: '100vh', paddingBottom: 40 }}>
       <motion.div initial="hidden" animate="visible" variants={sectionVariant} className="history-header" style={{ textAlign: 'center', padding: '40px 0 20px' }}>
         <img src={bannerImg} alt="Shivsena Banner" style={{ height: '50%', width: '100%', maxWidth: '60%', borderRadius: 20, boxShadow: '0 4px 24px #e0c97f', margin: '0 auto', display: 'block' }} />
-        <h1 style={{ fontSize: isMobile ? '2rem' : '2.5rem', margin: '24px 0 8px', color: '#d97706', fontWeight: 700 }}>प्रेरणा स्थान – हिंदुदयसम्राट बाळासाहेब ठाकरे</h1>
+        <h1 style={{ fontSize: isMobile ? '2rem' : '2.5rem', margin: '24px 0 8px', color: '#d97706', fontWeight: 700 }}>{t('balasahebInspirationTitle')}</h1>
         <motion.p variants={quoteVariant} style={{ fontSize: isMobile ? '1.1rem' : '1.3rem', color: '#333', fontWeight: 500, marginBottom: 0 }}>
-          "जिथे अन्याय तिथे शिवसेना"
+          "{t('balasahebQuote1')}"
         </motion.p>
-        <p style={{ color: '#666', marginTop: 8 }}>ही घोषणा केवळ नारानती, ती बाळासाहेब ठाकरे यांच्या जीवनाची शिकवण होती.</p>
+        <p style={{ color: '#666', marginTop: 8 }}>{t('balasahebQuoteDescription')}</p>
       </motion.div>
 
       <motion.section
@@ -85,43 +87,43 @@ const HistoryPage = () => {
           transition={{ duration: 0.8 }}
         />
         <div style={{ maxWidth: 700, width: '100%' }}>
-          <h2 style={{ color: '#b45309', fontWeight: 700, fontSize: isMobile ? '1.3rem' : '2rem' }}>बाळासाहेब ठाकरे यांचा परिचय</h2>
+          <h2 style={{ color: '#b45309', fontWeight: 700, fontSize: isMobile ? '1.3rem' : '2rem' }}>{t('balasahebIntroduction')}</h2>
           <p style={{ color: '#444', fontSize: isMobile ? '1rem' : '1.1rem', marginBottom: 12 }}>
-            हिंदुदयसम्राट बाळासाहेब ठाकरे हे महाराष्ट्रातील लाखो कार्यकर्त्यांचे प्रेरणास्थान आहेत. त्यांनी मराठी माणसाच्या अस्मितेसाठी आणि हिंदुत्वासाठी आपले संपूर्ण आयुष्य समर्पित केले.
+            {t('balasahebIntroductionDescription')}
           </p>
           <ul style={{ color: '#333', fontSize: isMobile ? '0.98rem' : '1.05rem', marginBottom: 12, paddingLeft: 18 }}>
-            <li>१९६६ – शिवसेनेची स्थापना</li>
-            <li>मराठी माणसाचा आवाज – मुंबईत स्थानिकांना न्याय मिळावा म्हणून लढा</li>
-            <li>हिंदुत्वाचा पुरस्कार – धर्माभिमान व हिंदू विचारधारेचा प्रचार</li>
-            <li>सामाजिक कामात पुढाकार – गरीबांसाठी, गरजूंना मदतकार्य</li>
-            <li>व्यंगचित्रकार ते राजकीय नेते – आपल्या तीक्ष्ण भाष्याने जनतेच्या मनात जागा मिळवली</li>
+            <li>{t('balasahebAchievement1')}</li>
+            <li>{t('balasahebAchievement2')}</li>
+            <li>{t('balasahebAchievement3')}</li>
+            <li>{t('balasahebAchievement4')}</li>
+            <li>{t('balasahebAchievement5')}</li>
           </ul>
           <motion.div variants={quoteVariant}>
-            <strong>बाळासाहेब ठाकरे यांचे विचार – अमूल्य ठेवा</strong>
+            <strong>{t('balasahebThoughtsTitle')}</strong>
             <ul style={{ marginTop: 8, paddingLeft: 18 }}>
-              <li>"शिवसेना ही कोणत्याही एका व्यक्तीची नाही, ती प्रत्येक सामान्य माणसाची आहे."</li>
-              <li>"मराठी माणूस हा डोकं वर करून जगलाच पाहिजे."</li>
-              <li>"हिंदू हा माझा श्वास आहे."</li>
+              <li>"{t('balasahebThought1')}"</li>
+              <li>"{t('balasahebThought2')}"</li>
+              <li>"{t('balasahebThought3')}"</li>
             </ul>
           </motion.div>
           <motion.div variants={sectionVariant} style={{ marginTop: 16 }}>
-            <strong>का आहेत बाळासाहेब ठाकरे प्रेरणास्थान?</strong>
+            <strong>{t('whyBalasahebInspiration')}</strong>
             <ul style={{ marginTop: 8, paddingLeft: 18 }}>
-              <li>अन्यायाविरुद्ध झुंज देण्याची शिकवण</li>
-              <li>समाजासाठी निःस्वार्थ कार्य</li>
-              <li>नेतृत्वाची अचूक दिशा</li>
-              <li>कार्यकर्त्यांमध्ये आत्मविश्वास जागवण्याची मत्ता</li>
+              <li>{t('balasahebInspiration1')}</li>
+              <li>{t('balasahebInspiration2')}</li>
+              <li>{t('balasahebInspiration3')}</li>
+              <li>{t('balasahebInspiration4')}</li>
             </ul>
           </motion.div>
         </div>
       </motion.section>
 
       <motion.div initial="hidden" animate="visible" variants={sectionVariant} className="history-header" style={{ textAlign: 'center', padding: '20px 0 10px' }}>
-        <h1 style={{ fontSize: isMobile ? '1.3rem' : '2rem', margin: '24px 0 8px', color: '#b91c1c', fontWeight: 700 }}>प्रेरणा स्थान – ठाण्याचे धर्मवीर आनंद दिघे साहेब</h1>
+        <h1 style={{ fontSize: isMobile ? '1.3rem' : '2rem', margin: '24px 0 8px', color: '#b91c1c', fontWeight: 700 }}>{t('anandDigheInspirationTitle')}</h1>
         <motion.p variants={quoteVariant} style={{ fontSize: isMobile ? '1rem' : '1.2rem', color: '#333', fontWeight: 500, marginBottom: 0 }}>
-          "कार्यकर्ता हा माझा आत्मा आहे."
+          "{t('anandDigheQuote1')}"
         </motion.p>
-        <p style={{ color: '#666', marginTop: 8 }}>ही घोषणा केवळ शब्द नव्हे, तर आनंद दिघे साहेबांच्या कार्यशैलीचे मूळ तत्त्वज्ञान होते.</p>
+        <p style={{ color: '#666', marginTop: 8 }}>{t('anandDigheQuoteDescription')}</p>
       </motion.div>
 
       <motion.section
@@ -141,35 +143,35 @@ const HistoryPage = () => {
           transition={{ duration: 0.8 }}
         />
         <div style={{ maxWidth: 700, width: '100%' }}>
-          <h2 style={{ color: '#b91c1c', fontWeight: 700, fontSize: isMobile ? '1.3rem' : '2rem' }}>आनंद दिघे यांचा परिचय</h2>
+          <h2 style={{ color: '#b91c1c', fontWeight: 700, fontSize: isMobile ? '1.3rem' : '2rem' }}>{t('anandDigheIntroduction')}</h2>
           <p style={{ color: '#444', fontSize: isMobile ? '1rem' : '1.1rem', marginBottom: 12 }}>
-            धर्मवीर आनंद दिघे साहेब हे ठाण्यातील शिवसेनेचे अपैलू नेते होते. त्यांना "कार्यकर्त्यांचा देव" म्हणून ओळखले जाते. प्रत्येक संकटात कार्यकर्त्यांच्या पाठीशी ठाम उभं राहणं, हे त्यांचं जीवनधर्म होतं.
+            {t('anandDigheIntroductionDescription')}
           </p>
-          <ul style={{ color: '#333', fontSize: isMobile ? '0.98rem' : '1.05rem', marginBottom: 12, paddingLeft: 18 }}>
-            <li>शिवसेनेचे ठाणे जिल्हा प्रमुख म्हणून अनेक वर्षे कार्यरत</li>
-            <li>ठाणे जिल्ह्यात शिवसेनेची मजबूत संघटना उभी केली</li>
-            <li>गरजूंसाठी व कार्यकर्त्यांसाठी नेहमी तत्पर</li>
-            <li>सामाजिक न्यायासाठी अनेक आंदोलने</li>
-            <li>कोणत्याही पदाचा आग्रह न धरता जनतेसाठी अहोरात्र काम</li>
-          </ul>
+                      <ul style={{ color: '#333', fontSize: isMobile ? '0.98rem' : '1.05rem', marginBottom: 12, paddingLeft: 18 }}>
+              <li>{t('anandDigheAchievement1')}</li>
+              <li>{t('anandDigheAchievement2')}</li>
+              <li>{t('anandDigheAchievement3')}</li>
+              <li>{t('anandDigheAchievement4')}</li>
+              <li>{t('anandDigheAchievement5')}</li>
+            </ul>
           <motion.div variants={quoteVariant}>
-            <strong>आनंद दिघे साहेबांचे विचार – प्रत्येक शिवसैनिकासाठी प्रेरणा</strong>
+            <strong>{t('anandDigheThoughtsTitle')}</strong>
             <ul style={{ marginTop: 8, paddingLeft: 18 }}>
-              <li>"नेता होण्यापेक्षा कार्यकर्त्यांचा आधार बना."</li>
-              <li>"जनतेच्या समस्या हेच माझं काम आहे."</li>
-              <li>"शिवसैनिकांच्या रणासाठी शेवटपर्यंत झुंज देईन."</li>
+              <li>"{t('anandDigheThought1')}"</li>
+              <li>"{t('anandDigheThought2')}"</li>
+              <li>"{t('anandDigheThought3')}"</li>
             </ul>
           </motion.div>
           <motion.div variants={sectionVariant} style={{ marginTop: 16 }}>
-            <strong>का आहेत आनंद दिघे साहेब प्रेरणास्थान?</strong>
+            <strong>{t('whyAnandDigheInspiration')}</strong>
             <ul style={{ marginTop: 8, paddingLeft: 18 }}>
-              <li>कार्यकर्त्यांवर निस्सीम प्रेम</li>
-              <li>ठाण्याला संघटनात्मक दृष्टिकोनातून मजबूत केलं</li>
-              <li>गरीबांसाठी वाहिनी सेवा, गरजूंना मदतकार्य</li>
-              <li>कोणताही भेदभाव न करता सर्वांना मदत</li>
+              <li>{t('anandDigheInspiration1')}</li>
+              <li>{t('anandDigheInspiration2')}</li>
+              <li>{t('anandDigheInspiration3')}</li>
+              <li>{t('anandDigheInspiration4')}</li>
             </ul>
             <p style={{ marginTop: 8, color: '#b91c1c', fontWeight: 600 }}>
-              "धर्मवीर" ही उपाधी त्यांना लोकांनी दिलेली आहे – कारण ते केवळ राजकीय नेते नव्हते, तर कार्यकर्त्यांच्या जीवनाचा अविभाज्य भाग होते.
+              {t('anandDigheTitleDescription')}
             </p>
           </motion.div>
         </div>

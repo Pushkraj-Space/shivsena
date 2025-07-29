@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import AnimatedOnScroll from './AnimatedOnScroll'
+import { useTranslation } from 'react-i18next'
 
 const EknathSection = () => {
+    const { t } = useTranslation();
     const [currentCard, setCurrentCard] = useState(0)
     const [isHovered, setIsHovered] = useState(false)
     const [isVisible, setIsVisible] = useState(false)
@@ -10,34 +12,34 @@ const EknathSection = () => {
         {
             id: 1,
             image: '/images/shivsena-banner.jpg',
-            title: 'मुख्यमंत्री माझी लाडकी बहीण योजना',
-            subtitle: 'माझी लेक, माझा अभिमान',
-            description: 'मुख्यमंत्री माझी लाडकी बहिण योजना मधून महिलांना मिळतोय दरमहा ₹1500 चा सन्मान!',
-            category: 'महिला सक्षमीकरण'
+            title: t('ladkiBahinScheme'),
+            subtitle: t('ladkiBahinSubtitle'),
+            description: t('ladkiBahinDescription'),
+            category: t('womenEmpowerment')
         },
         {
             id: 2,
             image: '/images/shivsena-banner-2.jpg',
-            title: 'शेतकरी कल्याण कार्य',
-            subtitle: 'शेती आणि शेतकरी प्रथम',
-            description: 'शेतकऱ्यांच्या कल्याणासाठी विविध योजना आणि कार्यक्रम राबवण्यात येत आहेत.',
-            category: 'शेती विकास'
+            title: t('farmerWelfare'),
+            subtitle: t('farmerWelfareSubtitle'),
+            description: t('farmerWelfareDescription'),
+            category: t('agricultureDevelopment')
         },
         {
             id: 3,
             image: '/images/shivsena-banner-3.jpg',
-            title: 'पुरस्कार वितरण',
-            subtitle: 'कर्तृत्वाचा सन्मान',
-            description: 'विविध क्षेत्रातील उत्कृष्ट कामगिरी करणाऱ्यांना पुरस्कार वितरण करण्यात येत आहे.',
-            category: 'सन्मान'
+            title: t('awardDistribution'),
+            subtitle: t('awardDistributionSubtitle'),
+            description: t('awardDistributionDescription'),
+            category: t('honor')
         },
         {
             id: 4,
             image: '/images/shivsena-banner-4.jpg',
-            title: 'गोसेवा कार्य',
-            subtitle: 'गायीची सेवा ही ईश्वराची सेवा',
-            description: 'गोसेवा आणि पशुसंवर्धनासाठी विविध कार्यक्रम राबवण्यात येत आहेत.',
-            category: 'गोसेवा'
+            title: t('gosevaWork'),
+            subtitle: t('gosevaSubtitle'),
+            description: t('gosevaDescription'),
+            category: t('goseva')
         }
     ]
 
@@ -150,9 +152,9 @@ const EknathSection = () => {
             <style>{animationStyles}</style>
             <section className={`section eknath-section ${isVisible ? 'eknath-section-enter' : ''}`}>
                 <div className="container">
-                    <h2 className={`section-title ${isVisible ? 'section-title-enter' : ''}`}>एकनाथ पर्व...</h2>
+                    <h2 className={`section-title ${isVisible ? 'section-title-enter' : ''}`}>{t('eknathEra')}</h2>
                     <p className={`section-subtitle ${isVisible ? 'section-subtitle-enter' : ''}`}>
-                        मुख्यमंत्री एकनाथ शिंदे यांच्या नेतृत्वाखाली महाराष्ट्रातील विकासाचे कार्य
+                        {t('eknathLeadershipDescription')}
                     </p>
 
                     <div className={`highlighted-cards-container ${isVisible ? 'highlighted-cards-container-enter' : ''}`}>
@@ -180,7 +182,7 @@ const EknathSection = () => {
                                             <h4 className="card-subtitle">{activity.subtitle}</h4>
                                             <p className="card-description">{activity.description}</p>
                                             <div className="card-actions">
-                                                <button className="btn btn-primary btn-sm">अधिक जाणून घ्या</button>
+                                                <button className="btn btn-primary btn-sm">{t('learnMore')}</button>
                                             </div>
                                         </div>
                                     </div>
@@ -200,10 +202,9 @@ const EknathSection = () => {
                     </div>
 
                     <div className={`activities-description ${isVisible ? 'activities-description-enter' : ''}`}>
-                        <h3>नेते आणि त्यांची कर्तृत्वगाथा</h3>
+                        <h3>{t('leadersAndAchievements')}</h3>
                         <p>
-                            मुख्यमंत्री एकनाथ शिंदे यांच्या नेतृत्वाखाली महाराष्ट्रात विकासाचे नवीन अध्याय लिहिले जात आहेत.
-                            त्यांच्या कार्यशैलीने जनतेला खऱ्या अर्थाने सरकार जवळ आणले आहे.
+                            {t('eknathAchievementsDescription')}
                         </p>
                     </div>
                 </div>

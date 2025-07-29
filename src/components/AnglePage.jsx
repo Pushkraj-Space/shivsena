@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const bannerImg = '/images/shivsena.jpg';
 const images = [
@@ -20,6 +21,7 @@ const imageVariant = {
 };
 
 const AnglePage = () => {
+  const { t } = useTranslation();
   return (
     <motion.div
       className="angle-page"
@@ -42,7 +44,7 @@ const AnglePage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        शिवसेनेचा दृष्टीकोन आणि उद्दिष्टे
+        {t('anglePageTitle')}
       </motion.h1>
       <motion.p
         style={{ textAlign: 'center', color: '#333', fontSize: '1.2rem', maxWidth: 800, margin: '0 auto 24px', fontWeight: 500 }}
@@ -50,7 +52,7 @@ const AnglePage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.7 }}
       >
-        शिवसेनेचा दृष्टीकोन हा बाळासाहेब ठाकरे यांच्या हिंदुत्ववादी, राष्ट्रवादी आणि सामाजिक न्यायाच्या विचारांवर आधारित आहे. पक्षाने नेहमीच सामान्य जनतेच्या हितासाठी आवाज उठवला आहे — मग तो मराठी माणसाचा अधिकार असो, हिंदू संस्कृतीचे रक्षण असो, वा गरिबांसाठी योजनांचा लढा असो.
+        {t('anglePageIntro')}
       </motion.p>
       <motion.div
         style={{ maxWidth: 700, margin: '0 auto 32px', background: '#fff', borderRadius: 16, boxShadow: '0 2px 12px #e0c97f33', padding: '24px 24px 12px 24px', textAlign: 'left' }}
@@ -58,13 +60,13 @@ const AnglePage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.7 }}
       >
-        <h2 style={{ color: '#b45309', fontWeight: 700, fontSize: '1.3rem', marginBottom: 12, textAlign: 'center' }}>शिवसेनेची मुख्य उद्दिष्टे</h2>
+        <h2 style={{ color: '#b45309', fontWeight: 700, fontSize: '1.3rem', marginBottom: 12, textAlign: 'center' }}>{t('mainObjectives')}</h2>
         <ul style={{ color: '#333', fontSize: '1.08rem', fontWeight: 500, marginBottom: 0, paddingLeft: 24, lineHeight: 1.7 }}>
-          <li>मराठी माणसाच्या सन्मानासाठी कटिबद्ध राहणे.</li>
-          <li>हिंदुत्वाची भूमिका जपणे व संवर्धन करणे.</li>
-          <li>सामाजिक न्याय, शिक्षण, आरोग्य व रोजगारासाठी प्रभावी धोरणे राबवणे.</li>
-          <li>शहरी व ग्रामीण भागाचा सर्वांगीण विकास साधणे.</li>
-          <li>भ्रष्टाचारविरोधी नीतिमत्ता जोपासणे आणि पारदर्शक शासन देणे.</li>
+          <li>{t('objective1')}</li>
+          <li>{t('objective2')}</li>
+          <li>{t('objective3')}</li>
+          <li>{t('objective4')}</li>
+          <li>{t('objective5')}</li>
         </ul>
       </motion.div>
       <motion.p
@@ -73,8 +75,7 @@ const AnglePage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.7 }}
       >
-        आमचा विश्वास आहे की कार्यकर्त्यांची निष्ठा आणि जनतेशी जोडलेली सेवा हीच शिवसेनेची खरी ताकद आहे.<br />
-        आज हेच मूल्य आनंद दिघे साहेबांच्या निष्ठेच्या प्रेरणेने आणि मा. उपमुख्यमंत्री एकनाथ शिंदे साहेबांच्या कार्यक्षम नेतृत्वाने पुढे नेत आहोत.
+        <span dangerouslySetInnerHTML={{ __html: t('anglePageClosing') }} />
       </motion.p>
     </motion.div>
   );

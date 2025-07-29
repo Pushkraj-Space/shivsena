@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import './i18n'
 import Header from './components/Header'
 import HeroSection from './components/HeroSection'
 import FontTest from './components/FontTest'
@@ -25,6 +26,7 @@ import MedicalMembersPage from './components/MedicalMembersPage'
 import MediaNewsPage from './components/MediaNewsPage'
 import ContactPage from './components/ContactPage'
 import AnimatedOnScroll from "./components/AnimatedOnScroll";
+
 
 function Layout() {
     const location = useLocation()
@@ -68,6 +70,7 @@ function Layout() {
                 <Route path="/" element={
                     <>
                         {/* <FontTest /> */}
+
                         <AnimatedOnScroll><InspirationSection /></AnimatedOnScroll>
                         <AnimatedOnScroll><EknathSection /></AnimatedOnScroll>
                         <AnimatedOnScroll><StrengthSection /></AnimatedOnScroll>

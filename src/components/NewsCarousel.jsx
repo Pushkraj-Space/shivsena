@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import AnimatedOnScroll from './AnimatedOnScroll';
+import { useTranslation } from 'react-i18next';
 
 const NewsCarousel = () => {
+    const { t } = useTranslation();
     const [activeIndex, setActiveIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
     const [isVisible, setIsVisible] = useState(false); // State to control animation
@@ -10,55 +12,55 @@ const NewsCarousel = () => {
         {
             id: 1,
             image: '/images/shivsena-banner.jpg',
-            title: '२०२४ विधानसभा निवडणुकांत दणदणीत विजय',
-            description: 'शिवसेना पक्षाने २०२४ च्या विधानसभा निवडणुकांत दणदणीत विजय मिळवला. मुख्यमंत्री एकनाथ शिंदे यांच्या नेतृत्वाखाली पक्षाचा विस्तार झाला.',
-            category: 'निवडणूक',
-            date: '२०२४',
+            title: t('electionVictory2024'),
+            description: t('electionVictoryDescription'),
+            category: t('election'),
+            date: '2024',
             link: '#'
         },
         {
             id: 2,
             image: '/images/shivsena-banner-2.jpg',
-            title: 'पक्षाचा विस्तार आणि संघटन बळकटीकरण',
-            description: 'शिवसेना पक्षाचा विस्तार सर्वत्र होत आहे. नवीन कार्यकर्ते पक्षात सामील होत आहेत.',
-            category: 'संघटन',
-            date: '२०२४',
+            title: t('partyExpansion'),
+            description: t('partyExpansionDescription'),
+            category: t('organization'),
+            date: '2024',
             link: '#'
         },
         {
             id: 3,
             image: '/images/shivsena-banner-3.jpg',
-            title: 'शौर्यगाथेतील कुटुंबांना आर्थिक मदत',
-            description: 'शौर्यगाथेतील कुटुंबांना आर्थिक मदत पुरवण्यात येत आहे. सरकार त्यांच्या कल्याणासाठी कार्य करत आहे.',
-            category: 'कल्याण',
-            date: '२०२४',
+            title: t('braveFamiliesSupport'),
+            description: t('braveFamiliesSupportDescription'),
+            category: t('welfare'),
+            date: '2024',
             link: '#'
         },
         {
             id: 4,
             image: '/images/shivsena-banner-4.jpg',
-            title: 'महाराष्ट्रातील विकास प्रकल्प',
-            description: 'महाराष्ट्रातील विकास प्रकल्पांना गती मिळत आहे. जनतेच्या हितासाठी नवीन योजना सुरू केल्या आहेत.',
-            category: 'विकास',
-            date: '२०२४',
+            title: t('maharashtraDevelopment'),
+            description: t('maharashtraDevelopmentDescription'),
+            category: t('development'),
+            date: '2024',
             link: '#'
         },
         {
             id: 5,
             image: '/images/shivsena-banner.jpg',
-            title: 'शेतकरी कल्याण कार्यक्रम',
-            description: 'शेतकरी कल्याणासाठी विविध कार्यक्रम राबवण्यात येत आहेत. शेतकऱ्यांना आर्थिक मदत पुरवण्यात येत आहे.',
-            category: 'शेती',
-            date: '२०२४',
+            title: t('farmerWelfareProgram'),
+            description: t('farmerWelfareProgramDescription'),
+            category: t('agriculture'),
+            date: '2024',
             link: '#'
         },
         {
             id: 6,
             image: '/images/shivsena-banner-2.jpg',
-            title: 'युवा कल्याण आणि रोजगार',
-            description: 'युवकांना रोजगार मिळवण्यास मदत करण्यासाठी विविध कार्यक्रम राबवण्यात येत आहेत.',
-            category: 'युवा',
-            date: '२०२४',
+            title: t('youthWelfareEmployment'),
+            description: t('youthWelfareEmploymentDescription'),
+            category: t('youth'),
+            date: '2024',
             link: '#'
         }
     ];
@@ -114,9 +116,9 @@ const NewsCarousel = () => {
         <div style={animatedWrapperStyle}>
             <section className="section news-carousel">
                 <div className="container">
-                    <h2 className="section-title">महत्वाचे क्षण व ठळक घडामोडी (२०२४-२०२५)</h2>
+                    <h2 className="section-title">{t('importantMoments2024')}</h2>
                     <p className="section-subtitle">
-                        आमच्या पक्षाच्या महत्वाच्या क्षणांची झलक
+                        {t('partyImportantMoments')}
                     </p>
 
                     <div className="news-cards-container">
@@ -142,7 +144,7 @@ const NewsCarousel = () => {
                                             <div className="news-card-overlay">
                                                 <div className="overlay-content">
                                                     <i className="fas fa-newspaper"></i>
-                                                    <span>ताजी बातमी</span>
+                                                    <span>{t('breakingNews')}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -158,7 +160,7 @@ const NewsCarousel = () => {
                                             <div className="news-card-actions">
                                                 <a href={item.link} className="btn btn-outline-primary btn-sm">
                                                     <i className="fas fa-arrow-right"></i>
-                                                    अधिक वाचा
+                                                    {t('readMore')}
                                                 </a>
                                                 <button className="btn btn-icon">
                                                     <i className="fas fa-share-alt"></i>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const stageImg = '/images/shivsena-banner-2.jpg';
 const balasahebImg = '/images/shivsena-banner-4.jpg';
@@ -10,6 +11,7 @@ const sectionVariant = {
 };
 
 const OrganizationalStructurePage = () => {
+  const { t } = useTranslation();
   return (
     <motion.div
       className="org-structure-page"
@@ -24,8 +26,7 @@ const OrganizationalStructurePage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
       >
-        शिवसेना ही एका मजबूत आणि कार्यक्षम संघटन रचनेवर उभी असलेली चळवळ आहे.<br />
-        प्रत्येक स्तरावर कार्यकर्त्यांची ताकद, स्थानिक सहभाग आणि शिस्तबद्ध यंत्रणा ही पक्षाची खरी ओळख आहे.
+        {t('orgStructureIntro')}
       </motion.div>
 
       {/* Section 1: मुख्य नेतृत्व */}
@@ -41,11 +42,11 @@ const OrganizationalStructurePage = () => {
         viewport={{ once: true }}
       >
         <div style={{ flex: 1, minWidth: 320 }}>
-          <h2 style={{ color: '#222', fontWeight: 700, fontSize: '2rem', marginBottom: 12, borderBottom: '1.5px dotted #b45309', display: 'inline-block' }}>मुख्य नेतृत्व</h2>
+          <h2 style={{ color: '#222', fontWeight: 700, fontSize: '2rem', marginBottom: 12, borderBottom: '1.5px dotted #b45309', display: 'inline-block' }}>{t('mainLeadership')}</h2>
           <ul style={{ color: '#222', fontSize: '1.13rem', fontWeight: 500, margin: '18px 0 0 0', paddingLeft: 18, lineHeight: 1.7 }}>
-            <li><b>हिंदुहृदयसम्राट बाळासाहेब ठाकरे</b> – संस्थापक, प्रेरणास्थान</li>
-            <li><b>धर्मवीर आनंद दिघे साहेब</b> – कार्यकर्त्यांचे मार्गदर्शक व जनतेचा आवाज</li>
-            <li><b>मा. उपमुख्यमंत्री एकनाथ शिंदे साहेब</b> – वर्तमानातील सक्रिय नेतृत्व, विकासाचा चेहरा</li>
+            <li><b>{t('mainLeader1')}</b></li>
+            <li><b>{t('mainLeader2')}</b></li>
+            <li><b>{t('mainLeader3')}</b></li>
           </ul>
         </div>
         <motion.img
@@ -79,13 +80,13 @@ const OrganizationalStructurePage = () => {
           transition={{ duration: 0.8 }}
         />
         <div style={{ flex: 1, minWidth: 320 }}>
-          <h2 style={{ color: '#222', fontWeight: 700, fontSize: '2rem', marginBottom: 12, borderBottom: '1.5px dotted #b45309', display: 'inline-block' }}>पक्ष संरचना</h2>
+          <h2 style={{ color: '#222', fontWeight: 700, fontSize: '2rem', marginBottom: 12, borderBottom: '1.5px dotted #b45309', display: 'inline-block' }}>{t('partyStructure')}</h2>
           <ul style={{ color: '#222', fontSize: '1.13rem', fontWeight: 500, margin: '18px 0 0 0', paddingLeft: 18, lineHeight: 1.7 }}>
-            <li><b>पक्षप्रमुख / उपमुख्यमंत्री</b> – धोरणनिर्मिती व पक्षदिशा</li>
-            <li><b>सचिवालय / कार्यकारिणी मंडळ</b> – संघटन व कार्यवाहीची जबाबदारी</li>
-            <li><b>जिल्हा / शहर / तालुका अध्यक्ष</b> – स्थानिक युनिटचे नेतृत्व</li>
-            <li><b>युवासेना, महिला आघाडी, कामगार सेना, युवा सेना</b> – विविध घटकांचे प्रतिनिधित्व</li>
-            <li><b>कार्यकर्ते</b> – पक्षाचे खरे आधारस्तंभ, जनतेशी थेट संपर्क ठेवणारे</li>
+            <li><b>{t('partyStruct1')}</b></li>
+            <li><b>{t('partyStruct2')}</b></li>
+            <li><b>{t('partyStruct3')}</b></li>
+            <li><b>{t('partyStruct4')}</b></li>
+            <li><b>{t('partyStruct5')}</b></li>
           </ul>
         </div>
       </motion.div>
@@ -97,7 +98,7 @@ const OrganizationalStructurePage = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
       >
-        शिवसेनेची रचना ही <b>“तळगाळापासून शिखराकडे”</b> अशी आहे — जेथे प्रत्येक कार्यकर्ता हा नेतृत्वाचा वाटा उचलू शकतो आणि समाजसेवेसाठी योगदान देऊ शकतो. हाच संघटनात्मक पाया शिवसेनेला एक सशक्त, लोकाभिमुख आणि कार्यक्षम पक्ष बनवतो.
+        <span dangerouslySetInnerHTML={{ __html: t('orgStructureClosing') }} />
       </motion.div>
     </motion.div>
   );

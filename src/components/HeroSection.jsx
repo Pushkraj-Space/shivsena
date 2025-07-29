@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const HeroSection = () => {
+    const { t } = useTranslation();
     // Define animation variants for better organization and reusability
     const containerVariants = {
         hidden: { opacity: 0 },

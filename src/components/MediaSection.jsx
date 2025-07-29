@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import AnimatedOnScroll from './AnimatedOnScroll';
+import { useTranslation } from 'react-i18next';
 
 const MediaSection = () => {
+    const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState('happenings');
     const [currentVideo, setCurrentVideo] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -11,37 +13,37 @@ const MediaSection = () => {
     const latestHappenings = [
         {
             id: 1,
-            title: 'मुख्यमंत्री एकनाथ शिंदे यांची नागपूर येथील कार्यक्रम',
-            time: '2 तासांपूर्वी',
-            category: 'कार्यक्रम',
+            title: t('cmEknathNagpurProgram'),
+            time: t('2HoursAgo'),
+            category: t('program'),
             icon: 'fas fa-calendar-alt'
         },
         {
             id: 2,
-            title: 'शिवसेना कार्यकर्त्यांची बैठक',
-            time: '4 तासांपूर्वी',
-            category: 'बैठक',
+            title: t('shivsenaWorkersMeeting'),
+            time: t('4HoursAgo'),
+            category: t('meeting'),
             icon: 'fas fa-users'
         },
         {
             id: 3,
-            title: 'जनतेशी संवाद कार्यक्रम',
-            time: '6 तासांपूर्वी',
-            category: 'संवाद',
+            title: t('publicDialogueProgram'),
+            time: t('6HoursAgo'),
+            category: t('dialogue'),
             icon: 'fas fa-comments'
         },
         {
             id: 4,
-            title: 'विकास प्रकल्पांची प्रगती',
-            time: '8 तासांपूर्वी',
-            category: 'विकास',
+            title: t('developmentProjectProgress'),
+            time: t('8HoursAgo'),
+            category: t('development'),
             icon: 'fas fa-chart-line'
         },
         {
             id: 5,
-            title: 'राज्यातील महत्वाचे निर्णय',
-            time: '1 दिवसापूर्वी',
-            category: 'निर्णय',
+            title: t('importantStateDecisions'),
+            time: t('1DayAgo'),
+            category: t('decision'),
             icon: 'fas fa-gavel'
         }
     ];
@@ -50,26 +52,26 @@ const MediaSection = () => {
         {
             id: 1,
             thumbnail: '/images/shivsena-banner.jpg',
-            title: 'मुख्यमंत्री एकनाथ शिंदे यांचे भाषण',
+            title: t('cmEknathSpeech'),
             duration: '15:30',
             views: '2.5K',
-            category: 'भाषण'
+            category: t('speech')
         },
         {
             id: 2,
             thumbnail: '/images/shivsena-banner-2.jpg',
-            title: 'शिवसेना कार्यकर्त्यांची रॅली',
+            title: t('shivsenaWorkersRally'),
             duration: '8:45',
             views: '1.8K',
-            category: 'रॅली'
+            category: t('rally')
         },
         {
             id: 3,
             thumbnail: '/images/shivsena-banner-3.jpg',
-            title: 'जनतेशी संवाद कार्यक्रम',
+            title: t('publicDialogueProgram'),
             duration: '12:20',
             views: '3.2K',
-            category: 'संवाद'
+            category: t('dialogue')
         }
     ];
 
@@ -78,30 +80,30 @@ const MediaSection = () => {
             id: 1,
             date: 'May 03, 2025',
             time: '10:00 AM',
-            title: 'दसरा मेळावा',
-            description: 'नागपूर येथील दसरा मेळावा',
-            location: 'नागपूर',
-            category: 'मेळावा',
+            title: t('dussehraGathering'),
+            description: t('dussehraGatheringNagpur'),
+            location: t('nagpur'),
+            category: t('gathering'),
             attendees: '5000+'
         },
         {
             id: 2,
             date: 'May 02, 2025',
             time: '3:00 PM',
-            title: 'मेगा रॅली',
-            description: 'मुंबई येथील मेगा रॅली',
-            location: 'मुंबई',
-            category: 'रॅली',
+            title: t('megaRally'),
+            description: t('megaRallyMumbai'),
+            location: t('mumbai'),
+            category: t('rally'),
             attendees: '10000+'
         },
         {
             id: 3,
             date: 'May 01, 2025',
             time: '9:00 AM',
-            title: 'कार्यकर्ता प्रशिक्षण',
-            description: 'कार्यकर्त्यांचे प्रशिक्षण कार्यक्रम',
-            location: 'पुणे',
-            category: 'प्रशिक्षण',
+            title: t('workerTraining'),
+            description: t('workerTrainingProgram'),
+            location: t('pune'),
+            category: t('training'),
             attendees: '500+'
         }
     ];
@@ -171,9 +173,9 @@ const MediaSection = () => {
     return (
         <section className="section media-section" style={animatedSectionStyle}>
             <div className="container">
-                <h2 className="section-title">लाईव्ह अपडेट्स / मीडिया</h2>
+                <h2 className="section-title">{t('liveUpdatesMedia')}</h2>
                 <p className="section-subtitle">
-                    ताज्या घडामोडी आणि आगामी कार्यक्रमांची माहिती
+                    {t('latestHappeningsAndUpcomingPrograms')}
                 </p>
 
                 <div className="media-tabs">
@@ -182,21 +184,21 @@ const MediaSection = () => {
                         onClick={() => setActiveTab('happenings')}
                     >
                         <i className="fas fa-newspaper"></i>
-                        ताज्या घडामोडी
+                        {t('latestHappenings')}
                     </button>
                     <button
                         className={`media-tab ${activeTab === 'videos' ? 'active' : ''}`}
                         onClick={() => setActiveTab('videos')}
                     >
                         <i className="fas fa-play-circle"></i>
-                        ठळक व्हिडिओज
+                        {t('featuredVideos')}
                     </button>
                     <button
                         className={`media-tab ${activeTab === 'programs' ? 'active' : ''}`}
                         onClick={() => setActiveTab('programs')}
                     >
                         <i className="fas fa-calendar"></i>
-                        आगामी कार्यक्रम
+                        {t('upcomingPrograms')}
                     </button>
                 </div>
 
@@ -318,7 +320,7 @@ const MediaSection = () => {
                                             </div>
                                             <button className="btn btn-outline-primary btn-sm">
                                                 <i className="fas fa-calendar-plus"></i>
-                                                रिमाइंडर सेट करा
+                                                {t('setReminder')}
                                             </button>
                                         </div>
                                     </div>
@@ -332,20 +334,20 @@ const MediaSection = () => {
                     <div className="media-stats">
                         <div className={`stat-item ${isVisible ? 'stagger-in from-bottom' : ''}`} style={{ transitionDelay: '0.8s' }}>
                             <i className="fas fa-eye"></i>
-                            <span>50K+ दर्शक</span>
+                            <span>{t('50KPlusViewers')}</span>
                         </div>
                         <div className={`stat-item ${isVisible ? 'stagger-in from-bottom' : ''}`} style={{ transitionDelay: '0.9s' }}>
                             <i className="fas fa-video"></i>
-                            <span>100+ व्हिडिओज</span>
+                            <span>{t('100PlusVideos')}</span>
                         </div>
                         <div className={`stat-item ${isVisible ? 'stagger-in from-bottom' : ''}`} style={{ transitionDelay: '1.0s' }}>
                             <i className="fas fa-calendar-check"></i>
-                            <span>25+ कार्यक्रम</span>
+                            <span>{t('25PlusPrograms')}</span>
                         </div>
                     </div>
                     <a href="#more" className={`btn btn-primary btn-lg ${isVisible ? 'stagger-in from-bottom' : ''}`} style={{ transitionDelay: '1.1s' }}>
                         <i className="fas fa-external-link-alt"></i>
-                        सर्व मीडिया पहा
+                        {t('viewAllMedia')}
                     </a>
                 </div>
             </div>
