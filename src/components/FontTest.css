@@ -16,10 +16,34 @@
     text-align: center;
     color: var(--text-light);
     font-size: 1.1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.font-system-demo {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-light);
+    border: 2px solid var(--primary-color);
+}
+
+.font-system-demo h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.font-system-demo ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.font-system-demo li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
 }
 
 .font-test-grid {
@@ -97,6 +121,13 @@
     text-align: center;
 }
 
+.font-test-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .font-test-footer .btn {
     width: 100%;
     padding: 12px 24px;
@@ -112,6 +143,11 @@
 
     .font-test-title {
         font-size: 2rem;
+    }
+
+    .font-system-demo {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
     }
 
     .font-test-grid {
@@ -131,6 +167,11 @@
         font-size: 1rem;
         padding: 0.75rem;
     }
+
+    .font-test-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -140,6 +181,11 @@
 
     .font-test-subtitle {
         font-size: 1rem;
+    }
+
+    .font-system-demo {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
     }
 
     .font-test-card {
@@ -152,5 +198,9 @@
 
     .test-text {
         font-size: 0.9rem;
+    }
+
+    .font-test-buttons {
+        gap: 0.25rem;
     }
 }

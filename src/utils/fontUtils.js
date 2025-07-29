@@ -54,7 +54,7 @@ const fonts = {
 };
 
 /**
- * Apply a font to the entire website
+ * Apply a font to the entire website (legacy function - applies to both heading and body)
  * @param {string} fontId - The font ID (poppins, anekDevanagari, mundaDevanagari, yatraOne)
  */
 export const applyFont = (fontId) => {
@@ -75,11 +75,59 @@ export const applyFont = (fontId) => {
 };
 
 /**
- * Get the current font
+ * Apply separate fonts for headings and body text
+ * @param {string} headingFontId - The font ID for headings
+ * @param {string} bodyFontId - The font ID for body text
+ */
+export const applyDualFonts = (headingFontId, bodyFontId) => {
+    const headingFont = fonts[headingFontId];
+    const bodyFont = fonts[bodyFontId];
+
+    if (!headingFont) {
+        console.error(`Heading font ${headingFontId} not found`);
+        return;
+    }
+
+    if (!bodyFont) {
+        console.error(`Body font ${bodyFontId} not found`);
+        return;
+    }
+
+    // Apply fonts to CSS variables
+    document.documentElement.style.setProperty('--heading-font', headingFont.family);
+    document.documentElement.style.setProperty('--primary-font', bodyFont.family);
+
+    // Save to localStorage
+    localStorage.setItem('selectedHeadingFont', headingFont.id);
+    localStorage.setItem('selectedBodyFont', bodyFont.id);
+
+    console.log(`Applied heading font: ${headingFont.name}, body font: ${bodyFont.name}`);
+};
+
+/**
+ * Get the current font (legacy function)
  * @returns {object} Current font object
  */
 export const getCurrentFont = () => {
     const savedFontId = localStorage.getItem('selectedFont') || 'poppins';
+    return fonts[savedFontId] || fonts.poppins;
+};
+
+/**
+ * Get the current heading font
+ * @returns {object} Current heading font object
+ */
+export const getCurrentHeadingFont = () => {
+    const savedFontId = localStorage.getItem('selectedHeadingFont') || 'poppins';
+    return fonts[savedFontId] || fonts.poppins;
+};
+
+/**
+ * Get the current body font
+ * @returns {object} Current body font object
+ */
+export const getCurrentBodyFont = () => {
+    const savedFontId = localStorage.getItem('selectedBodyFont') || 'poppins';
     return fonts[savedFontId] || fonts.poppins;
 };
 
@@ -95,8 +143,15 @@ export const getAllFonts = () => {
  * Initialize font from localStorage on page load
  */
 export const initializeFont = () => {
-    const savedFont = localStorage.getItem('selectedFont');
-    if (savedFont) {
+    const savedHeadingFont = localStorage.getItem('selectedHeadingFont');
+    const savedBodyFont = localStorage.getItem('selectedBodyFont');
+    const savedFont = localStorage.getItem('selectedFont'); // Legacy support
+
+    if (savedHeadingFont && savedBodyFont) {
+        // Use dual font system
+        applyDualFonts(savedHeadingFont, savedBodyFont);
+    } else if (savedFont) {
+        // Legacy support - apply same font to both
         applyFont(savedFont);
     }
 };

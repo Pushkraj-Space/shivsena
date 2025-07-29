@@ -74,8 +74,17 @@ const FontTest = () => {
     return (
         <div className="font-test">
             <div className="container">
-                <h2 className="font-test-title">Font Comparison</h2>
-                <p className="font-test-subtitle">Click on any font to apply it to the entire website</p>
+                <h2 className="font-test-title">Dual Font System Demo</h2>
+                <p className="font-test-subtitle">Use the font selectors in the header to choose different fonts for headings and body text</p>
+
+                <div className="font-system-demo">
+                    <h3>Current Font System</h3>
+                    <p>This page demonstrates the new dual font system. You can now choose different fonts for:</p>
+                    <ul>
+                        <li><strong>Headings:</strong> All h1, h2, h3, h4, h5, h6 elements use the heading font</li>
+                        <li><strong>Body Text:</strong> All paragraphs, spans, and other text elements use the body font</li>
+                    </ul>
+                </div>
 
                 <div className="font-test-grid">
                     {fonts.map((font) => (
@@ -109,16 +118,26 @@ const FontTest = () => {
                             </div>
 
                             <div className="font-test-footer">
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={() => {
-                                        document.documentElement.style.setProperty('--primary-font', font.family);
-                                        document.documentElement.style.setProperty('--heading-font', font.family);
-                                        localStorage.setItem('selectedFont', font.id);
-                                    }}
-                                >
-                                    Apply This Font
-                                </button>
+                                <div className="font-test-buttons">
+                                    <button
+                                        className="btn btn-primary"
+                                        onClick={() => {
+                                            document.documentElement.style.setProperty('--heading-font', font.family);
+                                            localStorage.setItem('selectedHeadingFont', font.id);
+                                        }}
+                                    >
+                                        Apply as Heading Font
+                                    </button>
+                                    <button
+                                        className="btn btn-secondary"
+                                        onClick={() => {
+                                            document.documentElement.style.setProperty('--primary-font', font.family);
+                                            localStorage.setItem('selectedBodyFont', font.id);
+                                        }}
+                                    >
+                                        Apply as Body Font
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ))}

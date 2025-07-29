@@ -1,0 +1,261 @@
+.font-system {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    z-index: 1001;
+}
+
+.font-selector-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.font-selector-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.1;
+}
+
+.font-selector {
+    position: relative;
+    display: inline-block;
+}
+
+.font-selector-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--white);
+    border: 1.5px solid var(--primary-color);
+    border-radius: 20px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    box-shadow: 0 1px 4px rgba(243, 112, 33, 0.15);
+    width: 100%;
+    justify-content: space-between;
+}
+
+.font-selector-toggle:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(243, 112, 33, 0.25);
+}
+
+.heading-font-toggle {
+    border-color: #e74c3c;
+    color: #e74c3c;
+    box-shadow: 0 1px 4px rgba(231, 76, 60, 0.15);
+}
+
+.heading-font-toggle:hover {
+    background: #e74c3c;
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.25);
+}
+
+.body-font-toggle {
+    border-color: #3498db;
+    color: #3498db;
+    box-shadow: 0 1px 4px rgba(52, 152, 219, 0.15);
+}
+
+.body-font-toggle:hover {
+    background: #3498db;
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.25);
+}
+
+.font-preview {
+    font-size: 1rem;
+    font-weight: 700;
+    min-width: 16px;
+    text-align: center;
+}
+
+.font-name {
+    font-size: 0.75rem;
+    white-space: nowrap;
+    flex: 1;
+    text-align: left;
+}
+
+.font-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 6px;
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    border: 1px solid var(--border-color);
+    min-width: 180px;
+    overflow: hidden;
+    animation: dropdownAppear 0.3s ease;
+    z-index: 1002;
+}
+
+@keyframes dropdownAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.font-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    color: var(--text-color);
+}
+
+.font-option:hover {
+    background: var(--light-gray);
+}
+
+.font-option.active {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.font-option .font-preview {
+    font-size: 1rem;
+    font-weight: 700;
+    min-width: 20px;
+    text-align: center;
+}
+
+.font-option .font-name {
+    flex: 1;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.font-option i {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .font-system {
+        gap: 6px;
+    }
+
+    .font-selector-toggle {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+
+    .font-preview {
+        font-size: 0.9rem;
+    }
+
+    .font-name {
+        font-size: 0.7rem;
+    }
+
+    .font-dropdown {
+        min-width: 160px;
+    }
+
+    .font-option {
+        padding: 8px 12px;
+    }
+
+    .font-selector-label {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .font-system {
+        gap: 4px;
+    }
+
+    .font-selector-toggle {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+
+    .font-name {
+        display: none;
+    }
+
+    .font-dropdown {
+        min-width: 140px;
+    }
+
+    .font-option .font-name {
+        display: block;
+        font-size: 0.75rem;
+    }
+
+    .font-selector-label {
+        font-size: 0.55rem;
+    }
+}
+
+/* Desktop layout - side by side */
+@media (min-width: 769px) {
+    .font-system {
+        flex-direction: row;
+        gap: 12px;
+        align-items: flex-end;
+    }
+
+    .font-selector-group {
+        flex: 1;
+        min-width: 140px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+    .font-system {
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .font-selector-toggle {
+        padding: 3px 6px;
+        font-size: 0.65rem;
+    }
+
+    .font-preview {
+        font-size: 0.8rem;
+        min-width: 14px;
+    }
+
+    .font-selector-label {
+        font-size: 0.5rem;
+    }
+
+    .font-dropdown {
+        min-width: 120px;
+    }
+
+    .font-option {
+        padding: 6px 10px;
+    }
+}

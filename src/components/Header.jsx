@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import FontSelector from './FontSelector'
+import FontSystem from './FontSystem'
 import LanguageSelector from './LanguageSelector'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -20,7 +20,7 @@ const Header = () => {
 
     // Check if we're on the home page
     const isHomePage = location.pathname === '/'
-    
+
     // Dynamic text color based on current page
     const textColor = isHomePage ? '#fff' : '#333'
     const linkColor = isHomePage ? '#fff' : '#333'
@@ -202,7 +202,7 @@ const Header = () => {
                         </nav>
 
                         <div className="header-actions">
-                            <FontSelector />
+                            <FontSystem />
                             <LanguageSelector />
                         </div>
 
@@ -278,7 +278,7 @@ const Header = () => {
                                 </li>
                                 <li><Link to="/media-news" onClick={() => setIsMobileMenuOpen(false)} style={{ color: linkColor }}>{t('newsMedia')}</Link></li>
                                 <li><Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} style={{ color: linkColor }}>{t('contact')}</Link></li>
-                                <li className="mobile-font-selector"><FontSelector /></li>
+                                <li className="mobile-font-selector"><FontSystem /></li>
                                 <li className="mobile-language-selector"><LanguageSelector /></li>
                             </ul>
                         </motion.div>
