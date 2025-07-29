@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import './i18n'
 import Header from './components/Header'
@@ -31,33 +31,150 @@ import AnimatedOnScroll from "./components/AnimatedOnScroll";
 function Layout() {
     const location = useLocation()
     const isHome = location.pathname === "/"
+    const [videoLoaded, setVideoLoaded] = useState(false)
+    const [videoError, setVideoError] = useState(false)
+    const [showFallback, setShowFallback] = useState(false)
+    const [isSlowConnection, setIsSlowConnection] = useState(false)
+    const videoRef = useRef(null)
+
+    useEffect(() => {
+        if (isHome) {
+            // Check for slow connection
+            if ('connection' in navigator) {
+                const connection = navigator.connection
+                if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g' || connection.effectiveType === '3g') {
+                    setIsSlowConnection(true)
+                    setShowFallback(true)
+                }
+            }
+
+            // Show fallback after 2 seconds if video hasn't loaded (reduced from 3s)
+            const fallbackTimer = setTimeout(() => {
+                if (!videoLoaded) {
+                    setShowFallback(true)
+                }
+            }, 2000)
+
+            // Preload video with lower priority
+            const preloadVideo = () => {
+                if (videoRef.current && !isSlowConnection) {
+                    videoRef.current.load()
+                }
+            }
+
+            // Delay video loading slightly to prioritize other content
+            const loadTimer = setTimeout(preloadVideo, 200)
+
+            return () => {
+                clearTimeout(fallbackTimer)
+                clearTimeout(loadTimer)
+            }
+        }
+    }, [isHome, videoLoaded, isSlowConnection])
+
+    const handleVideoLoad = () => {
+        setVideoLoaded(true)
+        setShowFallback(false)
+    }
+
+    const handleVideoError = () => {
+        setVideoError(true)
+        setShowFallback(true)
+    }
+
+    // Choose video source based on connection speed
+    const getVideoSource = () => {
+        if (isSlowConnection) {
+            return null // Don't load video on slow connections
+        }
+        // You can add multiple video sources here for different qualities
+        return "/videos/Shiv Sena Song.mp4"
+    }
 
     return (
         <div className="App" style={{ overflowX: 'hidden', width: '100%' }}>
             {isHome ? (
                 <>
-                    <video
-                        className="hero-bg-video"
-                        src="/videos/Shiv Sena Song.mp4"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100vh',
-                            objectFit: 'cover',
-                            zIndex: 0,
-                            pointerEvents: 'none',
-                            maxWidth: '100vw',
-                        }}
-                    />
-                    {/* <div className="logo"> */}
-                    {/* <div className="logo-text" style={{ position: 'fixed', top: 0, zIndex: 1000, display: 'block' }}>शिवसेना</div> */}
-                    {/* </div> */}
+                    {/* Fallback background image */}
+                    {(showFallback || videoError || isSlowConnection) && (
+                        <div
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100vh',
+                                background: 'linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #eab308 100%)',
+                                zIndex: 0,
+                                pointerEvents: 'none',
+                            }}
+                        />
+                    )}
+
+                    {/* Optimized video with lazy loading */}
+                    {getVideoSource() && (
+                        <video
+                            ref={videoRef}
+                            className="hero-bg-video"
+                            src={getVideoSource()}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            preload="metadata"
+                            loading="lazy"
+                            onLoadedData={handleVideoLoad}
+                            onError={handleVideoError}
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100vh',
+                                objectFit: 'cover',
+                                zIndex: videoLoaded ? 0 : -1,
+                                pointerEvents: 'none',
+                                maxWidth: '100vw',
+                                opacity: videoLoaded ? 1 : 0,
+                                transition: 'opacity 0.5s ease-in-out',
+                            }}
+                        />
+                    )}
+
+                    {/* Loading indicator */}
+                    {!videoLoaded && !showFallback && !isSlowConnection && (
+                        <div
+                            style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                zIndex: 1,
+                                color: 'white',
+                                fontSize: '1.2rem',
+                                textAlign: 'center',
+                            }}
+                        >
+                            <div style={{ marginBottom: '10px' }}>Loading...</div>
+                            <div style={{
+                                width: '40px',
+                                height: '4px',
+                                background: 'rgba(255,255,255,0.3)',
+                                borderRadius: '2px',
+                                margin: '0 auto',
+                                overflow: 'hidden'
+                            }}>
+                                <div style={{
+                                    width: '40px',
+                                    height: '4px',
+                                    background: 'white',
+                                    borderRadius: '2px',
+                                    animation: 'loadingAnimation 1.5s infinite ease-in-out',
+                                    transform: 'translateX(-100%)'
+                                }}></div>
+                            </div>
+                        </div>
+                    )}
 
                     <Header />
                     <AnimatedOnScroll animation="fade-in-up" delay={0}><HeroSection /></AnimatedOnScroll>
@@ -96,6 +213,16 @@ function Layout() {
             </Routes>
 
             <Footer />
+
+            {/* Loading animation styles */}
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                    @keyframes loadingAnimation {
+                        0% { transform: translateX(-100%); }
+                        100% { transform: translateX(100%); }
+                    }
+                `
+            }} />
         </div>
     )
 }

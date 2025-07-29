@@ -4,6 +4,7 @@ import LanguageSelector from './LanguageSelector'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
+import './Header.css'
 
 const Header = () => {
     const { t } = useTranslation()
@@ -21,9 +22,9 @@ const Header = () => {
     // Check if we're on the home page
     const isHomePage = location.pathname === '/'
 
-    // Dynamic text color based on current page
-    const textColor = isHomePage ? '#fff' : '#333'
-    const linkColor = isHomePage ? '#fff' : '#333'
+    // Dynamic text color based on current page - ensure contrast with header background
+    const textColor = '#333' // Always use dark text for better visibility
+    const linkColor = '#333' // Always use dark text for better visibility
 
     // Keyboard accessibility for dropdowns
     const handleDropdownKey = (e, openFn, closeFn, isOpen) => {
