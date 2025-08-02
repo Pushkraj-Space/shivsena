@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import AnimatedOnScroll from './AnimatedOnScroll'
+import AnimatedOnScroll from '../AnimatedOnScroll/AnimatedOnScroll'
 import { useTranslation } from 'react-i18next'
 
 const EknathSection = () => {

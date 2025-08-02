@@ -1,31 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import './i18n'
-import Header from './components/Header'
-import HeroSection from './components/HeroSection'
-import FontTest from './components/FontTest'
-import InspirationSection from './components/InspirationSection'
-import EknathSection from './components/EknathSection'
-import StrengthSection from './components/StrengthSection'
-import NewsCarousel from './components/NewsCarousel'
-import MediaSection from './components/MediaSection'
-import CartoonsSection from './components/CartoonsSection'
-import CTASection from './components/CTASection'
-import Footer from './components/Footer'
-import HistoryPage from './components/HistoryPage'
-import FounderPage from './components/FounderPage'
-import PastLeaderPage from './components/PastLeaderPage'
-import CurrentLeadershipPage from './components/CurrentLeadershipPage'
-import AnglePage from './components/AnglePage'
-import OrganizationalStructurePage from './components/OrganizationalStructurePage'
-import InitiativesAndProjects from './components/InitiativesAndProjects'
-import SuccessStoriesPage from './components/SuccessStoriesPage'
-import MedicalInfoPage from './components/MedicalInfoPage'
-import MedicalWorkPage from './components/MedicalWorkPage'
-import MedicalMembersPage from './components/MedicalMembersPage'
-import MediaNewsPage from './components/MediaNewsPage'
-import ContactPage from './components/ContactPage'
-import AnimatedOnScroll from "./components/AnimatedOnScroll";
+import Header from './components/Header/Header';
+import HeroSection from './components/HeroSection/HeroSection';
+import FontTest from './components/FontTest/FontTest';
+import InspirationSection from './components/InspirationSection/InspirationSection';
+import EknathSection from './components/EknathSection/EknathSection';
+import StrengthSection from './components/StrengthSection/StrengthSection';
+import NewsCarousel from './components/NewsCarousel/NewsCarousel';
+import MediaSection from './components/MediaSection/MediaSection';
+import CartoonsSection from './components/CartoonsSection/CartoonsSection';
+import CTASection from './components/CTASection/CTASection';
+import Footer from './components/Footer/Footer';
+import HistoryPage from './components/HistoryPage/HistoryPage';
+import FounderPage from './components/FounderPage/FounderPage';
+import PastLeaderPage from './components/PastLeaderPage/PastLeaderPage';
+import CurrentLeadershipPage from './components/CurrentLeadershipPage/CurrentLeadershipPage';
+import AnglePage from './components/AnglePage/AnglePage';
+import OrganizationalStructurePage from './components/OrganizationalStructurePage/OrganizationalStructurePage';
+import InitiativesAndProjects from './components/InitiativesAndProjects/InitiativesAndProjects';
+import SuccessStoriesPage from './components/SuccessStoriesPage/SuccessStoriesPage';
+import MedicalInfoPage from './components/MedicalInfoPage/MedicalInfoPage';
+import MedicalWorkPage from './components/MedicalWorkPage/MedicalWorkPage';
+import MedicalMembersPage from './components/MedicalMembersPage/MedicalMembersPage';
+import MediaNewsPage from './components/MediaNewsPage/MediaNewsPage';
+import ContactPage from './components/ContactPage/ContactPage';
+import AnimatedOnScroll from './components/AnimatedOnScroll/AnimatedOnScroll';
 
 
 function Layout() {

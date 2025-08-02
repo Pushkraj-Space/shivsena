@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import FontSystem from './FontSystem'
-import LanguageSelector from './LanguageSelector'
+import FontSystem from '../FontSystem'
+import LanguageSelector from '../LanguageSelector'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'

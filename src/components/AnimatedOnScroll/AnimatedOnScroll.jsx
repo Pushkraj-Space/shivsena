@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useInView from "../utils/useInView";
+import useInView from "../../utils/useInView";
 import "./AnimatedOnScroll.css";
 
 export default function AnimatedOnScroll({ children, animation = "fade-in-up", delay = 0 }) {

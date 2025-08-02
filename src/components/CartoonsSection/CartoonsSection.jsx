@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import AnimatedOnScroll from './AnimatedOnScroll'
+import AnimatedOnScroll from '../AnimatedOnScroll/AnimatedOnScroll'
 import { useTranslation } from 'react-i18next'
+import './CartoonsSection.css'
 
 const CartoonsSection = () => {
     const { t } = useTranslation();

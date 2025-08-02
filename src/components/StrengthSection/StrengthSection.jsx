@@ -1,10 +1,10 @@
 import React from 'react';
-import AnimatedOnScroll from './AnimatedOnScroll';
+import AnimatedOnScroll from '../AnimatedOnScroll/AnimatedOnScroll';
 import { useTranslation } from 'react-i18next';
 
 const StrengthSection = () => {
     const { t } = useTranslation();
-    
+
     const strengthBlocks = [
         {
             id: 1,
