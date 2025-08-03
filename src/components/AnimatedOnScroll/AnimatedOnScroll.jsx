@@ -1,6 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import useInView from "../../utils/useInView";
-import { motion, useAnimation, useSpring, useTransform } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
+import { 
+  isMobile, 
+  hasLowPerformance, 
+  getOptimizedAnimationSettings,
+  prefersReducedMotion 
+} from "../../utils/mobileOptimization";
 import "./AnimatedOnScroll.css";
 
 export default function AnimatedOnScroll({
@@ -19,6 +25,26 @@ export default function AnimatedOnScroll({
   const [ref, inView] = useInView({ threshold, triggerOnce: once });
   const controls = useAnimation();
   const [hasAnimated, setHasAnimated] = useState(false);
+  const [deviceOptimizations, setDeviceOptimizations] = useState({
+    isMobile: false,
+    lowPerformance: false,
+    reducedMotion: false
+  });
+
+  // Detect device capabilities for performance optimizations
+  useEffect(() => {
+    const checkDeviceCapabilities = () => {
+      setDeviceOptimizations({
+        isMobile: isMobile(),
+        lowPerformance: hasLowPerformance(),
+        reducedMotion: prefersReducedMotion()
+      });
+    };
+    
+    checkDeviceCapabilities();
+    window.addEventListener('resize', checkDeviceCapabilities);
+    return () => window.removeEventListener('resize', checkDeviceCapabilities);
+  }, []);
 
   useEffect(() => {
     if (inView && !hasAnimated) {
@@ -30,27 +56,50 @@ export default function AnimatedOnScroll({
     }
   }, [inView, controls, once, hasAnimated]);
 
-  // Professional easing curves
-  const easings = {
-    smooth: [0.25, 0.1, 0.25, 1], // Smooth cubic-bezier
-    bounce: [0.68, -0.55, 0.265, 1.55], // Bouncy
-    elastic: [0.175, 0.885, 0.32, 1.275], // Elastic
-    easeOut: [0.4, 0, 0.2, 1], // Material Design ease-out
-    easeIn: [0.4, 0, 1, 1], // Material Design ease-in
-    easeInOut: [0.4, 0, 0.2, 1], // Material Design ease-in-out
-    sharp: [0.4, 0, 0.6, 1], // Sharp transition
-  };
-
-  const getVariants = () => {
-    const baseTransition = spring ? {
-      type: "spring",
-      damping,
-      stiffness,
-      delay: delay + stagger
-    } : {
+  // Get optimized settings based on device capabilities
+  const optimizedSettings = useMemo(() => {
+    const baseSettings = {
       duration,
-      ease: easings.smooth,
-      delay: delay + stagger
+      distance,
+      delay,
+      damping,
+      stiffness
+    };
+    
+    return getOptimizedAnimationSettings(baseSettings);
+  }, [duration, distance, delay, damping, stiffness]);
+
+  // Optimized easing curves
+  const easings = useMemo(() => ({
+    smooth: [0.25, 0.1, 0.25, 1],
+    easeOut: [0.4, 0, 0.2, 1],
+    easeIn: [0.4, 0, 1, 1],
+    easeInOut: [0.4, 0, 0.2, 1],
+    // Simplified easing for mobile/low performance
+    mobile: [0.25, 0.46, 0.45, 0.94]
+  }), []);
+
+  const getVariants = useMemo(() => {
+    const { duration: optDuration, distance: optDistance, delay: optDelay, damping: optDamping, stiffness: optStiffness } = optimizedSettings;
+    const { isMobile: mobile, lowPerformance, reducedMotion } = deviceOptimizations;
+    
+    // Disable animations if user prefers reduced motion
+    if (reducedMotion) {
+      return {
+        hidden: { opacity: 1, y: 0, x: 0, scale: 1, filter: "none" },
+        visible: { opacity: 1, y: 0, x: 0, scale: 1, filter: "none" }
+      };
+    }
+    
+    const baseTransition = spring && !mobile && !lowPerformance ? {
+      type: "spring",
+      damping: optDamping,
+      stiffness: optStiffness,
+      delay: optDelay + stagger
+    } : {
+      duration: optDuration,
+      ease: mobile || lowPerformance ? easings.mobile : easings.smooth,
+      delay: optDelay + stagger
     };
 
     switch (animation) {
@@ -58,8 +107,8 @@ export default function AnimatedOnScroll({
         return {
           hidden: {
             opacity: 0,
-            y: distance,
-            filter: "blur(4px)"
+            y: optDistance,
+            filter: mobile || lowPerformance ? "none" : "blur(2px)"
           },
           visible: {
             opacity: 1,
@@ -67,9 +116,9 @@ export default function AnimatedOnScroll({
             filter: "blur(0px)",
             transition: {
               ...baseTransition,
-              opacity: { duration: duration * 0.6, ease: easings.easeOut },
-              y: { duration: duration, ease: easings.smooth },
-              filter: { duration: duration * 0.8, ease: easings.easeOut }
+              opacity: { duration: optDuration * 0.6, ease: easings.easeOut },
+              y: { duration: optDuration, ease: easings.smooth },
+              filter: { duration: optDuration * 0.8, ease: easings.easeOut }
             }
           }
         };
@@ -78,8 +127,8 @@ export default function AnimatedOnScroll({
         return {
           hidden: {
             opacity: 0,
-            y: -distance,
-            filter: "blur(4px)"
+            y: -optDistance,
+            filter: mobile || lowPerformance ? "none" : "blur(2px)"
           },
           visible: {
             opacity: 1,
@@ -87,9 +136,9 @@ export default function AnimatedOnScroll({
             filter: "blur(0px)",
             transition: {
               ...baseTransition,
-              opacity: { duration: duration * 0.6, ease: easings.easeOut },
-              y: { duration: duration, ease: easings.smooth },
-              filter: { duration: duration * 0.8, ease: easings.easeOut }
+              opacity: { duration: optDuration * 0.6, ease: easings.easeOut },
+              y: { duration: optDuration, ease: easings.smooth },
+              filter: { duration: optDuration * 0.8, ease: easings.easeOut }
             }
           }
         };
@@ -98,8 +147,8 @@ export default function AnimatedOnScroll({
         return {
           hidden: {
             opacity: 0,
-            x: -distance,
-            scale: 0.95
+            x: -optDistance,
+            scale: mobile || lowPerformance ? 0.98 : 0.95
           },
           visible: {
             opacity: 1,
@@ -107,9 +156,9 @@ export default function AnimatedOnScroll({
             scale: 1,
             transition: {
               ...baseTransition,
-              opacity: { duration: duration * 0.5, ease: easings.easeOut },
-              x: { duration: duration, ease: easings.smooth },
-              scale: { duration: duration * 0.8, ease: easings.elastic }
+              opacity: { duration: optDuration * 0.5, ease: easings.easeOut },
+              x: { duration: optDuration, ease: easings.smooth },
+              scale: { duration: optDuration * 0.8, ease: easings.smooth }
             }
           }
         };
@@ -118,8 +167,8 @@ export default function AnimatedOnScroll({
         return {
           hidden: {
             opacity: 0,
-            x: distance,
-            scale: 0.95
+            x: optDistance,
+            scale: mobile || lowPerformance ? 0.98 : 0.95
           },
           visible: {
             opacity: 1,
@@ -127,9 +176,9 @@ export default function AnimatedOnScroll({
             scale: 1,
             transition: {
               ...baseTransition,
-              opacity: { duration: duration * 0.5, ease: easings.easeOut },
-              x: { duration: duration, ease: easings.smooth },
-              scale: { duration: duration * 0.8, ease: easings.elastic }
+              opacity: { duration: optDuration * 0.5, ease: easings.easeOut },
+              x: { duration: optDuration, ease: easings.smooth },
+              scale: { duration: optDuration * 0.8, ease: easings.smooth }
             }
           }
         };
@@ -139,7 +188,7 @@ export default function AnimatedOnScroll({
           hidden: {
             opacity: 0,
             scale: 0.8,
-            rotateY: -15
+            rotateY: mobile || lowPerformance ? 0 : -15
           },
           visible: {
             opacity: 1,
@@ -147,129 +196,9 @@ export default function AnimatedOnScroll({
             rotateY: 0,
             transition: {
               ...baseTransition,
-              opacity: { duration: duration * 0.6, ease: easings.easeOut },
-              scale: { duration: duration, ease: easings.elastic },
-              rotateY: { duration: duration * 0.8, ease: easings.smooth }
-            }
-          }
-        };
-
-      case "flip-in":
-        return {
-          hidden: {
-            opacity: 0,
-            rotateX: 90,
-            scale: 0.8
-          },
-          visible: {
-            opacity: 1,
-            rotateX: 0,
-            scale: 1,
-            transition: {
-              ...baseTransition,
-              opacity: { duration: duration * 0.4, ease: easings.easeOut },
-              rotateX: { duration: duration, ease: easings.bounce },
-              scale: { duration: duration * 0.8, ease: easings.elastic }
-            }
-          }
-        };
-
-      case "zoom-in":
-        return {
-          hidden: {
-            opacity: 0,
-            scale: 0.3,
-            filter: "blur(8px)"
-          },
-          visible: {
-            opacity: 1,
-            scale: 1,
-            filter: "blur(0px)",
-            transition: {
-              ...baseTransition,
-              opacity: { duration: duration * 0.5, ease: easings.easeOut },
-              scale: { duration: duration, ease: easings.elastic },
-              filter: { duration: duration * 0.6, ease: easings.easeOut }
-            }
-          }
-        };
-
-      case "slide-up-fade":
-        return {
-          hidden: {
-            opacity: 0,
-            y: distance * 1.5,
-            filter: "blur(2px)"
-          },
-          visible: {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            transition: {
-              ...baseTransition,
-              opacity: { duration: duration * 0.7, ease: easings.easeOut },
-              y: { duration: duration * 1.2, ease: easings.smooth },
-              filter: { duration: duration * 0.8, ease: easings.easeOut }
-            }
-          }
-        };
-
-      case "reveal":
-        return {
-          hidden: {
-            opacity: 0,
-            clipPath: "inset(0 100% 0 0)",
-            scale: 0.98
-          },
-          visible: {
-            opacity: 1,
-            clipPath: "inset(0 0% 0 0)",
-            scale: 1,
-            transition: {
-              ...baseTransition,
-              opacity: { duration: duration * 0.6, ease: easings.easeOut },
-              clipPath: { duration: duration * 1.2, ease: easings.smooth },
-              scale: { duration: duration * 0.8, ease: easings.elastic }
-            }
-          }
-        };
-
-      case "parallax-up":
-        return {
-          hidden: {
-            opacity: 0,
-            y: distance * 2,
-            scale: 0.95
-          },
-          visible: {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            transition: {
-              ...baseTransition,
-              opacity: { duration: duration * 0.8, ease: easings.easeOut },
-              y: { duration: duration * 1.5, ease: easings.smooth },
-              scale: { duration: duration * 1.2, ease: easings.elastic }
-            }
-          }
-        };
-
-      case "bounce-in":
-        return {
-          hidden: {
-            opacity: 0,
-            y: distance * 1.5,
-            scale: 0.5
-          },
-          visible: {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            transition: {
-              type: "spring",
-              damping: 12,
-              stiffness: 200,
-              delay: delay + stagger
+              opacity: { duration: optDuration * 0.6, ease: easings.easeOut },
+              scale: { duration: optDuration, ease: easings.smooth },
+              rotateY: { duration: optDuration * 0.8, ease: easings.smooth }
             }
           }
         };
@@ -278,15 +207,15 @@ export default function AnimatedOnScroll({
         return {
           hidden: {
             opacity: 0,
-            filter: "blur(2px)"
+            filter: mobile || lowPerformance ? "none" : "blur(2px)"
           },
           visible: {
             opacity: 1,
             filter: "blur(0px)",
             transition: {
               ...baseTransition,
-              opacity: { duration: duration * 0.8, ease: easings.easeOut },
-              filter: { duration: duration * 0.6, ease: easings.easeOut }
+              opacity: { duration: optDuration * 0.8, ease: easings.easeOut },
+              filter: { duration: optDuration * 0.6, ease: easings.easeOut }
             }
           }
         };
@@ -301,7 +230,7 @@ export default function AnimatedOnScroll({
           }
         };
     }
-  };
+  }, [animation, optimizedSettings, deviceOptimizations, easings, spring, stagger]);
 
   return (
     <motion.div
@@ -309,11 +238,12 @@ export default function AnimatedOnScroll({
       className={`animated-on-scroll ${animation}`}
       initial="hidden"
       animate={controls}
-      variants={getVariants()}
+      variants={getVariants}
       style={{
-        willChange: "transform, opacity, filter",
+        willChange: deviceOptimizations.isMobile || deviceOptimizations.lowPerformance ? "auto" : "transform, opacity, filter",
         backfaceVisibility: "hidden",
-        perspective: 1000
+        perspective: deviceOptimizations.isMobile || deviceOptimizations.lowPerformance ? "none" : 1000,
+        transform: deviceOptimizations.isMobile || deviceOptimizations.lowPerformance ? "translateZ(0)" : undefined
       }}
     >
       {children}

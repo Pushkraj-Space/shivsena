@@ -211,9 +211,9 @@ function Layout() {
 
                                 {/* <SectionDivider pattern="curve" color="#f5e6c0" height={100} invert={true} /> */}
 
-                                {/* <AnimatedOnScroll animation="reveal" duration={0.9}>
+                                <AnimatedOnScroll animation="reveal" duration={0.9}>
                                     <StrengthSection />
-                                </AnimatedOnScroll> */}
+                                </AnimatedOnScroll>
 
                                 <SectionDivider pattern="angle" color="#f8f0dd" height={100} />
 

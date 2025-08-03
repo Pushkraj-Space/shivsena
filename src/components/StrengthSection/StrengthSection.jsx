@@ -1,6 +1,7 @@
 import React from 'react';
 import AnimatedOnScroll from '../AnimatedOnScroll/AnimatedOnScroll';
 import { useTranslation } from 'react-i18next';
+import './StrengthSection.css';
 
 const StrengthSection = () => {
     const { t } = useTranslation();
@@ -38,8 +39,8 @@ const StrengthSection = () => {
         },
         {
             id: 6,
-            title: t('fearlessLeadership'),
-            description: t('fearlessLeadershipDescription'),
+            title: t('unityAndSolidarity'),
+            description: t('unityAndSolidarityDescription'),
             background: 'white'
         }
     ];

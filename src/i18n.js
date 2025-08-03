@@ -146,6 +146,8 @@ const enTranslations = {
   actionOverWordsDescription: 'Instead of just talking, showing results to the people through action is our specialty.',
   fearlessLeadership: 'Fearless Leadership',
   fearlessLeadershipDescription: 'Taking fearless decisions in any situation and implementing them.',
+  unityAndSolidarity: 'Unity and Solidarity',
+  unityAndSolidarityDescription: 'Maintaining unity among party workers and working together for the welfare of the people.',
   
   // News Carousel
   importantMoments2024: 'Important Moments & Highlights (2024-2025)',
@@ -606,6 +608,8 @@ const mrTranslations = {
   actionOverWordsDescription: 'फक्त बोलण्याऐवजी कृती करून जनतेला परिणाम दाखवणे हे आमचे वैशिष्ट्य आहे.',
   fearlessLeadership: 'निर्भय नेतृत्व',
   fearlessLeadershipDescription: 'कोणत्याही परिस्थितीत निर्भयपणे निर्णय घेणे आणि त्यांची अंमलबजावणी करणे.',
+  unityAndSolidarity: 'एकता आणि एकजुटता',
+  unityAndSolidarityDescription: 'पक्ष कार्यकर्त्यांमध्ये एकता राखणे आणि जनतेच्या हितासाठी एकत्र कार्य करणे.',
   
   // News Carousel
   importantMoments2024: 'महत्वाचे क्षण व ठळक घडामोडी (२०२४-२०२५)',

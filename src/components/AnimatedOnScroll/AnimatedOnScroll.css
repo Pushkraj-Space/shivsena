@@ -1,9 +1,14 @@
 /* Performance optimizations for animations */
 .animated-on-scroll {
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
   backface-visibility: hidden;
   perspective: 1000px;
   transform-style: preserve-3d;
+  /* Optimize for mobile */
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 /* Smooth scrolling for better animation performance */
@@ -24,18 +29,28 @@ html {
   }
 }
 
-/* High-performance transforms */
-.animated-on-scroll {
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-}
-
-/* Optimize for mobile devices */
+/* Mobile-specific optimizations */
 @media (max-width: 768px) {
   .animated-on-scroll {
     will-change: auto;
+    /* Disable complex transforms on mobile */
+    transform-style: flat;
+    perspective: none;
+    /* Use simpler transforms for better performance */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+  
+  /* Reduce animation complexity on mobile */
+  .animated-on-scroll * {
+    will-change: auto;
+  }
+}
+
+/* High-performance transforms for desktop */
+@media (min-width: 769px) {
+  .animated-on-scroll {
+    will-change: transform, opacity, filter;
   }
 }
 
@@ -75,7 +90,7 @@ html {
   transform: scale(1) translateY(0);
 }
 
-/* Text reveal animations */
+/* Text reveal animations - simplified for mobile */
 .text-reveal {
   overflow: hidden;
   position: relative;
@@ -97,15 +112,17 @@ html {
   transform: translateX(100%);
 }
 
-/* Card hover effects */
+/* Card hover effects - disabled on mobile for performance */
 .animated-card {
   transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   transform: translateY(0);
 }
 
-.animated-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+@media (min-width: 769px) {
+  .animated-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
 }
 
 /* Loading states */
@@ -125,15 +142,20 @@ html {
   }
 }
 
-/* Smooth focus transitions */
+/* Smooth focus transitions - simplified for mobile */
 .animated-on-scroll:focus-within {
   transform: scale(1.02);
   transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
+@media (max-width: 768px) {
+  .animated-on-scroll:focus-within {
+    transform: none;
+  }
+}
+
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-
   .animated-on-scroll,
   .animated-card,
   .text-reveal {
@@ -143,6 +165,7 @@ html {
   }
 }
 
+/* Optimize strength blocks for mobile */
 .strength-block {
   min-height: 180px;
   padding: 2rem 1.5rem;
@@ -151,4 +174,16 @@ html {
   justify-content: center;
   align-items: flex-start;
   box-sizing: border-box;
+  /* Optimize for mobile rendering */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Mobile-specific strength block optimizations */
+@media (max-width: 768px) {
+  .strength-block {
+    /* Reduce padding for better mobile layout */
+    padding: 1.5rem 1rem;
+    min-height: 160px;
+  }
 }

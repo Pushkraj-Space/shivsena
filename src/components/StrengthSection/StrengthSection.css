@@ -1,0 +1,217 @@
+/* StrengthSection.css */
+.strength-section {
+    background: var(--light-gray, #f8f9fa);
+    padding: 5rem 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    /* Optimize for mobile rendering */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+
+.strength-section .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.strength-section .section-title {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--primary-color, #F37021);
+    position: relative;
+}
+
+.strength-section .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--gradient-primary, linear-gradient(135deg, #ff6b35 0%, #f7931e 100%));
+    border-radius: 2px;
+}
+
+.strength-section .section-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--text-light, #666);
+    margin-bottom: 4rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.strength-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+.strength-block {
+    background: var(--white, #ffffff);
+    padding: 3rem 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    /* Optimize for mobile rendering */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+.strength-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary, linear-gradient(135deg, #F37021 0%, #e05a1a 100%));
+}
+
+/* Optimize hover effects for mobile */
+@media (min-width: 769px) {
+    .strength-block:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.strength-block-orange {
+    background: var(--gradient-primary, linear-gradient(135deg, #F37021 0%, #e05a1a 100%));
+    color: var(--white, #ffffff);
+}
+
+.strength-block-orange::before {
+    background: var(--white, #ffffff);
+}
+
+.strength-block h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: inherit;
+    line-height: 1.3;
+}
+
+.strength-block p {
+    line-height: 1.8;
+    color: inherit;
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* Responsive Design with mobile optimizations */
+@media (max-width: 768px) {
+    .strength-section {
+        padding: 3rem 0;
+        /* Reduce min-height for mobile */
+        min-height: auto;
+    }
+    
+    .strength-section .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .strength-section .section-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 3rem;
+    }
+    
+    .strength-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        /* Optimize grid for mobile */
+        margin-top: 2rem;
+    }
+    
+    .strength-block {
+        padding: 2.5rem 2rem;
+        /* Disable hover effects on mobile for performance */
+        transition: none;
+        /* Optimize for mobile rendering */
+        will-change: auto;
+    }
+    
+    .strength-block h3 {
+        font-size: 1.6rem;
+    }
+    
+    .strength-block p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .strength-section {
+        padding: 2rem 0;
+    }
+    
+    .strength-section .section-title {
+        font-size: 2rem;
+    }
+    
+    .strength-section .section-subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .strength-grid {
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    
+    .strength-block {
+        padding: 2rem 1.5rem;
+        /* Further optimize for small mobile screens */
+        border-radius: 12px;
+    }
+    
+    .strength-block h3 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .strength-block p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+}
+
+/* Additional mobile performance optimizations */
+@media (max-width: 768px) {
+    /* Reduce animation complexity on mobile */
+    .strength-block {
+        /* Use simpler transforms for better performance */
+        transform: none !important;
+    }
+    
+    /* Optimize grid layout for mobile */
+    .strength-grid {
+        /* Use flexbox for better mobile performance */
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .strength-block {
+        /* Ensure proper flex behavior */
+        flex: 1;
+        min-height: auto;
+    }
+} 
