@@ -1,159 +1,146 @@
+/* Performance optimizations for animations */
 .animated-on-scroll {
-  opacity: 1;
-  transform: none;
-  transition: opacity 0.6s cubic-bezier(.4, 0, .2, 1), transform 0.6s cubic-bezier(.4, 0, .2, 1);
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 }
 
-.animated-on-scroll.fade-in-up {
+/* Smooth scrolling for better animation performance */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .animated-on-scroll {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .animated-on-scroll * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* High-performance transforms */
+.animated-on-scroll {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+}
+
+/* Optimize for mobile devices */
+@media (max-width: 768px) {
+  .animated-on-scroll {
+    will-change: auto;
+  }
+}
+
+/* Staggered animation container */
+.stagger-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Individual stagger items */
+.stagger-item {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-.animated-on-scroll.fade-in-up.animate-in {
+.stagger-item.animate-in {
   opacity: 1;
   transform: translateY(0);
 }
 
-.animated-on-scroll.fade-in-down {
-  opacity: 0;
-  transform: translateY(-40px);
+/* Grid stagger animations */
+.stagger-grid {
+  display: grid;
+  gap: 1.5rem;
 }
 
-.animated-on-scroll.fade-in-down.animate-in {
+.stagger-grid-item {
+  opacity: 0;
+  transform: scale(0.95) translateY(20px);
+  transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.stagger-grid-item.animate-in {
   opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Text reveal animations */
+.text-reveal {
+  overflow: hidden;
+  position: relative;
+}
+
+.text-reveal::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.text-reveal.animate-in::after {
+  transform: translateX(100%);
+}
+
+/* Card hover effects */
+.animated-card {
+  transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   transform: translateY(0);
 }
 
-.animated-on-scroll.fade-in-down.animate-out {
-  opacity: 0;
-  transform: translateY(-40px);
+.animated-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.animated-on-scroll.slide-in-left {
-  opacity: 0;
-  transform: translateX(-40px);
+/* Loading states */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
 }
 
-.animated-on-scroll.slide-in-left.animate-in {
-  opacity: 1;
-  transform: translateX(0) scale(1.05);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
-  transition: opacity 0.6s cubic-bezier(.4, 0, .2, 1), transform 0.7s cubic-bezier(.4, 0, .2, 1), box-shadow 0.7s cubic-bezier(.4, 0, .2, 1);
-  animation: pop-in 0.7s cubic-bezier(.4, 0, .2, 1);
-}
-
-.animated-on-scroll.slide-in-left.animate-in {
-  animation: pop-in 0.7s cubic-bezier(.4, 0, .2, 1);
-}
-
-@keyframes pop-in {
+@keyframes loading {
   0% {
-    transform: translateX(-40px) scale(0.92);
-    opacity: 0;
-    box-shadow: none;
-  }
-
-  70% {
-    transform: translateX(0) scale(1.08);
-    opacity: 1;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.18);
+    background-position: 200% 0;
   }
 
   100% {
-    transform: translateX(0) scale(1.05);
-    opacity: 1;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
+    background-position: -200% 0;
   }
 }
 
-.animated-on-scroll.slide-in-left.animate-out {
-  opacity: 0;
-  transform: translateX(-40px);
+/* Smooth focus transitions */
+.animated-on-scroll:focus-within {
+  transform: scale(1.02);
+  transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-.animated-on-scroll.slide-in-right {
-  opacity: 0;
-  transform: translateX(40px);
-}
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
 
-.animated-on-scroll.slide-in-right.animate-in {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.animated-on-scroll.slide-in-right.animate-out {
-  opacity: 0;
-  transform: translateX(40px);
-}
-
-.animated-on-scroll.scale-in {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.animated-on-scroll.scale-in.animate-in {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.animated-on-scroll.scale-in.animate-out {
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-.animated-on-scroll.rotate-in {
-  opacity: 1;
-  transform: rotate(0deg);
-}
-
-.animated-on-scroll.rotate-in.animate-in {
-  opacity: 1;
-  transform: rotate(0deg);
-}
-
-.animated-on-scroll.rotate-in.animate-out {
-  opacity: 0;
-  transform: rotate(-15deg);
-}
-
-.animated-on-scroll.funny-bounce.animate-in {
-  opacity: 1;
-  transform: translateY(0) scale(1.08) rotate(-2deg);
-  animation: funny-bounce-in 0.9s cubic-bezier(.4, 0, .2, 1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.13);
-}
-
-@keyframes funny-bounce-in {
-  0% {
-    opacity: 0;
-    transform: translateY(60px) scale(0.85) rotate(8deg);
-    box-shadow: none;
+  .animated-on-scroll,
+  .animated-card,
+  .text-reveal {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
   }
-
-  40% {
-    opacity: 1;
-    transform: translateY(-18px) scale(1.12) rotate(-6deg);
-    box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.18);
-  }
-
-  60% {
-    transform: translateY(8px) scale(0.98) rotate(3deg);
-  }
-
-  80% {
-    transform: translateY(-4px) scale(1.05) rotate(-2deg);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1.08) rotate(-2deg);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.13);
-  }
-}
-
-/* Staggered animation support */
-.animated-on-scroll[data-delay] {
-  transition-delay: var(--aos-delay, 0s);
 }
 
 .strength-block {

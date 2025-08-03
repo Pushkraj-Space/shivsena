@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import Button from '../Button/Button';
+import './HeroSection.css';
 
 const HeroSection = () => {
     const { t } = useTranslation();
@@ -11,7 +13,7 @@ const HeroSection = () => {
             opacity: 1,
             transition: {
                 staggerChildren: 0.3, // Delay between child animations
-                delayChildren: 0.2,   // Delay before child animations start
+                delayChildren: 0.4,   // Delay before child animations start
             },
         },
     };
@@ -23,65 +25,86 @@ const HeroSection = () => {
             y: 0,
             transition: {
                 type: 'spring',
-                stiffness: 80, // Slightly stiffer spring for more responsiveness
-                damping: 15,   // Slightly less damping for a subtle bounce
+                stiffness: 100, // Stiffer spring for more responsiveness
+                damping: 18,    // Balanced damping for a subtle bounce
+                mass: 0.8,      // Add mass for a more natural feel
             },
         },
     };
 
     const buttonVariants = {
-        hidden: { opacity: 0, x: -50 },
+        hidden: { opacity: 0, y: 30 },
         visible: {
             opacity: 1,
-            x: 0,
+            y: 0,
             transition: {
                 type: 'spring',
-                stiffness: 100,
-                damping: 20,
-                mass: 0.5, // Add mass for a more natural feel
+                stiffness: 120,
+                damping: 22,
+                mass: 0.6, // Add mass for a more natural feel
+                delay: 0.2,
+            },
+        },
+    };
+
+    // Background animation variant
+    const bgVariants = {
+        hidden: { opacity: 0, scale: 1.1 },
+        visible: {
+            opacity: 0.15,
+            scale: 1,
+            transition: {
+                duration: 1.5,
+                ease: [0.25, 0.1, 0.25, 1],
             },
         },
     };
 
     return (
-        <main>
-            <section className="hero-section" aria-label="Hero" role="region" style={{ position: 'relative', overflow: 'hidden' }}>
+        <section className="hero-section" aria-label="Hero" role="region">
+            {/* Animated background elements */}
+            {/* <motion.div
+                className="hero-bg-pattern"
+                variants={bgVariants}
+                initial="hidden"
+                animate="visible"
+            ></motion.div>
 
-                {/* <motion.div
-                    className="hero-content"
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                    style={{ position: 'relative', zIndex: 1 }}
-                >
-                    <motion.h1 className="hero-title" variants={itemVariants}>
-                        शिवसेना
-                    </motion.h1>
-                    <motion.p className="hero-subtitle" variants={itemVariants}>
-                        गर्व से कहो हम हिंदू हैं
-                    </motion.p>
-                    <motion.div className="hero-buttons">
-                        <motion.a
-                            href="#about"
-                            className="btn btn-primary btn-lg"
-                            aria-label="Learn about us"
-                            variants={buttonVariants}
+            <motion.div
+                className="hero-content"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+            >
+                <motion.h1 className="hero-title" variants={itemVariants}>
+                    {t('heroTitle')}
+                </motion.h1>
+                <motion.p className="hero-subtitle" variants={itemVariants}>
+                    {t('heroSubtitle')}
+                </motion.p>
+                <motion.div className="hero-buttons" variants={itemVariants}>
+                    <motion.div variants={buttonVariants}>
+                        <Button
+                            to="/about"
+                            variant="primary"
+                            size="lg"
+                            icon={<i className="fas fa-arrow-right"></i>}
                         >
-                            आमच्याबद्दल जाणून घ्या
-                        </motion.a>
-                        <motion.a
-                            href="#contact"
-                            className="btn btn-secondary btn-lg"
-                            aria-label="Contact us"
-                            variants={buttonVariants}
-                            style={{ marginLeft: '1rem' }}
-                        >
-                            संपर्क साधा
-                        </motion.a>
+                            {t('learnMore')}
+                        </Button>
                     </motion.div>
-                </motion.div> */}
-            </section>
-        </main>
+                    <motion.div variants={buttonVariants} style={{ marginLeft: '1rem' }}>
+                        <Button
+                            to="/contact"
+                            variant="outline"
+                            size="lg"
+                        >
+                            {t('contactUs')}
+                        </Button>
+                    </motion.div>
+                </motion.div>
+            </motion.div> */}
+        </section>
     );
 };
 

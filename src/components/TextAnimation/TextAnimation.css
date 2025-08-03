@@ -1,0 +1,152 @@
+.text-animation {
+    will-change: transform, opacity, filter;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+/* Typewriter animation */
+.text-animation.typewriter {
+    border-right: 2px solid currentColor;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        border-color: transparent;
+    }
+
+    51%,
+    100% {
+        border-color: currentColor;
+    }
+}
+
+/* Word by word animation */
+.text-animation.word-by-word {
+    display: inline;
+}
+
+.text-animation.word-by-word .word {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Character by character animation */
+.text-animation.character-by-character {
+    display: inline;
+}
+
+.text-animation.character-by-character .character {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+/* Reveal animation with gradient overlay */
+.text-animation.reveal {
+    position: relative;
+    overflow: hidden;
+}
+
+.text-animation.reveal::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.text-animation.reveal.animate-in::after {
+    transform: translateX(100%);
+}
+
+/* Slide up animation */
+.text-animation.slide-up {
+    overflow: hidden;
+}
+
+/* Scale in animation */
+.text-animation.scale-in {
+    transform-origin: center;
+}
+
+/* Bounce in animation */
+.text-animation.bounce-in {
+    transform-origin: center;
+}
+
+/* Performance optimizations */
+.text-animation {
+    contain: layout style paint;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+}
+
+/* Responsive text sizing */
+.text-animation {
+    font-size: clamp(1rem, 2.5vw, 2rem);
+    line-height: 1.4;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+
+    .text-animation,
+    .text-animation * {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+
+    .text-animation.typewriter {
+        border-right: none;
+    }
+}
+
+/* Focus states for accessibility */
+.text-animation:focus-within {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Hover effects for interactive text */
+.text-animation.interactive {
+    cursor: pointer;
+    transition: color 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.text-animation.interactive:hover {
+    color: #007bff;
+}
+
+/* Loading states */
+.text-animation.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .text-animation {
+        text-shadow: 0 0 1px currentColor;
+    }
+}
+
+/* Print styles */
+@media print {
+    .text-animation {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}

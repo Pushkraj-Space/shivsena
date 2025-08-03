@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AnimatedOnScroll from '../AnimatedOnScroll/AnimatedOnScroll';
 import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence } from 'framer-motion';
+import Button from '../Button/Button';
 
 const NewsCarousel = () => {
     const { t } = useTranslation();
@@ -80,7 +82,7 @@ const NewsCarousel = () => {
 
         const interval = setInterval(() => {
             setActiveIndex((prev) => (prev + 1) % newsItems.length);
-        }, 3500); // Slightly faster than EknathSection
+        }, 5000); // Slightly slower for better readability
 
         return () => clearInterval(interval);
     }, [newsItems.length, isPaused]);
@@ -158,13 +160,23 @@ const NewsCarousel = () => {
                                             </div>
                                             <p className="news-description">{item.description}</p>
                                             <div className="news-card-actions">
-                                                <a href={item.link} className="btn btn-outline-primary btn-sm">
-                                                    <i className="fas fa-arrow-right"></i>
+                                                <Button
+                                                    href={item.link}
+                                                    variant="outline"
+                                                    size="sm"
+                                                    icon={<i className="fas fa-arrow-right"></i>}
+                                                    iconPosition="left"
+                                                >
                                                     {t('readMore')}
-                                                </a>
-                                                <button className="btn btn-icon">
+                                                </Button>
+                                                <motion.button
+                                                    className="btn btn-icon"
+                                                    whileHover={{ scale: 1.1, rotate: 15 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                                                >
                                                     <i className="fas fa-share-alt"></i>
-                                                </button>
+                                                </motion.button>
                                             </div>
                                         </div>
                                     </div>
@@ -175,29 +187,38 @@ const NewsCarousel = () => {
                         <div className="news-navigation">
                             <div className="news-indicators">
                                 {newsItems.map((_, index) => (
-                                    <button
+                                    <motion.button
                                         key={index}
                                         className={`news-indicator ${index === activeIndex ? 'active' : ''}`}
                                         onClick={() => setActiveIndex(index)}
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                                     >
                                         <span className="indicator-dot"></span>
                                         <span className="indicator-label">{index + 1}</span>
-                                    </button>
+                                    </motion.button>
                                 ))}
                             </div>
                             <div className="news-controls">
-                                <button
+                                <motion.button
                                     className="control-btn prev"
                                     onClick={() => setActiveIndex((prev) => prev === 0 ? newsItems.length - 1 : prev - 1)}
+                                    whileHover={{ scale: 1.1, x: -3 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                                 >
                                     <i className="fas fa-chevron-left"></i>
-                                </button>
-                                <button
+                                </motion.button>
+                                <motion.button
                                     className="control-btn next"
                                     onClick={() => setActiveIndex((prev) => (prev + 1) % newsItems.length)}
+                                    whileHover={{ scale: 1.1, x: 3 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                                 >
                                     <i className="fas fa-chevron-right"></i>
-                                </button>
+                                </motion.button>
                             </div>
                         </div>
                     </div>

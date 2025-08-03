@@ -1,0 +1,128 @@
+.staggered-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.staggered-item {
+    will-change: transform, opacity, filter;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+/* Grid layout for staggered animations */
+.staggered-container.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* List layout for staggered animations */
+.staggered-container.list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Horizontal layout for staggered animations */
+.staggered-container.horizontal {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+/* Card layout for staggered animations */
+.staggered-container.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .staggered-container.grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .staggered-container.cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .staggered-container.horizontal {
+        gap: 1rem;
+    }
+}
+
+/* Performance optimizations */
+.staggered-container {
+    contain: layout style paint;
+}
+
+.staggered-item {
+    contain: layout style paint;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+
+    .staggered-container,
+    .staggered-item {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* Hover effects for interactive elements */
+.staggered-item.interactive {
+    transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+    cursor: pointer;
+}
+
+.staggered-item.interactive:hover {
+    transform: translateY(-4px) scale(1.02);
+}
+
+/* Loading states */
+.staggered-container.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.staggered-container.loading .staggered-item {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Smooth scrolling for better performance */
+.staggered-container {
+    scroll-behavior: smooth;
+}
+
+/* Focus states for accessibility */
+.staggered-item:focus-within {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+    border-radius: 4px;
+}

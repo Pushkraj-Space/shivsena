@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
+import PageTransition from './components/PageTransition/PageTransition'
+import ScrollProvider from './components/ScrollProvider/ScrollProvider'
+import ScrollProgress from './components/ScrollProgress/ScrollProgress'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop'
+import SectionDivider from './components/SectionDivider/SectionDivider'
 import './i18n'
 import Header from './components/Header/Header';
 import HeroSection from './components/HeroSection/HeroSection';
@@ -26,6 +32,9 @@ import MedicalMembersPage from './components/MedicalMembersPage/MedicalMembersPa
 import MediaNewsPage from './components/MediaNewsPage/MediaNewsPage';
 import ContactPage from './components/ContactPage/ContactPage';
 import AnimatedOnScroll from './components/AnimatedOnScroll/AnimatedOnScroll';
+import StaggeredAnimation from './components/StaggeredAnimation/StaggeredAnimation';
+import TextAnimation from './components/TextAnimation/TextAnimation';
+import AnimationShowcase from './components/AnimationShowcase/AnimationShowcase';
 
 
 function Layout() {
@@ -183,34 +192,76 @@ function Layout() {
                 <Header />
             )}
 
-            <Routes>
-                <Route path="/" element={
-                    <>
-                        {/* <FontTest /> */}
+            <AnimatePresence mode="wait">
+                <Routes location={location} key={location.pathname}>
+                    <Route path="/" element={
+                        <PageTransition>
+                            <>
+                                {/* <FontTest /> */}
 
-                        <AnimatedOnScroll><InspirationSection /></AnimatedOnScroll>
-                        <AnimatedOnScroll><EknathSection /></AnimatedOnScroll>
-                        <AnimatedOnScroll><StrengthSection /></AnimatedOnScroll>
-                        <AnimatedOnScroll><NewsCarousel /></AnimatedOnScroll>
-                        <AnimatedOnScroll><MediaSection /></AnimatedOnScroll>
-                        <AnimatedOnScroll><CartoonsSection /></AnimatedOnScroll>
-                        <AnimatedOnScroll><CTASection /></AnimatedOnScroll>
-                    </>
-                } />
-                <Route path="/history" element={<HistoryPage />} />
-                <Route path="/founder" element={<FounderPage />} />
-                <Route path="/past-leader" element={<PastLeaderPage />} />
-                <Route path="/current-leadership" element={<CurrentLeadershipPage />} />
-                <Route path="/angle" element={<AnglePage />} />
-                <Route path="/organizational-structure" element={<OrganizationalStructurePage />} />
-                <Route path="/initiatives-and-projects" element={<InitiativesAndProjects />} />
-                <Route path="/success-stories" element={<SuccessStoriesPage />} />
-                <Route path="/medical-info" element={<MedicalInfoPage />} />
-                <Route path="/medical-work" element={<MedicalWorkPage />} />
-                <Route path="/medical-members" element={<MedicalMembersPage />} />
-                <Route path="/media-news" element={<MediaNewsPage />} />
-                <Route path="/contact" element={<ContactPage />} />
-            </Routes>
+                                <AnimatedOnScroll animation="slide-up-fade" distance={80} duration={1.2} delay={0.2}>
+                                    <InspirationSection />
+                                </AnimatedOnScroll>
+
+                                <SectionDivider pattern="wave" color="#f8f0dd" height={100} />
+
+                                <AnimatedOnScroll animation="fade-in-up" distance={60} duration={0.9} delay={0.1}>
+                                    <EknathSection />
+                                </AnimatedOnScroll>
+
+                                {/* <SectionDivider pattern="curve" color="#f5e6c0" height={100} invert={true} /> */}
+
+                                {/* <AnimatedOnScroll animation="reveal" duration={0.9}>
+                                    <StrengthSection />
+                                </AnimatedOnScroll> */}
+
+                                <SectionDivider pattern="angle" color="#f8f0dd" height={100} />
+
+                                <AnimatedOnScroll animation="slide-in-right" distance={20} duration={1.0} delay={0.2}>
+                                    <NewsCarousel />
+                                </AnimatedOnScroll>
+
+                                <SectionDivider pattern="zigzag" color="#f5e6c0" height={100} invert={true} />
+
+                                <AnimatedOnScroll animation="slide-in-left" distance={60} duration={1.1} delay={0.1}>
+                                    <MediaSection />
+                                </AnimatedOnScroll>
+
+                                <SectionDivider pattern="wave" color="#f8f0dd" height={100} />
+
+                                <AnimatedOnScroll animation="fade-in-down" distance={50} duration={1.2} delay={0.3}>
+                                    <CartoonsSection />
+                                </AnimatedOnScroll>
+
+                                <SectionDivider pattern="curve" color="#f5e6c0" height={100} invert={true} />
+
+                                <AnimatedOnScroll animation="slide-in-up" distance={70} duration={1.0} delay={0.1}>
+                                    <CTASection />
+                                </AnimatedOnScroll>
+
+                                <SectionDivider pattern="wave" color="#f8f0dd" height={100} />
+
+                                {/* <AnimatedOnScroll animation="fade-in-down" distance={80} duration={1.2} delay={0.2}>
+                                    <AnimationShowcase />
+                                </AnimatedOnScroll> */}
+                            </>
+                        </PageTransition>
+                    } />
+                    <Route path="/history" element={<PageTransition><HistoryPage /></PageTransition>} />
+                    <Route path="/founder" element={<PageTransition><FounderPage /></PageTransition>} />
+                    <Route path="/past-leader" element={<PageTransition><PastLeaderPage /></PageTransition>} />
+                    <Route path="/current-leadership" element={<PageTransition><CurrentLeadershipPage /></PageTransition>} />
+                    <Route path="/angle" element={<PageTransition><AnglePage /></PageTransition>} />
+                    <Route path="/organizational-structure" element={<PageTransition><OrganizationalStructurePage /></PageTransition>} />
+                    <Route path="/initiatives-and-projects" element={<PageTransition><InitiativesAndProjects /></PageTransition>} />
+                    <Route path="/success-stories" element={<PageTransition><SuccessStoriesPage /></PageTransition>} />
+                    <Route path="/medical-info" element={<PageTransition><MedicalInfoPage /></PageTransition>} />
+                    <Route path="/medical-work" element={<PageTransition><MedicalWorkPage /></PageTransition>} />
+                    <Route path="/medical-members" element={<PageTransition><MedicalMembersPage /></PageTransition>} />
+                    <Route path="/media-news" element={<PageTransition><MediaNewsPage /></PageTransition>} />
+                    <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+                </Routes>
+            </AnimatePresence>
 
             <Footer />
 
@@ -230,7 +281,11 @@ function Layout() {
 function App() {
     return (
         <Router>
-            <Layout />
+            <ScrollProvider>
+                <ScrollProgress />
+                <ScrollToTop />
+                <Layout />
+            </ScrollProvider>
         </Router>
     )
 }
