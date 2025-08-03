@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 const InspirationSection = () => {
     const { t } = useTranslation();
-    
+
     const leaders = [
         {
             name: t('balasahebThackerayFull'),
@@ -87,40 +87,65 @@ const InspirationSection = () => {
                     transform: rotateY(180deg);
                 }
 
+                .flip-card-front {
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                }
+
                 .flip-card-front img {
                     width: 100%;
-                    height: 100%;
-                    object-fit: cover;
+                    height: 85%;
+                    object-fit: contain;
                     filter: grayscale(100%);
                     transition: filter 0.6s ease;
+                    background: #f8f8f8;
                 }
 
                 .flip-card:hover .flip-card-front img {
                     filter: grayscale(0%);
                 }
 
-                .black-overlay {
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    width: 100%;
-                    background: rgba(0, 0, 0, 0.56);
+                .leader-name-section {
+                    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
                     color: #f37021;
-                    font-size: 20px;
-                    font-weight: 600;
-                    letter-spacing: 1px;
+                    font-size: 18px;
+                    font-weight: 700;
+                    letter-spacing: 2px;
                     text-align: center;
-                    padding: 16px 10px;
+                    padding: 20px 15px;
                     transition: all 0.3s ease;
+                    height: 15%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-transform: uppercase;
+                    border-top: 2px solid #f37021;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                }
+
+                .leader-name-section::before {
+                    content: "✧";
+                    margin-right: 10px;
+                    color: #f37021;
+                    font-size: 16px;
+                }
+
+                .leader-name-section::after {
+                    content: "✧";
+                    margin-left: 10px;
+                    color: #f37021;
+                    font-size: 16px;
                 }
 
                 @media (min-width: 768px) {
                     .flip-card {
                         margin: 20px;
                     }
-                    .black-overlay {
-                        font-size: 22px;
-                        padding: 20px 12px;
+                    .leader-name-section {
+                        font-size: 20px;
+                        padding: 24px 18px;
+                        letter-spacing: 3px;
                     }
                 }
 
@@ -152,9 +177,9 @@ const InspirationSection = () => {
                                 transition={cardFlipTransition}
                             >
                                 {/* Front */}
-                                <div className="flip-card-face flip-card-front" style={{ position: 'relative' }}>
+                                <div className="flip-card-face flip-card-front">
                                     <img src={leader.image} alt={leader.name} />
-                                    <div className="black-overlay">{leader.name}</div>
+                                    <div className="leader-name-section">{leader.name}</div>
                                 </div>
 
                                 {/* Back */}
