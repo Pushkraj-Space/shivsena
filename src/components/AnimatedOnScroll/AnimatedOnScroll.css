@@ -29,25 +29,92 @@ html {
   }
 }
 
-/* Mobile-specific optimizations */
+/* Mobile-specific optimizations - Keep animations but optimize them */
 @media (max-width: 768px) {
   .animated-on-scroll {
-    will-change: auto;
-    /* Disable complex transforms on mobile */
+    will-change: transform, opacity;
+    /* Keep transforms but optimize them */
     transform-style: flat;
     perspective: none;
     /* Use simpler transforms for better performance */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
+    /* Keep animations but make them faster */
+    transition: all 0.4s ease-out;
   }
-  
-  /* Reduce animation complexity on mobile */
+
+  /* Optimize animation complexity on mobile */
   .animated-on-scroll * {
     will-change: auto;
+    /* Keep animations but simplify them */
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+
+  /* Keep hover effects but make them lighter */
+  .animated-on-scroll:hover {
+    transform: translateY(-3px) !important;
+    /* Smaller movement */
+  }
+
+  /* Simplify stagger animations on mobile */
+  .stagger-container {
+    gap: 0.75rem;
+  }
+
+  .stagger-item {
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  }
+
+  .stagger-grid-item {
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
   }
 }
 
-/* High-performance transforms for desktop */
+/* Small mobile optimizations - Keep animations but make them very light */
+@media (max-width: 480px) {
+  .animated-on-scroll {
+    /* Keep animations but make them very fast */
+    will-change: transform, opacity;
+    transform-style: flat;
+    perspective: none;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  }
+
+  .animated-on-scroll * {
+    will-change: auto;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out !important;
+  }
+
+  /* Keep text reveal but make it faster */
+  .text-reveal::after {
+    transition: transform 0.3s ease-out !important;
+  }
+
+  /* Keep card animations but make them lighter */
+  .animated-card {
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out !important;
+  }
+
+  .animated-card:hover {
+    transform: translateY(-2px) !important;
+    /* Very small movement */
+  }
+}
+
+/* Very small devices - Keep minimal animations */
+@media (max-width: 360px) {
+  .animated-on-scroll {
+    animation: none !important;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out !important;
+  }
+
+  .animated-on-scroll * {
+    animation: none !important;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out !important;
+  }
+}
+
+/* High-performance transforms for desktop only */
 @media (min-width: 769px) {
   .animated-on-scroll {
     will-change: transform, opacity, filter;
@@ -90,7 +157,7 @@ html {
   transform: scale(1) translateY(0);
 }
 
-/* Text reveal animations - simplified for mobile */
+/* Text reveal animations - Keep them on mobile but optimize */
 .text-reveal {
   overflow: hidden;
   position: relative;
@@ -112,7 +179,7 @@ html {
   transform: translateX(100%);
 }
 
-/* Card hover effects - disabled on mobile for performance */
+/* Card hover effects - Keep them but make them lighter on mobile */
 .animated-card {
   transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   transform: translateY(0);
@@ -142,7 +209,7 @@ html {
   }
 }
 
-/* Smooth focus transitions - simplified for mobile */
+/* Smooth focus transitions - Keep them on mobile */
 .animated-on-scroll:focus-within {
   transform: scale(1.02);
   transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -150,12 +217,14 @@ html {
 
 @media (max-width: 768px) {
   .animated-on-scroll:focus-within {
-    transform: none;
+    transform: scale(1.01);
+    /* Smaller scale on mobile */
   }
 }
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
+
   .animated-on-scroll,
   .animated-card,
   .text-reveal {

@@ -1,61 +1,90 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useSmoothScroll } from '../../utils/smoothScroll';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { optimizeScroll, isMobile, shouldDisableAnimations } from '../../utils/mobileOptimization';
 
 // Create context for scroll-related functionality
 const ScrollContext = createContext({
-    smoothScrollEnabled: true,
+    smoothScrollEnabled: false, // Disabled by default for mobile
     toggleSmoothScroll: () => { },
     scrollProgress: 0,
+    isScrolling: false,
 });
 
 /**
- * ScrollProvider component that provides smooth scrolling functionality
- * and scroll-related data to the entire application
+ * Optimized ScrollProvider component that provides scroll tracking
+ * without heavy DOM manipulation for better mobile performance
  */
 export const ScrollProvider = ({ children }) => {
-    // State to control whether smooth scrolling is enabled
-    const [smoothScrollEnabled, setSmoothScrollEnabled] = useState(true);
-
-    // Track scroll progress (0 to 1) for animations based on scroll position
+    // Disable smooth scrolling by default on mobile for better performance
+    const [smoothScrollEnabled, setSmoothScrollEnabled] = useState(!isMobile());
     const [scrollProgress, setScrollProgress] = useState(0);
+    const [isScrolling, setIsScrolling] = useState(false);
 
-    // Initialize smooth scrolling
-    const { scrollY } = useSmoothScroll({
-        enabled: smoothScrollEnabled,
-        // Adjust these values for different scroll feels
-        damping: 25,
-        stiffness: 180,
-    });
+    // Optimized scroll handler with throttling
+    const handleScroll = useCallback(() => {
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
+        setScrollProgress(progress);
 
-    // Toggle smooth scrolling on/off
-    const toggleSmoothScroll = () => {
-        setSmoothScrollEnabled(prev => !prev);
-    };
+        // Set scrolling state for performance optimizations
+        setIsScrolling(true);
 
-    // Track scroll progress for animations
-    useEffect(() => {
-        const handleScroll = () => {
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0;
-            setScrollProgress(progress);
-        };
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll(); // Initialize
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        // Clear scrolling state after a short delay
+        setTimeout(() => setIsScrolling(false), 150);
     }, []);
 
+    // Create optimized scroll listener
+    const optimizedScrollHandler = useCallback(
+        optimizeScroll(handleScroll),
+        [handleScroll]
+    );
+
+    // Toggle smooth scrolling on/off (disabled on mobile)
+    const toggleSmoothScroll = useCallback(() => {
+        if (!isMobile()) {
+            setSmoothScrollEnabled(prev => !prev);
+        }
+    }, []);
+
+    // Initialize scroll tracking
+    useEffect(() => {
+        // Disable animations on low-end devices
+        if (shouldDisableAnimations()) {
+            // Add CSS to disable animations
+            const style = document.createElement('style');
+            style.textContent = `
+                * {
+                    animation: none !important;
+                    transition: none !important;
+                    transform: none !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Add scroll listener with passive option for better performance
+        window.addEventListener('scroll', optimizedScrollHandler, {
+            passive: true,
+            capture: false
+        });
+
+        // Initialize scroll progress
+        handleScroll();
+
+        return () => {
+            window.removeEventListener('scroll', optimizedScrollHandler);
+        };
+    }, [optimizedScrollHandler, handleScroll]);
+
+    // Provide context value
+    const contextValue = {
+        smoothScrollEnabled,
+        toggleSmoothScroll,
+        scrollProgress,
+        isScrolling,
+    };
+
     return (
-        <ScrollContext.Provider
-            value={{
-                smoothScrollEnabled,
-                toggleSmoothScroll,
-                scrollProgress,
-            }}
-        >
+        <ScrollContext.Provider value={contextValue}>
             {children}
         </ScrollContext.Provider>
     );

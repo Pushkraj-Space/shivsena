@@ -35,7 +35,8 @@ import AnimatedOnScroll from './components/AnimatedOnScroll/AnimatedOnScroll';
 import StaggeredAnimation from './components/StaggeredAnimation/StaggeredAnimation';
 import TextAnimation from './components/TextAnimation/TextAnimation';
 import AnimationShowcase from './components/AnimationShowcase/AnimationShowcase';
-
+import PerformanceMonitor from './components/PerformanceMonitor/PerformanceMonitor';
+import { isMobile, shouldDisableAnimations } from './utils/mobileOptimization';
 
 function Layout() {
     const location = useLocation()
@@ -44,9 +45,18 @@ function Layout() {
     const [videoError, setVideoError] = useState(false)
     const [showFallback, setShowFallback] = useState(false)
     const [isSlowConnection, setIsSlowConnection] = useState(false)
+    const [isMobileDevice, setIsMobileDevice] = useState(false)
+    const [animationsDisabled, setAnimationsDisabled] = useState(false)
     const videoRef = useRef(null)
 
     useEffect(() => {
+        // Check device capabilities
+        const mobile = isMobile();
+        const disableAnimations = shouldDisableAnimations();
+
+        setIsMobileDevice(mobile);
+        setAnimationsDisabled(disableAnimations);
+
         if (isHome) {
             // Check for slow connection
             if ('connection' in navigator) {
@@ -99,6 +109,24 @@ function Layout() {
         // You can add multiple video sources here for different qualities
         return "/videos/Shiv Sena Song.mp4"
     }
+
+    // Conditional animation wrapper for mobile optimization
+    const AnimatedWrapper = ({ children, animation, delay = 0, distance = 40, duration = 0.8 }) => {
+        if (animationsDisabled || isMobileDevice) {
+            return <div>{children}</div>;
+        }
+
+        return (
+            <AnimatedOnScroll
+                animation={animation}
+                delay={delay}
+                distance={distance}
+                duration={duration}
+            >
+                {children}
+            </AnimatedOnScroll>
+        );
+    };
 
     return (
         <div className="App" style={{ overflowX: 'hidden', width: '100%' }}>
@@ -186,7 +214,9 @@ function Layout() {
                     )}
 
                     <Header />
-                    <AnimatedOnScroll animation="fade-in-up" delay={0}><HeroSection /></AnimatedOnScroll>
+                    <AnimatedWrapper animation="fade-in-up" delay={0}>
+                        <HeroSection />
+                    </AnimatedWrapper>
                 </>
             ) : (
                 <Header />
@@ -199,45 +229,45 @@ function Layout() {
                             <>
                                 {/* <FontTest /> */}
 
-                                <AnimatedOnScroll animation="slide-up-fade" distance={80} duration={1.2} delay={0.2}>
+                                <AnimatedWrapper animation="slide-up-fade" distance={80} duration={1.2} delay={0.2}>
                                     <InspirationSection />
-                                </AnimatedOnScroll>
+                                </AnimatedWrapper>
 
                                 <SectionDivider pattern="wave" color="#f8f0dd" height={100} />
 
-                                <AnimatedOnScroll animation="fade-in-up" distance={60} duration={0.9} delay={0.1}>
+                                <AnimatedWrapper animation="fade-in-up" distance={60} duration={0.9} delay={0.1}>
                                     <EknathSection />
-                                </AnimatedOnScroll>
+                                </AnimatedWrapper>
 
                                 {/* <SectionDivider pattern="curve" color="#f5e6c0" height={100} invert={true} /> */}
 
-                                <AnimatedOnScroll animation="reveal" duration={0.9}>
+                                <AnimatedWrapper animation="reveal" duration={0.9}>
                                     <StrengthSection />
-                                </AnimatedOnScroll>
+                                </AnimatedWrapper>
 
                                 <SectionDivider pattern="angle" color="#f8f0dd" height={100} />
 
-                                <AnimatedOnScroll animation="slide-in-right" distance={20} duration={1.0} delay={0.2}>
+                                <AnimatedWrapper animation="slide-in-right" distance={20} duration={1.0} delay={0.2}>
                                     <NewsCarousel />
-                                </AnimatedOnScroll>
+                                </AnimatedWrapper>
 
                                 <SectionDivider pattern="zigzag" color="#f5e6c0" height={100} invert={true} />
 
-                                <AnimatedOnScroll animation="slide-in-left" distance={60} duration={1.1} delay={0.1}>
+                                <AnimatedWrapper animation="slide-in-left" distance={60} duration={1.1} delay={0.1}>
                                     <MediaSection />
-                                </AnimatedOnScroll>
+                                </AnimatedWrapper>
 
                                 <SectionDivider pattern="wave" color="#f8f0dd" height={100} />
 
-                                <AnimatedOnScroll animation="fade-in-down" distance={50} duration={1.2} delay={0.3}>
+                                <AnimatedWrapper animation="fade-in-down" distance={50} duration={1.2} delay={0.3}>
                                     <CartoonsSection />
-                                </AnimatedOnScroll>
+                                </AnimatedWrapper>
 
                                 <SectionDivider pattern="curve" color="#f5e6c0" height={100} invert={true} />
 
-                                <AnimatedOnScroll animation="slide-in-up" distance={70} duration={1.0} delay={0.1}>
+                                <AnimatedWrapper animation="slide-in-up" distance={70} duration={1.0} delay={0.1}>
                                     <CTASection />
-                                </AnimatedOnScroll>
+                                </AnimatedWrapper>
 
                                 <SectionDivider pattern="wave" color="#f8f0dd" height={100} />
 
@@ -285,6 +315,10 @@ function App() {
                 <ScrollProgress />
                 <ScrollToTop />
                 <Layout />
+                {/* Performance monitor for debugging - only in development */}
+                {process.env.NODE_ENV === 'development' && (
+                    <PerformanceMonitor show={true} />
+                )}
             </ScrollProvider>
         </Router>
     )

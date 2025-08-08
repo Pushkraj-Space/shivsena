@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import useInView from "../../utils/useInView";
 import { motion, useAnimation } from "framer-motion";
-import { 
-  isMobile, 
-  hasLowPerformance, 
+import {
+  isMobile,
+  hasLowPerformance,
   getOptimizedAnimationSettings,
-  prefersReducedMotion 
+  prefersReducedMotion,
+  shouldDisableAnimations,
+  getMobileObserverOptions
 } from "../../utils/mobileOptimization";
 import "./AnimatedOnScroll.css";
 
@@ -22,39 +24,56 @@ export default function AnimatedOnScroll({
   damping = 15,
   stiffness = 100
 }) {
-  const [ref, inView] = useInView({ threshold, triggerOnce: once });
+  // Use mobile-optimized observer options
+  const observerOptions = getMobileObserverOptions();
+  const [ref, inView] = useInView({
+    threshold: observerOptions.threshold,
+    triggerOnce: observerOptions.triggerOnce
+  });
+
   const controls = useAnimation();
   const [hasAnimated, setHasAnimated] = useState(false);
   const [deviceOptimizations, setDeviceOptimizations] = useState({
     isMobile: false,
     lowPerformance: false,
-    reducedMotion: false
+    reducedMotion: false,
+    animationsDisabled: false
   });
 
   // Detect device capabilities for performance optimizations
   useEffect(() => {
     const checkDeviceCapabilities = () => {
+      const mobile = isMobile();
+      const lowPerformance = hasLowPerformance();
+      const reducedMotion = prefersReducedMotion();
+      const animationsDisabled = shouldDisableAnimations();
+
       setDeviceOptimizations({
-        isMobile: isMobile(),
-        lowPerformance: hasLowPerformance(),
-        reducedMotion: prefersReducedMotion()
+        isMobile: mobile,
+        lowPerformance: lowPerformance,
+        reducedMotion: reducedMotion,
+        animationsDisabled: animationsDisabled
       });
     };
-    
+
     checkDeviceCapabilities();
-    window.addEventListener('resize', checkDeviceCapabilities);
-    return () => window.removeEventListener('resize', checkDeviceCapabilities);
+
+    // Only add resize listener if not on mobile
+    if (!isMobile()) {
+      window.addEventListener('resize', checkDeviceCapabilities);
+      return () => window.removeEventListener('resize', checkDeviceCapabilities);
+    }
   }, []);
 
   useEffect(() => {
-    if (inView && !hasAnimated) {
+    if (inView && !hasAnimated && !deviceOptimizations.animationsDisabled) {
       controls.start("visible");
       setHasAnimated(true);
-    } else if (!inView && !once) {
+    } else if (!inView && !once && !deviceOptimizations.animationsDisabled) {
       controls.start("hidden");
       setHasAnimated(false);
     }
-  }, [inView, controls, once, hasAnimated]);
+  }, [inView, controls, once, hasAnimated, deviceOptimizations.animationsDisabled]);
 
   // Get optimized settings based on device capabilities
   const optimizedSettings = useMemo(() => {
@@ -65,32 +84,35 @@ export default function AnimatedOnScroll({
       damping,
       stiffness
     };
-    
+
     return getOptimizedAnimationSettings(baseSettings);
   }, [duration, distance, delay, damping, stiffness]);
 
-  // Optimized easing curves
+  // Simplified easing curves for mobile
   const easings = useMemo(() => ({
     smooth: [0.25, 0.1, 0.25, 1],
     easeOut: [0.4, 0, 0.2, 1],
     easeIn: [0.4, 0, 1, 1],
     easeInOut: [0.4, 0, 0.2, 1],
-    // Simplified easing for mobile/low performance
-    mobile: [0.25, 0.46, 0.45, 0.94]
+    // Very simple easing for mobile/low performance
+    mobile: [0.25, 0.46, 0.45, 0.94],
+    // Ultra-simple for very low performance devices
+    ultraSimple: [0.4, 0, 0.6, 1]
   }), []);
 
   const getVariants = useMemo(() => {
     const { duration: optDuration, distance: optDistance, delay: optDelay, damping: optDamping, stiffness: optStiffness } = optimizedSettings;
-    const { isMobile: mobile, lowPerformance, reducedMotion } = deviceOptimizations;
-    
-    // Disable animations if user prefers reduced motion
-    if (reducedMotion) {
+    const { isMobile: mobile, lowPerformance, reducedMotion, animationsDisabled } = deviceOptimizations;
+
+    // Disable animations if user prefers reduced motion or device can't handle them
+    if (reducedMotion || animationsDisabled) {
       return {
         hidden: { opacity: 1, y: 0, x: 0, scale: 1, filter: "none" },
         visible: { opacity: 1, y: 0, x: 0, scale: 1, filter: "none" }
       };
     }
-    
+
+    // Use simpler transitions for mobile
     const baseTransition = spring && !mobile && !lowPerformance ? {
       type: "spring",
       damping: optDamping,
@@ -102,13 +124,14 @@ export default function AnimatedOnScroll({
       delay: optDelay + stagger
     };
 
+    // Simplified animation variants for mobile
     switch (animation) {
       case "fade-in-up":
         return {
           hidden: {
             opacity: 0,
-            y: optDistance,
-            filter: mobile || lowPerformance ? "none" : "blur(2px)"
+            y: mobile ? optDistance * 0.8 : optDistance, // Keep some distance for visual effect
+            filter: mobile || lowPerformance ? "none" : "blur(1px)" // No blur on mobile
           },
           visible: {
             opacity: 1,
@@ -116,8 +139,8 @@ export default function AnimatedOnScroll({
             filter: "blur(0px)",
             transition: {
               ...baseTransition,
-              opacity: { duration: optDuration * 0.6, ease: easings.easeOut },
-              y: { duration: optDuration, ease: easings.smooth },
+              opacity: { duration: optDuration * 0.6, ease: easings.easeOut }, // Keep some duration
+              y: { duration: optDuration, ease: mobile ? easings.mobile : easings.smooth },
               filter: { duration: optDuration * 0.8, ease: easings.easeOut }
             }
           }
@@ -127,8 +150,8 @@ export default function AnimatedOnScroll({
         return {
           hidden: {
             opacity: 0,
-            y: -optDistance,
-            filter: mobile || lowPerformance ? "none" : "blur(2px)"
+            y: mobile ? -optDistance * 0.8 : -optDistance,
+            filter: mobile || lowPerformance ? "none" : "blur(1px)"
           },
           visible: {
             opacity: 1,
@@ -137,7 +160,7 @@ export default function AnimatedOnScroll({
             transition: {
               ...baseTransition,
               opacity: { duration: optDuration * 0.6, ease: easings.easeOut },
-              y: { duration: optDuration, ease: easings.smooth },
+              y: { duration: optDuration, ease: mobile ? easings.mobile : easings.smooth },
               filter: { duration: optDuration * 0.8, ease: easings.easeOut }
             }
           }
@@ -147,8 +170,8 @@ export default function AnimatedOnScroll({
         return {
           hidden: {
             opacity: 0,
-            x: -optDistance,
-            scale: mobile || lowPerformance ? 0.98 : 0.95
+            x: mobile ? -optDistance * 0.8 : -optDistance,
+            scale: mobile ? 0.98 : 0.95 // Keep some scale change for visual effect
           },
           visible: {
             opacity: 1,
@@ -157,7 +180,7 @@ export default function AnimatedOnScroll({
             transition: {
               ...baseTransition,
               opacity: { duration: optDuration * 0.5, ease: easings.easeOut },
-              x: { duration: optDuration, ease: easings.smooth },
+              x: { duration: optDuration, ease: mobile ? easings.mobile : easings.smooth },
               scale: { duration: optDuration * 0.8, ease: easings.smooth }
             }
           }
@@ -167,8 +190,8 @@ export default function AnimatedOnScroll({
         return {
           hidden: {
             opacity: 0,
-            x: optDistance,
-            scale: mobile || lowPerformance ? 0.98 : 0.95
+            x: mobile ? optDistance * 0.8 : optDistance,
+            scale: mobile ? 0.98 : 0.95
           },
           visible: {
             opacity: 1,
@@ -177,7 +200,7 @@ export default function AnimatedOnScroll({
             transition: {
               ...baseTransition,
               opacity: { duration: optDuration * 0.5, ease: easings.easeOut },
-              x: { duration: optDuration, ease: easings.smooth },
+              x: { duration: optDuration, ease: mobile ? easings.mobile : easings.smooth },
               scale: { duration: optDuration * 0.8, ease: easings.smooth }
             }
           }
@@ -187,8 +210,8 @@ export default function AnimatedOnScroll({
         return {
           hidden: {
             opacity: 0,
-            scale: 0.8,
-            rotateY: mobile || lowPerformance ? 0 : -15
+            scale: 0.9,
+            rotateY: mobile ? 0 : -10 // No 3D transforms on mobile
           },
           visible: {
             opacity: 1,
@@ -207,7 +230,7 @@ export default function AnimatedOnScroll({
         return {
           hidden: {
             opacity: 0,
-            filter: mobile || lowPerformance ? "none" : "blur(2px)"
+            filter: mobile || lowPerformance ? "none" : "blur(1px)"
           },
           visible: {
             opacity: 1,
@@ -222,7 +245,7 @@ export default function AnimatedOnScroll({
 
       default:
         return {
-          hidden: { opacity: 0, y: 20 },
+          hidden: { opacity: 0, y: mobile ? 15 : 20 }, // Keep some movement
           visible: {
             opacity: 1,
             y: 0,
@@ -232,6 +255,11 @@ export default function AnimatedOnScroll({
     }
   }, [animation, optimizedSettings, deviceOptimizations, easings, spring, stagger]);
 
+  // If animations are disabled, render without motion
+  if (deviceOptimizations.animationsDisabled) {
+    return <div ref={ref}>{children}</div>;
+  }
+
   return (
     <motion.div
       ref={ref}
@@ -240,7 +268,7 @@ export default function AnimatedOnScroll({
       animate={controls}
       variants={getVariants}
       style={{
-        willChange: deviceOptimizations.isMobile || deviceOptimizations.lowPerformance ? "auto" : "transform, opacity, filter",
+        willChange: deviceOptimizations.isMobile || deviceOptimizations.lowPerformance ? "transform, opacity" : "transform, opacity, filter",
         backfaceVisibility: "hidden",
         perspective: deviceOptimizations.isMobile || deviceOptimizations.lowPerformance ? "none" : 1000,
         transform: deviceOptimizations.isMobile || deviceOptimizations.lowPerformance ? "translateZ(0)" : undefined

@@ -2088,3 +2088,130 @@ p {
         transform: translate(-50%, -50%) rotate(360deg);
     }
 }
+
+/* Ensure EknathSection visibility */
+.eknath-section {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+.eknath-section .section-title,
+.eknath-section .section-subtitle,
+.eknath-section .highlighted-cards-container,
+.eknath-section .activities-description {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.eknath-section .highlighted-card {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+.eknath-section .card-indicators {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.eknath-section .indicator {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Mobile Performance Optimizations - Keep animations but optimize them */
+@media (max-width: 768px) {
+
+    /* Keep animations but make them faster */
+    * {
+        animation-duration: 0.4s !important;
+        transition-duration: 0.4s !important;
+    }
+
+    /* Optimize transforms on mobile */
+    .animated-on-scroll,
+    .animated-card,
+    .text-reveal {
+        will-change: transform, opacity !important;
+        transform-style: flat !important;
+        perspective: none !important;
+    }
+
+    /* Keep hover effects but make them lighter */
+    *:hover {
+        transform: translateY(-2px) !important;
+        /* Smaller movement */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+        /* Lighter shadow */
+    }
+
+    /* Keep smooth scrolling */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Optimize for touch scrolling */
+    body {
+        -webkit-overflow-scrolling: touch;
+        overflow-scrolling: touch;
+    }
+
+    /* Ensure EknathSection cards are visible on mobile */
+    .eknath-section .highlighted-cards {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 1rem !important;
+    }
+
+    .eknath-section .highlighted-card {
+        flex: 1 1 300px !important;
+        min-height: 200px !important;
+    }
+}
+
+/* Small mobile optimizations - Keep animations but make them very light */
+@media (max-width: 480px) {
+
+    /* Keep animations but make them very fast */
+    * {
+        animation-duration: 0.3s !important;
+        transition-duration: 0.3s !important;
+    }
+
+    /* Keep all effects but make them lighter */
+    .animated-on-scroll,
+    .animated-card,
+    .text-reveal,
+    .stagger-item,
+    .stagger-grid-item {
+        animation: none !important;
+        transition: opacity 0.3s ease-out, transform 0.3s ease-out !important;
+        transform: none !important;
+    }
+
+    /* Keep pseudo-elements but optimize them */
+    *::before,
+    *::after {
+        transition: all 0.3s ease-out !important;
+    }
+
+    /* Ensure EknathSection is fully visible on small screens */
+    .eknath-section .highlighted-cards {
+        flex-direction: column !important;
+    }
+
+    .eknath-section .highlighted-card {
+        flex: 1 1 100% !important;
+        margin-bottom: 1rem !important;
+    }
+}
+
+/* Very small devices - Keep minimal animations */
+@media (max-width: 360px) {
+    * {
+        animation: none !important;
+        transition: opacity 0.2s ease-out, transform 0.2s ease-out !important;
+        transform: none !important;
+    }
+}
