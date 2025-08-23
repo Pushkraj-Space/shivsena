@@ -19,13 +19,33 @@ const Header = () => {
     const [medicalDropdownOpen, setMedicalDropdownOpen] = useState(false)
     const [mobileMedicalDropdownOpen, setMobileMedicalDropdownOpen] = useState(false)
     const [scrolled, setScrolled] = useState(false)
+    const [isOverVideo, setIsOverVideo] = useState(false)
 
     // Check if we're on the home page
     const isHomePage = location.pathname === '/'
 
-    // Dynamic text color based on current page - ensure contrast with header background
-    const textColor = '#333' // Always use dark text for better visibility
-    const linkColor = '#333' // Always use dark text for better visibility
+    // Dynamic text color based on video overlay and scroll state
+    const textColor = isOverVideo ? '#ffffff' : '#333'
+    const linkColor = isOverVideo ? '#ffffff' : '#333'
+
+    // Listen for video events
+    useEffect(() => {
+        const handleVideoStart = () => {
+            setIsOverVideo(true);
+        };
+
+        const handleVideoComplete = () => {
+            setIsOverVideo(false);
+        };
+
+        window.addEventListener('videoStart', handleVideoStart);
+        window.addEventListener('videoComplete', handleVideoComplete);
+
+        return () => {
+            window.removeEventListener('videoStart', handleVideoStart);
+            window.removeEventListener('videoComplete', handleVideoComplete);
+        };
+    }, []);
 
     // Keyboard accessibility for dropdowns
     const handleDropdownKey = (e, openFn, closeFn, isOpen) => {
@@ -79,6 +99,7 @@ const Header = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
     return (
         <header className={`header ${scrolled ? 'scrolled' : ''}`} style={{
             background: scrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent',

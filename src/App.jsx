@@ -35,7 +35,7 @@ import AnimatedOnScroll from './components/AnimatedOnScroll/AnimatedOnScroll';
 import StaggeredAnimation from './components/StaggeredAnimation/StaggeredAnimation';
 import TextAnimation from './components/TextAnimation/TextAnimation';
 import AnimationShowcase from './components/AnimationShowcase/AnimationShowcase';
-import PerformanceMonitor from './components/PerformanceMonitor/PerformanceMonitor';
+
 import { isMobile, shouldDisableAnimations } from './utils/mobileOptimization';
 
 function Layout() {
@@ -233,7 +233,7 @@ function Layout() {
                                     <InspirationSection />
                                 </AnimatedWrapper>
 
-                                <SectionDivider pattern="wave" color="#f8f0dd" height={100} />
+                                
 
                                 <AnimatedWrapper animation="fade-in-up" distance={60} duration={0.9} delay={0.1}>
                                     <EknathSection />
@@ -313,12 +313,9 @@ function App() {
         <Router>
             <ScrollProvider>
                 <ScrollProgress />
-                <ScrollToTop />
+                {/* <ScrollToTop /> */}
                 <Layout />
-                {/* Performance monitor for debugging - only in development */}
-                {process.env.NODE_ENV === 'development' && (
-                    <PerformanceMonitor show={true} />
-                )}
+
             </ScrollProvider>
         </Router>
     )

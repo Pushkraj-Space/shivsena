@@ -150,7 +150,7 @@ const EknathSection = () => {
     return (
         <>
             <style>{animationStyles}</style>
-            <section className={`section eknath-section ${isVisible ? 'eknath-section-enter' : ''}`}>
+            <section className={`${isVisible ? 'eknath-section-enter' : ''}`}>
                 <div className="container">
                     <h2 className={`section-title ${isVisible ? 'section-title-enter' : ''}`}>{t('eknathEra')}</h2>
                     <p className={`section-subtitle ${isVisible ? 'section-subtitle-enter' : ''}`}>

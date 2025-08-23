@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import SectionDivider from '../SectionDivider/SectionDivider';
 
 const InspirationSection = () => {
     const { t } = useTranslation();
@@ -55,105 +56,134 @@ const InspirationSection = () => {
     }, []);
 
     return (
-        <section className="section inspiration-section">
+        <section className="section inspiration-section-custom" style={{ 
+            padding: '50px 0',
+            background: '#ffffff'
+        }}>
             <style>{`
-                .flip-card {
+                .inspiration-section-custom .flip-card {
                     width: 100%;
-                    max-width: 500px;
-                    margin: 20px auto;
-                    aspect-ratio: 3/3.5;
+                    max-width: 350px;
+                    margin: 15px auto;
+                    aspect-ratio: 3/3;
                     perspective: 1200px;
                 }
 
-                .flip-card-inner {
+                .inspiration-section-custom .flip-card-inner {
                     width: 100%;
                     height: 100%;
                     position: relative;
                     transform-style: preserve-3d;
                 }
 
-                .flip-card-face {
+                .inspiration-section-custom .flip-card-face {
                     position: absolute;
                     width: 100%;
                     height: 100%;
                     top: 0;
                     left: 0;
                     backface-visibility: hidden;
-                    border-radius: 20px;
+                    border-radius: 16px;
                     overflow: hidden;
+                    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+                    transition: box-shadow 0.3s ease;
                 }
 
-                .flip-card-back {
+                .inspiration-section-custom .flip-card:hover .flip-card-face {
+                    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+                }
+
+                .inspiration-section-custom .flip-card-back {
                     transform: rotateY(180deg);
                 }
 
-                .flip-card-front {
+                .inspiration-section-custom .flip-card-front {
                     display: flex;
                     flex-direction: column;
                     height: 100%;
+                    background: #ffffff;
                 }
 
-                .flip-card-front img {
+                .inspiration-section-custom .flip-card-front img {
                     width: 100%;
-                    height: 85%;
+                    height: 80%;
                     object-fit: contain;
                     filter: grayscale(100%);
                     transition: filter 0.6s ease;
-                    background: #f8f8f8;
+                    background: #ffffff;
                 }
 
-                .flip-card:hover .flip-card-front img {
+                .inspiration-section-custom .flip-card:hover .flip-card-front img {
                     filter: grayscale(0%);
                 }
 
-                .leader-name-section {
-                    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-                    color: #f37021;
-                    font-size: 18px;
+                .inspiration-section-custom .leader-name-section {
+                    background: linear-gradient(135deg, #F37021 0%, #e65a1a 100%);
+                    color: #ffffff;
+                    font-size: 16px;
                     font-weight: 700;
-                    letter-spacing: 2px;
+                    letter-spacing: 1.5px;
                     text-align: center;
-                    padding: 20px 15px;
+                    padding: 15px 12px;
                     transition: all 0.3s ease;
-                    height: 15%;
+                    height: 22%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     text-transform: uppercase;
-                    border-top: 2px solid #f37021;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                    border-top: 3px solid #d1451a;
+                    box-shadow: 0 4px 15px rgba(243, 112, 33, 0.3);
                 }
 
-                .leader-name-section::before {
+                .inspiration-section-custom .leader-name-section::before {
                     content: "✧";
-                    margin-right: 10px;
-                    color: #f37021;
-                    font-size: 16px;
+                    margin-right: 8px;
+                    color: #ffffff;
+                    font-size: 14px;
                 }
 
-                .leader-name-section::after {
+                .inspiration-section-custom .leader-name-section::after {
                     content: "✧";
-                    margin-left: 10px;
-                    color: #f37021;
-                    font-size: 16px;
+                    margin-left: 8px;
+                    color: #ffffff;
+                    font-size: 14px;
                 }
 
                 @media (min-width: 768px) {
-                    .flip-card {
-                        margin: 20px;
+                    .inspiration-section-custom .flip-card {
+                        margin: 15px;
+                        max-width: 340px;
                     }
-                    .leader-name-section {
-                        font-size: 20px;
-                        padding: 24px 18px;
-                        letter-spacing: 3px;
+                    .inspiration-section-custom .leader-name-section {
+                        font-size: 18px;
+                        padding: 16px 14px;
+                        letter-spacing: 2px;
                     }
                 }
 
-                .row {
+                .inspiration-section-custom .row {
                     display: flex;
                     flex-wrap: wrap;
                     justify-content: center;
                     gap: 20px;
+                    margin-top: 30px;
+                }
+
+                .inspiration-section-custom .section-title {
+                    font-size: 2.4rem;
+                    margin-bottom: 15px;
+                    color: #2c3e50;
+                    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    margin-bottom: 30px;
+                }
+
+                .inspiration-section-custom .section-subtitle {
+                    font-size: 1.2rem;
+                    margin-bottom: 30px;
+                    color: #5a6c7d;
+                    max-width: 600px;
+                    margin-left: auto;
+                    margin-right: auto;
                 }
             `}</style>
 
@@ -186,40 +216,52 @@ const InspirationSection = () => {
                                 <div
                                     className="flip-card-face flip-card-back"
                                     style={{
-                                        background: '#1a1a1a',
-                                        color: '#fff',
+                                        background: 'linear-gradient(135deg, #2c3e50 0%, #34495e 100%)',
+                                        color: '#ffffff',
                                         display: 'flex',
                                         flexDirection: 'column',
                                         justifyContent: 'center',
                                         alignItems: 'center',
-                                        padding: 28,
+                                        padding: 20,
                                         textAlign: 'center',
                                     }}
                                 >
-                                    <h3 className="leader-name" style={{ fontSize: 20 }}>
+                                    <h3 className="leader-name" style={{ 
+                                        fontSize: 18, 
+                                        marginBottom: 10,
+                                        color: '#F37021',
+                                        fontWeight: 'bold'
+                                    }}>
                                         {leader.name}
                                     </h3>
-                                    <p className="leader-description" style={{ marginTop: 15, color: '#fff' }}>
+                                    <p className="leader-description" style={{ 
+                                        marginTop: 10, 
+                                        color: '#ecf0f1', 
+                                        fontSize: '14px',
+                                        lineHeight: '1.5'
+                                    }}>
                                         {leader.description}
                                     </p>
 
                                     <AnimatePresence mode="wait">
                                         <motion.div
                                             key={quoteIndices[idx]}
-                                            initial={{ opacity: 0, y: 40 }}
+                                            initial={{ opacity: 0, y: 30 }}
                                             animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: -40 }}
-                                            transition={{ duration: 1 }}
+                                            exit={{ opacity: 0, y: -30 }}
+                                            transition={{ duration: 0.8 }}
                                             style={{
-                                                marginTop: 24,
+                                                marginTop: 15,
                                                 fontStyle: 'italic',
-                                                fontSize: 16,
-                                                color: '#f37021',
+                                                fontSize: 14,
+                                                color: '#F37021',
                                                 maxWidth: '90%',
                                                 textAlign: 'center',
+                                                fontWeight: '500',
+                                                textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
                                             }}
                                         >
-                                            “{leader.quotes[quoteIndices[idx]]}”
+                                            "{leader.quotes[quoteIndices[idx]]}"
                                         </motion.div>
                                     </AnimatePresence>
                                 </div>
@@ -228,6 +270,7 @@ const InspirationSection = () => {
                     ))}
                 </div>
             </div>
+            <SectionDivider pattern="wave" color="#dfcfa9" height={100} />
         </section>
     );
 };
