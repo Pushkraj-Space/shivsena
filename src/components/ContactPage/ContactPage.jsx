@@ -47,7 +47,7 @@ const ContactPage = () => {
 
     return (
         <motion.div
-            className="info-page-container"
+            className="info-page-container mt-20"
             variants={containerVariant}
             initial="hidden"
             animate="visible"

@@ -188,7 +188,7 @@ const HistoryPage = () => {
   ];
 
   return (
-    <div className="history-page" style={{ background: '#fffbe7', minHeight: '100vh', paddingBottom: 40 }}>
+    <div className="history-page mt-20" style={{ background: '#fffbe7', minHeight: '100vh', paddingBottom: 40 }}>
       {/* Header Section */}
       <motion.div
         initial="hidden"

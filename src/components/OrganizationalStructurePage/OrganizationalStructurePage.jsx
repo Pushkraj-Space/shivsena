@@ -14,7 +14,7 @@ const OrganizationalStructurePage = () => {
   const { t } = useTranslation();
   return (
     <motion.div
-      className="org-structure-page"
+      className="org-structure-page mt-20"
       style={{ background: '#fafafa', minHeight: '100vh', padding: '0 0 40px 0' }}
       initial="hidden"
       animate="visible"

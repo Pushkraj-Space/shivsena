@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 const MediaSection = () => {
     const { t } = useTranslation();
-    const [activeTab, setActiveTab] = useState('happenings');
+    const [activeTab, setActiveTab] = useState('videos');
     const [currentVideo, setCurrentVideo] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isVisible, setIsVisible] = useState(false); // For overall section animation

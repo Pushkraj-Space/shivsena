@@ -67,7 +67,7 @@ const CurrentLeadershipPage = () => {
 
   return (
     <motion.div
-      className="current-leadership-page"
+      className="current-leadership-page mt-20"
       style={{ background: '#f7fafc', minHeight: '100vh', padding: '32px 0' }}
       initial="hidden"
       animate="visible"

@@ -38,8 +38,8 @@ const SuccessStoriesPage = () => {
     const { t } = useTranslation();
     
     return (
-        <motion.div
-            className="success-stories-page"
+        <motion.div 
+            className="success-stories-page mt-20"
             style={{ background: '#fffbe7', minHeight: '100vh', padding: isMobile ? '24px 0' : '48px 0' }}
             initial="hidden"
             animate="visible"

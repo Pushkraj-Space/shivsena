@@ -36,7 +36,7 @@ const InitiativesAndProjects = () => {
     
     return (
         <motion.div
-            className="initiatives-projects-page"
+            className="initiatives-projects-page mt-20"
             style={{ background: '#fffbe7', minHeight: '100vh', padding: isMobile ? '24px 0' : '48px 0' }}
             initial="hidden"
             animate="visible"

@@ -40,7 +40,7 @@ const FounderPage = () => {
   const isMobile = useIsMobile();
   return (
     <motion.div
-      className="founder-page"
+      className="founder-page  mt-20"
       style={{ background: '#fffbe7', minHeight: '100vh', padding: isMobile ? '24px 0' : '48px 0' }}
       initial="hidden"
       animate="visible"

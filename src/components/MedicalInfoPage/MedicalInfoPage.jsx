@@ -36,7 +36,7 @@ const MedicalInfoPage = () => {
     
     return (
         <motion.div
-            className="medical-info-page"
+            className="medical-info-page mt-20"
             style={{ background: '#fffbe7', minHeight: '100vh', padding: isMobile ? '24px 0' : '48px 0' }}
             initial="hidden"
             animate="visible"

@@ -24,7 +24,7 @@ const AnglePage = () => {
   const { t } = useTranslation();
   return (
     <motion.div
-      className="angle-page"
+      className="angle-page mt-20"
       style={{ background: '#fffbe7', minHeight: '100vh', padding: '40px 0' }}
       initial="hidden"
       animate="visible"
