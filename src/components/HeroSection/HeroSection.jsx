@@ -145,12 +145,12 @@ const HeroSection = () => {
         <div className="video-overlay"></div>
 
         {/* Scroll indicator */}
-        {showScrollIndicator && (
+        {/* {showScrollIndicator && (
           <div className="scroll-indicator">
             <div className="scroll-arrow"></div>
             <p>Scroll to continue</p>
           </div>
-        )}
+        )} */}
 
         {!isVideoLoaded && !videoError && (
           <div className="video-loading">

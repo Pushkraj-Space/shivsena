@@ -19,33 +19,15 @@ const Header = () => {
     const [medicalDropdownOpen, setMedicalDropdownOpen] = useState(false)
     const [mobileMedicalDropdownOpen, setMobileMedicalDropdownOpen] = useState(false)
     const [scrolled, setScrolled] = useState(false)
-    const [isOverVideo, setIsOverVideo] = useState(false)
 
     // Check if we're on the home page
     const isHomePage = location.pathname === '/'
 
-    // Dynamic text color based on video overlay and scroll state
-    const textColor = isOverVideo ? '#ffffff' : '#333'
-    const linkColor = isOverVideo ? '#ffffff' : '#333'
+    // Always use black text on white background
+    const textColor = '#333'
+    const linkColor = '#333'
 
-    // Listen for video events
-    useEffect(() => {
-        const handleVideoStart = () => {
-            setIsOverVideo(true);
-        };
 
-        const handleVideoComplete = () => {
-            setIsOverVideo(false);
-        };
-
-        window.addEventListener('videoStart', handleVideoStart);
-        window.addEventListener('videoComplete', handleVideoComplete);
-
-        return () => {
-            window.removeEventListener('videoStart', handleVideoStart);
-            window.removeEventListener('videoComplete', handleVideoComplete);
-        };
-    }, []);
 
     // Keyboard accessibility for dropdowns
     const handleDropdownKey = (e, openFn, closeFn, isOpen) => {
@@ -102,9 +84,7 @@ const Header = () => {
 
     return (
         <header className={`shadow-lg header ${scrolled ? 'scrolled' : ''}`} style={{
-            background: scrolled ? '#ffffff' : 'transparent',
-            backdropFilter: scrolled ? 'blur(10px)' : 'blur(2px)',
-            // boxShadow: scrolled ? '0 2px 20px rgba(0, 0, 0, 0.08)' : 'none',
+            background: '#ffffff',
             zIndex: 1000,
             position: 'fixed',
             width: '100%',
@@ -121,8 +101,16 @@ const Header = () => {
             <div className="header-main">
                 <div className="container">
                     <div className="header-content">
-                        <div className="logo">
-                            <div className="logo-text" style={{ position: 'sticky', top: 0, zIndex: 1000, display: 'none', width: `100%` }}>&nbsp;</div>
+                        <div className="logo" style={{ marginLeft: '20px' }}>
+                            <img 
+                                src="/images/shivsena.jpg" 
+                                alt="Shiv Sena Logo" 
+                                style={{ 
+                                    height: '50px', 
+                                    width: 'auto',
+                                    objectFit: 'contain'
+                                }}
+                            />
                         </div>
 
                         <nav className="nav-menu" aria-label="Main navigation">

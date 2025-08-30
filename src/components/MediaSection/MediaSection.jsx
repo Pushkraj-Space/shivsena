@@ -330,7 +330,7 @@ const MediaSection = () => {
                     )}
                 </div>
 
-                <div className="media-footer">
+                {/* <div className="media-footer">
                     <div className="media-stats">
                         <div className={`stat-item ${isVisible ? 'stagger-in from-bottom' : ''}`} style={{ transitionDelay: '0.8s' }}>
                             <i className="fas fa-eye"></i>
@@ -349,7 +349,7 @@ const MediaSection = () => {
                         <i className="fas fa-external-link-alt"></i>
                         {t('viewAllMedia')}
                     </a>
-                </div>
+                </div> */}
             </div>
         </section>
     );

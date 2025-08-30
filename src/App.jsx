@@ -36,7 +36,8 @@ import StaggeredAnimation from './components/StaggeredAnimation/StaggeredAnimati
 import TextAnimation from './components/TextAnimation/TextAnimation';
 import AnimationShowcase from './components/AnimationShowcase/AnimationShowcase';
 import CardStackingDemo from './components/CardStackingGSAP/CardStackingDemo';
-
+import CardSliderDemo from './components/CardSliderDemo';
+import SimpleSlider from './components/SimpleSlider';
 import { isMobile, shouldDisableAnimations } from './utils/mobileOptimization';
 
 function Layout() {
@@ -133,23 +134,8 @@ function Layout() {
         <div className="App" style={{ overflowX: 'hidden', width: '100%' }}>
             {isHome ? (
                 <>
-                    {/* Fallback background image */}
-                    {(showFallback || videoError || isSlowConnection) && (
-                        <div
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                width: '100%',
-                                height: '100vh',
-                                background: 'linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #eab308 100%)',
-                                zIndex: 0,
-                                pointerEvents: 'none',
-                            }}
-                        />
-                    )}
 
-                    {/* Optimized video with lazy loading */}
+
                     {getVideoSource() && (
                         <video
                             ref={videoRef}
@@ -179,7 +165,6 @@ function Layout() {
                         />
                     )}
 
-                    {/* Loading indicator */}
                     {!videoLoaded && !showFallback && !isSlowConnection && (
                         <div
                             style={{
@@ -222,7 +207,7 @@ function Layout() {
             ) : (
                 <Header />
             )}
-
+            {/* <Header /> */}
             <AnimatePresence mode="wait">
                 <Routes location={location} key={location.pathname}>
                     <Route path="/" element={
@@ -230,9 +215,9 @@ function Layout() {
                             <>
                                 {/* <FontTest /> */}
 
-                                <AnimatedWrapper animation="slide-up-fade" distance={80} duration={1.2} delay={0.2}>
+                                {/* <AnimatedWrapper animation="slide-up-fade" distance={80} duration={1.2} delay={0.2}> */}
                                     <InspirationSection />
-                                </AnimatedWrapper>
+                                {/* </AnimatedWrapper> */}
 
                                 
 
@@ -243,36 +228,38 @@ function Layout() {
                                 <CardStackingDemo />
 
                                 {/* <SectionDivider pattern="curve" color="#f5e6c0" height={100} invert={true} /> */}
-
+{/* 
                                 <AnimatedWrapper animation="reveal" duration={0.9}>
                                     <StrengthSection />
-                                </AnimatedWrapper>
+                                </AnimatedWrapper> */}
 
-                                <SectionDivider pattern="angle" color="#f8f0dd" height={100} />
+                                {/* <SectionDivider pattern="angle" color="#f8f0dd" height={100} /> */}
 
-                                <AnimatedWrapper animation="slide-in-right" distance={20} duration={1.0} delay={0.2}>
+                                {/* <AnimatedWrapper animation="slide-in-right" distance={20} duration={1.0} delay={0.2}>
                                     <NewsCarousel />
-                                </AnimatedWrapper>
+                                </AnimatedWrapper> */}
+                                <CardSliderDemo />
 
-                                <SectionDivider pattern="zigzag" color="#f5e6c0" height={100} invert={true} />
+                                {/* <SectionDivider pattern="zigzag" color="#f5e6c0" height={100} invert={true} /> */}
 
                                 <AnimatedWrapper animation="slide-in-left" distance={60} duration={1.1} delay={0.1}>
                                     <MediaSection />
                                 </AnimatedWrapper>
 
-                                <SectionDivider pattern="wave" color="#f8f0dd" height={100} />
+                                {/* <SectionDivider pattern="wave" color="#f8f0dd" height={100} /> */}
 
-                                <AnimatedWrapper animation="fade-in-down" distance={50} duration={1.2} delay={0.3}>
+                                {/* <AnimatedWrapper animation="fade-in-down" distance={50} duration={1.2} delay={0.3}>
                                     <CartoonsSection />
-                                </AnimatedWrapper>
+                                </AnimatedWrapper> */}
+                                <SimpleSlider />
 
-                                <SectionDivider pattern="curve" color="#f5e6c0" height={100} invert={true} />
+                                {/* <SectionDivider pattern="curve" color="#f5e6c0" height={100} invert={true} /> */}
 
                                 <AnimatedWrapper animation="slide-in-up" distance={70} duration={1.0} delay={0.1}>
                                     <CTASection />
                                 </AnimatedWrapper>
 
-                                <SectionDivider pattern="wave" color="#f8f0dd" height={100} />
+                                {/* <SectionDivider pattern="wave" color="#f8f0dd" height={100} /> */}
 
                                 {/* <AnimatedOnScroll animation="fade-in-down" distance={80} duration={1.2} delay={0.2}>
                                     <AnimationShowcase />
@@ -293,6 +280,7 @@ function Layout() {
                     <Route path="/medical-members" element={<PageTransition><MedicalMembersPage /></PageTransition>} />
                     <Route path="/media-news" element={<PageTransition><MediaNewsPage /></PageTransition>} />
                     <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+                    {/* <Route path="/card-slider-demo" element={<CardSliderDemo/> } /> */}
                 </Routes>
             </AnimatePresence>
 

@@ -150,7 +150,7 @@ const CardStackingGSAP = () => {
   ];
 
   return (
-    <main className="bg-gray-100 text-gray-800 font-sans text-base leading-relaxed pt-4 pb-4">
+    <main className="bg-white text-gray-800 font-sans text-base leading-relaxed pt-10 pb-4">
       {/* First Section */}
       <div className="overflow-hidden">
         <div className="max-w-3xl mx-auto px-6">
@@ -172,8 +172,8 @@ const CardStackingGSAP = () => {
         <div className="wrapper h-screen">
           <div className="list flex justify-center items-center h-full relative p-1">
                                                     {cardData.map((card) => (
-                <div key={card.id} className="item w-[80%] h-[80%] flex flex-col md:flex-row absolute inset-0 shadow-2xl overflow-hidden mx-auto rounded-2xl" style={{ top: '10vh', bottom: '10vh' }}>
-                  <div className="item_content bg-gradient-to-br from-white to-gray-50 text-gray-800 flex flex-col justify-center items-start p-6 md:p-10 relative w-full md:w-1/2 h-1/2 md:h-full">
+                <div key={card.id} className="item w-[80%] h-[90%] flex flex-col md:flex-row absolute inset-0 shadow-2xl overflow-hidden mx-auto rounded-2xl">
+                  <div className="item_content bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 flex flex-col justify-center items-start p-6 md:p-10 relative w-full md:w-1/2 h-1/2 md:h-full">
                     <div className="category-badge bg-gradient-to-r from-orange-400 to-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4 shadow-lg">
                       {card.category}
                     </div>
