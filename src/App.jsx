@@ -35,6 +35,7 @@ import AnimatedOnScroll from './components/AnimatedOnScroll/AnimatedOnScroll';
 import StaggeredAnimation from './components/StaggeredAnimation/StaggeredAnimation';
 import TextAnimation from './components/TextAnimation/TextAnimation';
 import AnimationShowcase from './components/AnimationShowcase/AnimationShowcase';
+import CardStackingDemo from './components/CardStackingGSAP/CardStackingDemo';
 
 import { isMobile, shouldDisableAnimations } from './utils/mobileOptimization';
 
@@ -290,6 +291,7 @@ function Layout() {
                     <Route path="/medical-members" element={<PageTransition><MedicalMembersPage /></PageTransition>} />
                     <Route path="/media-news" element={<PageTransition><MediaNewsPage /></PageTransition>} />
                     <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+                    <Route path="/card-stacking" element={<PageTransition><CardStackingDemo /></PageTransition>} />
                 </Routes>
             </AnimatePresence>
 

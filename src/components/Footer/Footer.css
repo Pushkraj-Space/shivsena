@@ -29,11 +29,7 @@
 .footer-logo {
     font-size: 1.5rem;
     font-weight: 700;
-    background: linear-gradient(90deg, #ff9933, #ff6b6b);
-    /* Saffron gradient */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #ffffff;
 }
 
 /* Links Section */
@@ -43,7 +39,7 @@
 }
 
 .footer-links a {
-    color: #e0e0e0;
+    color: #ffffff;
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
@@ -86,18 +82,21 @@
     border-radius: 50%;
     color: #ffffff;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     transition: all 0.2s ease;
+    font-weight: 600;
 }
 
 .footer-social a:hover {
     background: #ff9933;
     transform: translateY(-2px);
+    color: #ffffff;
+    font-weight: 700;
 }
 
 /* Copyright */
 .footer-copyright p {
-    color: #b0b0b0;
+    color: #ffffff;
     font-size: 0.8rem;
     margin: 0;
     font-weight: 400;
@@ -156,6 +155,6 @@
     .footer-social a {
         width: 28px;
         height: 28px;
-        font-size: 0.8rem;
+        font-size: 1rem;
     }
 }

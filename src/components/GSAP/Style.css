@@ -1,0 +1,189 @@
+    /* ScrollSmoother wrapper/content */
+  #smooth-wrapper {
+    position: relative;
+    overflow: hidden; /* required by smoother */
+    /* -webkit-overflow-scrolling: touch; */
+  }
+  #smooth-content {
+    will-change: transform;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    min-height: 100vh;
+  }
+  
+  /* layout */
+  .main_animation {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  /* intro */
+  .intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 3rem 1rem;
+  }
+  .intro__heading {
+    text-align: center;
+    font-size: clamp(1.875rem, 8.083vw - 0.217rem, 6.25rem);
+    line-height: clamp(2.813rem, 9.815vw + 0.273rem, 8.125rem);
+    margin: 0;
+  }
+  
+  /* standard content */
+  .content_animation {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 10000;
+    padding: 3.5rem 1rem;
+  }
+  .article {
+    max-width: 500px;
+  }
+  
+  /* Hero Reveal */
+  .hero-reveal {
+    background-color: var(--color-black);
+    position: relative;
+    min-height: 100vh;
+    overflow: visible;
+  }
+  
+  /* header */
+  .hero-reveal__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    color: var(--color-black);
+    font-weight: 900;
+    left: 0;
+    top: 0;
+    min-height: 100vh;
+    position: relative;
+    will-change: transform, clip-path;
+    z-index: 5;
+    padding: 0;
+  }
+  
+  /* split title pieces */
+  .hero-reveal_split {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-reveal_split_item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+  }
+  .hero-reveal_split_item:nth-child(1) {
+    -webkit-clip-path: inset(0 0 calc(50% - 1px) 0);
+    clip-path: inset(0 0 calc(50% - 1px) 0);
+  }
+  .hero-reveal_split_item:nth-child(2) {
+    -webkit-clip-path: inset(calc(50% - 1px) 0 0 0);
+    clip-path: inset(calc(50% - 1px) 0 0 0);
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  
+  /* content overlay on hero */
+  .hero-reveal__content {
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: -90vh;
+    z-index: 2;
+    pointer-events: none; /* decorative content shouldn't capture pointer */
+  }
+  .hero-reveal__content-inner {
+    max-width: 500px;
+    position: relative;
+    padding: 0 1rem 6rem;
+    pointer-events: auto; /* allow selection inside text */
+  }
+  .hero-reveal__content-p p,
+  .hero-reveal__content-p {
+    color: #ffffff;
+  }
+  
+  /* parallax image wrapper */
+  .hero-reveal__parallax {
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) translateZ(0);
+    will-change: transform;
+    pointer-events: none;
+  }
+  
+  /* individual images (absolute positions relative to wrapper) */
+  .hero-reveal__parallax img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  
+  /* tweak positions (these reflect original layout but safe) */
+  .hero-reveal__parallax-clock {
+    left: calc(50% - 260px);
+    top: calc(50% - 260px);
+  }
+  .hero-reveal__parallax-book {
+    left: calc(50% - 360px);
+    top: calc(50% - 360px);
+  }
+  .hero-reveal__parallax-alice {
+    left: 50%;
+    top: calc(50% - 500px);
+  }
+  .hero-reveal__parallax-kattle {
+    left: calc(50% + 360px);
+    top: calc(50% - 300px);
+    /* subtle blur (1px) won't usually cause repaint storms - reduce if needed */
+    filter: blur(0.6px);
+  }
+  .hero-reveal__parallax-card {
+    left: calc(50% + 260px);
+    top: calc(50% - 400px);
+    z-index: 1;
+    filter: blur(0.6px);
+  }
+  
+  /* small screens: reduce offsets to avoid overflow */
+  @media (max-width: 900px) {
+    .hero-reveal__parallax-clock,
+    .hero-reveal__parallax-book,
+    .hero-reveal__parallax-kattle,
+    .hero-reveal__parallax-card {
+      left: auto;
+      top: auto;
+      position: absolute;
+      transform: none;
+    }
+    .hero-reveal__parallax {
+      left: 50%;
+      top: 20%;
+    }
+    .intro__heading {
+      font-size: clamp(1.5rem, 8vw, 3rem);
+    }
+  }
+  

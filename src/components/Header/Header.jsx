@@ -101,10 +101,10 @@ const Header = () => {
     }, []);
 
     return (
-        <header className={`header ${scrolled ? 'scrolled' : ''}`} style={{
-            background: scrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
+        <header className={`shadow-lg header ${scrolled ? 'scrolled' : ''}`} style={{
+            background: scrolled ? '#ffffff' : 'transparent',
             backdropFilter: scrolled ? 'blur(10px)' : 'blur(2px)',
-            boxShadow: scrolled ? '0 2px 20px rgba(0, 0, 0, 0.08)' : 'none',
+            // boxShadow: scrolled ? '0 2px 20px rgba(0, 0, 0, 0.08)' : 'none',
             zIndex: 1000,
             position: 'fixed',
             width: '100%',

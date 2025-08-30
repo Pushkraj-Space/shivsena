@@ -56,102 +56,102 @@ const CartoonsSection = () => {
             title: t('marathiMan'),
             size: 'small'
         },
-        // {
-        //     id: 9,
-        //     image: '/images/vyang/balasaheb image black and white.jpg',
-        //     title: 'शिवसेना शक्ती',
-        //     size: 'large'
-        // },
-        // {
-        //     id: 10,
-        //     image: '/images/vyang/career as cartoonist.jpg',
-        //     title: 'बाळासाहेब ठाकरे',
-        //     size: 'medium'
-        // },
-        // {
-        //     id: 11,
-        //     image: '/images/vyang/Gallery-Cartoonist 1.jpg',
-        //     title: 'मुंबई दर्शन',
-        //     size: 'small'
-        // },
-        // {
-        //     id: 12,
-        //     image: '/images/vyang/Gallery-Cartoonist 2.jpg',
-        //     title: 'शिवसेना विचार',
-        //     size: 'medium'
-        // },
-        // {
-        //     id: 13,
-        //     image: '/images/vyang/Gallery-Cartoonist 3.jpg',
-        //     title: 'मराठी अस्मिता',
-        //     size: 'large'
-        // },
-        // {
-        //     id: 14,
-        //     image: '/images/vyang/Gallery-Cartoonist 4.jpg',
-        //     title: 'शिवसेना संघर्ष',
-        //     size: 'small'
-        // },
-        // {
-        //     id: 15,
-        //     image: '/images/vyang/Gallery-Cartoonist 5.jpg',
-        //     title: 'बाळासाहेब विचार',
-        //     size: 'medium'
-        // },
-        // {
-        //     id: 16,
-        //     image: '/images/vyang/Gallery-Cartoonist 6.jpg',
-        //     title: 'शिवसेना विजय',
-        //     size: 'large'
-        // },
-        // {
-        //     id: 17,
-        //     image: '/images/vyang/balasaheb image black and white.jpg',
-        //     title: 'मराठी राज्य',
-        //     size: 'small'
-        // },
-        // {
-        //     id: 18,
-        //     image: '/images/vyang/career as cartoonist.jpg',
-        //     title: 'शिवसेना नेतृत्व',
-        //     size: 'medium'
-        // },
-        // {
-        //     id: 19,
-        //     image: '/images/vyang/Gallery-Cartoonist 1.jpg',
-        //     title: 'बाळासाहेब कार्य',
-        //     size: 'small'
-        // },
-        // {
-        //     id: 20,
-        //     image: '/images/vyang/Gallery-Cartoonist 2.jpg',
-        //     title: 'शिवसेना भविष्य',
-        //     size: 'large'
-        // },
-        // {
-        //     id: 21,
-        //     image: '/images/vyang/Gallery-Cartoonist 3.jpg',
-        //     title: 'मराठी भाषा',
-        //     size: 'medium'
-        // },
-        // {
-        //     id: 22,
-        //     image: '/images/vyang/Gallery-Cartoonist 4.jpg',
-        //     title: 'शिवसेना संस्कृती',
-        //     size: 'small'
-        // },
-        // {
-        //     id: 23,
-        //     image: '/images/vyang/Gallery-Cartoonist 5.jpg',
-        //     title: 'बाळासाहेब स्मृती',
-        //     size: 'medium'
-        // },
-        // {
-        //     id: 24,
-        //     image: '/images/vyang/Gallery-Cartoonist 6.jpg',
-        //     title: 'शिवसेना परंपरा',
-        //     size: 'large'
-        // }
+        {
+            id: 9,
+            image: '/images/vyang/balasaheb image black and white.jpg',
+            title: 'शिवसेना शक्ती',
+            size: 'large'
+        },
+        {
+            id: 10,
+            image: '/images/vyang/career as cartoonist.jpg',
+            title: 'बाळासाहेब ठाकरे',
+            size: 'medium'
+        },
+        {
+            id: 11,
+            image: '/images/vyang/Gallery-Cartoonist 1.jpg',
+            title: 'मुंबई दर्शन',
+            size: 'small'
+        },
+        {
+            id: 12,
+            image: '/images/vyang/Gallery-Cartoonist 2.jpg',
+            title: 'शिवसेना विचार',
+            size: 'medium'
+        },
+        {
+            id: 13,
+            image: '/images/vyang/Gallery-Cartoonist 3.jpg',
+            title: 'मराठी अस्मिता',
+            size: 'large'
+        },
+        {
+            id: 14,
+            image: '/images/vyang/Gallery-Cartoonist 4.jpg',
+            title: 'शिवसेना संघर्ष',
+            size: 'small'
+        },
+        {
+            id: 15,
+            image: '/images/vyang/Gallery-Cartoonist 5.jpg',
+            title: 'बाळासाहेब विचार',
+            size: 'medium'
+        },
+        {
+            id: 16,
+            image: '/images/vyang/Gallery-Cartoonist 6.jpg',
+            title: 'शिवसेना विजय',
+            size: 'large'
+        },
+        {
+            id: 17,
+            image: '/images/vyang/balasaheb image black and white.jpg',
+            title: 'मराठी राज्य',
+            size: 'small'
+        },
+        {
+            id: 18,
+            image: '/images/vyang/career as cartoonist.jpg',
+            title: 'शिवसेना नेतृत्व',
+            size: 'medium'
+        },
+        {
+            id: 19,
+            image: '/images/vyang/Gallery-Cartoonist 1.jpg',
+            title: 'बाळासाहेब कार्य',
+            size: 'small'
+        },
+        {
+            id: 20,
+            image: '/images/vyang/Gallery-Cartoonist 2.jpg',
+            title: 'शिवसेना भविष्य',
+            size: 'large'
+        },
+        {
+            id: 21,
+            image: '/images/vyang/Gallery-Cartoonist 3.jpg',
+            title: 'मराठी भाषा',
+            size: 'medium'
+        },
+        {
+            id: 22,
+            image: '/images/vyang/Gallery-Cartoonist 4.jpg',
+            title: 'शिवसेना संस्कृती',
+            size: 'small'
+        },
+        {
+            id: 23,
+            image: '/images/vyang/Gallery-Cartoonist 5.jpg',
+            title: 'बाळासाहेब स्मृती',
+            size: 'medium'
+        },
+        {
+            id: 24,
+            image: '/images/vyang/Gallery-Cartoonist 6.jpg',
+            title: 'शिवसेना परंपरा',
+            size: 'large'
+        }
     ]
 
     const cartoonAnimations = [
