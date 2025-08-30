@@ -226,7 +226,7 @@ function Layout() {
             <AnimatePresence mode="wait">
                 <Routes location={location} key={location.pathname}>
                     <Route path="/" element={
-                        <PageTransition>
+                        // <PageTransition>
                             <>
                                 {/* <FontTest /> */}
 
@@ -236,9 +236,11 @@ function Layout() {
 
                                 
 
-                                <AnimatedWrapper animation="fade-in-up" distance={60} duration={0.9} delay={0.1}>
+                                {/* <AnimatedWrapper animation="fade-in-up" distance={60} duration={0.9} delay={0.1}>
                                     <EknathSection />
-                                </AnimatedWrapper>
+                                </AnimatedWrapper> */}
+
+                                <CardStackingDemo />
 
                                 {/* <SectionDivider pattern="curve" color="#f5e6c0" height={100} invert={true} /> */}
 
@@ -276,7 +278,7 @@ function Layout() {
                                     <AnimationShowcase />
                                 </AnimatedOnScroll> */}
                             </>
-                        </PageTransition>
+                        // </PageTransition>
                     } />
                     <Route path="/history" element={<PageTransition><HistoryPage /></PageTransition>} />
                     <Route path="/founder" element={<PageTransition><FounderPage /></PageTransition>} />
@@ -291,7 +293,6 @@ function Layout() {
                     <Route path="/medical-members" element={<PageTransition><MedicalMembersPage /></PageTransition>} />
                     <Route path="/media-news" element={<PageTransition><MediaNewsPage /></PageTransition>} />
                     <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
-                    <Route path="/card-stacking" element={<PageTransition><CardStackingDemo /></PageTransition>} />
                 </Routes>
             </AnimatePresence>
 

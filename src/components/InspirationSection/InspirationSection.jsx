@@ -270,7 +270,7 @@ const InspirationSection = () => {
                     ))}
                 </div>
             </div>
-            <SectionDivider pattern="wave" color="#dfcfa9" height={100} />
+            {/* <SectionDivider pattern="wave" color="#dfcfa9" height={100} /> */}
         </section>
     );
 };
