@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
-import PageTransition from './components/PageTransition/PageTransition'
-import ScrollProvider from './components/ScrollProvider/ScrollProvider'
-import ScrollProgress from './components/ScrollProgress/ScrollProgress'
-import ScrollToTop from './components/ScrollToTop/ScrollToTop'
-import SectionDivider from './components/SectionDivider/SectionDivider'
-import './i18n'
+import React, { useState, useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import PageTransition from './components/PageTransition/PageTransition';
+import ScrollProvider from './components/ScrollProvider/ScrollProvider';
+import ScrollProgress from './components/ScrollProgress/ScrollProgress';
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
+import SectionDivider from './components/SectionDivider/SectionDivider';
+import './i18n';
 import Header from './components/Header/Header';
 import HeroSection from './components/HeroSection/HeroSection';
 import FontTest from './components/FontTest/FontTest';
@@ -39,20 +39,24 @@ import CardStackingDemo from './components/CardStackingGSAP/CardStackingDemo';
 import CardSliderDemo from './components/CardSliderDemo';
 import SimpleSlider from './components/SimpleSlider';
 import { isMobile, shouldDisableAnimations } from './utils/mobileOptimization';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 function Layout() {
-    const location = useLocation()
-    const isHome = location.pathname === "/"
-    const [videoLoaded, setVideoLoaded] = useState(false)
-    const [videoError, setVideoError] = useState(false)
-    const [showFallback, setShowFallback] = useState(false)
-    const [isSlowConnection, setIsSlowConnection] = useState(false)
-    const [isMobileDevice, setIsMobileDevice] = useState(false)
-    const [animationsDisabled, setAnimationsDisabled] = useState(false)
-    const videoRef = useRef(null)
+    const location = useLocation();
+    const isHome = location.pathname === "/";
+    const [videoLoaded, setVideoLoaded] = useState(false);
+    const [videoError, setVideoError] = useState(false);
+    const [showFallback, setShowFallback] = useState(false);
+    const [isSlowConnection, setIsSlowConnection] = useState(false);
+    const [isMobileDevice, setIsMobileDevice] = useState(false);
+    const [animationsDisabled, setAnimationsDisabled] = useState(false);
+    const videoRef = useRef(null);
+    const homeRef = useRef(null);
 
     useEffect(() => {
-        // Check device capabilities
         const mobile = isMobile();
         const disableAnimations = shouldDisableAnimations();
 
@@ -60,57 +64,51 @@ function Layout() {
         setAnimationsDisabled(disableAnimations);
 
         if (isHome) {
-            // Check for slow connection
             if ('connection' in navigator) {
-                const connection = navigator.connection
+                const connection = navigator.connection;
                 if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g' || connection.effectiveType === '3g') {
-                    setIsSlowConnection(true)
-                    setShowFallback(true)
+                    setIsSlowConnection(true);
+                    setShowFallback(true);
                 }
             }
 
-            // Show fallback after 2 seconds if video hasn't loaded (reduced from 3s)
             const fallbackTimer = setTimeout(() => {
                 if (!videoLoaded) {
-                    setShowFallback(true)
+                    setShowFallback(true);
                 }
-            }, 2000)
+            }, 2000);
 
-            // Preload video with lower priority
             const preloadVideo = () => {
                 if (videoRef.current && !isSlowConnection) {
-                    videoRef.current.load()
+                    videoRef.current.load();
                 }
-            }
+            };
 
-            // Delay video loading slightly to prioritize other content
-            const loadTimer = setTimeout(preloadVideo, 200)
+            const loadTimer = setTimeout(preloadVideo, 200);
 
             return () => {
-                clearTimeout(fallbackTimer)
-                clearTimeout(loadTimer)
-            }
+                clearTimeout(fallbackTimer);
+                clearTimeout(loadTimer);
+            };
         }
-    }, [isHome, videoLoaded, isSlowConnection])
+    }, [isHome, videoLoaded, isSlowConnection]);
 
     const handleVideoLoad = () => {
-        setVideoLoaded(true)
-        setShowFallback(false)
-    }
+        setVideoLoaded(true);
+        setShowFallback(false);
+    };
 
     const handleVideoError = () => {
-        setVideoError(true)
-        setShowFallback(true)
-    }
+        setVideoError(true);
+        setShowFallback(true);
+    };
 
-    // Choose video source based on connection speed
     const getVideoSource = () => {
         if (isSlowConnection) {
-            return null // Don't load video on slow connections
+            return null;
         }
-        // You can add multiple video sources here for different qualities
-        return "/videos/Shiv Sena Song.mp4"
-    }
+        return "/videos/Shiv Sena Song.mp4";
+    };
 
     // Conditional animation wrapper for mobile optimization
     const AnimatedWrapper = ({ children, animation, delay = 0, distance = 40, duration = 0.8 }) => {
@@ -134,8 +132,6 @@ function Layout() {
         <div className="App" style={{ overflowX: 'hidden', width: '100%' }}>
             {isHome ? (
                 <>
-
-
                     {getVideoSource() && (
                         <video
                             ref={videoRef}
@@ -211,61 +207,18 @@ function Layout() {
             <AnimatePresence mode="wait">
                 <Routes location={location} key={location.pathname}>
                     <Route path="/" element={
-                        // <PageTransition>
-                            <>
-                                {/* <FontTest /> */}
-
-                                {/* <AnimatedWrapper animation="slide-up-fade" distance={80} duration={1.2} delay={0.2}> */}
-                                    <InspirationSection />
-                                {/* </AnimatedWrapper> */}
-
-                                
-
-                                {/* <AnimatedWrapper animation="fade-in-up" distance={60} duration={0.9} delay={0.1}>
-                                    <EknathSection />
-                                </AnimatedWrapper> */}
-
-                                <CardStackingDemo />
-
-                                {/* <SectionDivider pattern="curve" color="#f5e6c0" height={100} invert={true} /> */}
-{/* 
-                                <AnimatedWrapper animation="reveal" duration={0.9}>
-                                    <StrengthSection />
-                                </AnimatedWrapper> */}
-
-                                {/* <SectionDivider pattern="angle" color="#f8f0dd" height={100} /> */}
-
-                                {/* <AnimatedWrapper animation="slide-in-right" distance={20} duration={1.0} delay={0.2}>
-                                    <NewsCarousel />
-                                </AnimatedWrapper> */}
-                                <CardSliderDemo />
-
-                                {/* <SectionDivider pattern="zigzag" color="#f5e6c0" height={100} invert={true} /> */}
-
-                                <AnimatedWrapper animation="slide-in-left" distance={60} duration={1.1} delay={0.1}>
-                                    <MediaSection />
-                                </AnimatedWrapper>
-
-                                {/* <SectionDivider pattern="wave" color="#f8f0dd" height={100} /> */}
-
-                                {/* <AnimatedWrapper animation="fade-in-down" distance={50} duration={1.2} delay={0.3}>
-                                    <CartoonsSection />
-                                </AnimatedWrapper> */}
-                                <SimpleSlider />
-
-                                {/* <SectionDivider pattern="curve" color="#f5e6c0" height={100} invert={true} /> */}
-
-                                <AnimatedWrapper animation="slide-in-up" distance={70} duration={1.0} delay={0.1}>
-                                    <CTASection />
-                                </AnimatedWrapper>
-
-                                {/* <SectionDivider pattern="wave" color="#f8f0dd" height={100} /> */}
-
-                                {/* <AnimatedOnScroll animation="fade-in-down" distance={80} duration={1.2} delay={0.2}>
-                                    <AnimationShowcase />
-                                </AnimatedOnScroll> */}
-                            </>
-                        // </PageTransition>
+                        <>
+                            <InspirationSection />
+                            <CardStackingDemo />
+                            <CardSliderDemo />
+                            <AnimatedWrapper animation="slide-in-left" distance={60} duration={1.1} delay={0.1}>
+                                <MediaSection />
+                            </AnimatedWrapper>
+                            <SimpleSlider />
+                            <AnimatedWrapper animation="slide-in-up" distance={70} duration={1.0} delay={0.1}>
+                                <CTASection />
+                            </AnimatedWrapper>
+                        </>
                     } />
                     <Route path="/history" element={<PageTransition><HistoryPage /></PageTransition>} />
                     <Route path="/founder" element={<PageTransition><FounderPage /></PageTransition>} />
@@ -280,23 +233,72 @@ function Layout() {
                     <Route path="/medical-members" element={<PageTransition><MedicalMembersPage /></PageTransition>} />
                     <Route path="/media-news" element={<PageTransition><MediaNewsPage /></PageTransition>} />
                     <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
-                    {/* <Route path="/card-slider-demo" element={<CardSliderDemo/> } /> */}
                 </Routes>
             </AnimatePresence>
 
             <Footer />
 
-            {/* Loading animation styles */}
             <style dangerouslySetInnerHTML={{
                 __html: `
                     @keyframes loadingAnimation {
                         0% { transform: translateX(-100%); }
                         100% { transform: translateX(100%); }
                     }
+                    
+                    /* Disable tap highlight on mobile */
+                    * {
+                        -webkit-tap-highlight-color: transparent;
+                        -webkit-touch-callout: none;
+                        -webkit-user-select: none;
+                        -khtml-user-select: none;
+                        -moz-user-select: none;
+                        -ms-user-select: none;
+                        user-select: none;
+                    }
+                    
+                    /* Allow text selection where needed */
+                    p, h1, h2, h3, h4, h5, h6, span, div {
+                        -webkit-user-select: text;
+                        -khtml-user-select: text;
+                        -moz-user-select: text;
+                        -ms-user-select: text;
+                        user-select: text;
+                    }
+                    
+                    /* Remove focus outline on mobile */
+                    *:focus {
+                        outline: none;
+                    }
+                    
+                    /* Improve touch targets */
+                    button, a, [role="button"] {
+                        -webkit-tap-highlight-color: transparent;
+                        touch-action: manipulation;
+                    }
+                    
+                    /* Mobile-specific optimizations */
+                    @media (max-width: 768px) {
+                        body {
+                            -webkit-tap-highlight-color: transparent;
+                            -webkit-touch-callout: none;
+                        }
+                        
+                        /* Remove any default mobile styling */
+                        input, textarea, select {
+                            -webkit-appearance: none;
+                            border-radius: 0;
+                        }
+                        
+                        /* Ensure smooth scrolling */
+                        html, body {
+                            -webkit-overflow-scrolling: touch;
+                            scroll-behavior: smooth;
+                        }
+                    }
                 `
             }} />
         </div>
-    )
+    );
 }
 
 function App() {
@@ -304,12 +306,10 @@ function App() {
         <Router>
             <ScrollProvider>
                 <ScrollProgress />
-                {/* <ScrollToTop /> */}
                 <Layout />
-
             </ScrollProvider>
         </Router>
-    )
+    );
 }
 
-export default App
+export default App;

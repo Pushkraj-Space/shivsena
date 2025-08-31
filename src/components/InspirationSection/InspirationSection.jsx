@@ -66,7 +66,7 @@ const InspirationSection = () => {
     return (
         <section className="section inspiration-section-fluid" style={{
             padding: '80px 20px',
-            background: '#f4f4f4',
+            background: 'white',
             overflow: 'hidden'
         }}>
             <style>{`
@@ -109,11 +109,11 @@ const InspirationSection = () => {
                 .inspiration-section-fluid .leader-image-container {
                     flex-shrink: 0;
                     width: 350px;
-                    height: 350px;
-                    border-radius: 50%;
+                    height: 400px;
+                    // border-radius: 50%;
                     overflow: hidden;
-                    border: 8px solid #F37021;
-                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                    // border: 8px solid #F37021;
+                    // box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
                 }
                 .inspiration-section-fluid .leader-image-container img {
                     width: 100%;
