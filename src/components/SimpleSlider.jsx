@@ -78,7 +78,7 @@ const SimpleSlider = () => {
     slidesToShow: isMobile ? 1 : 4,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 1000,
+    autoplaySpeed: 1500,
     pauseOnHover: true,
     infinite: true,
     arrows: false,
