@@ -1,156 +1,108 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './HeroSection.css';
 
 const HeroSection = () => {
-  const videoRef = useRef(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
-  const [showScrollIndicator, setShowScrollIndicator] = useState(false);
-  const animationFrameRef = useRef(null);
-  const lastScrollY = useRef(0);
-  const throttleTimeoutRef = useRef(null);
-  const isVideoComplete = useRef(false);
-  const heroSectionRef = useRef(null);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    // Set video properties
-    video.muted = true;
-    video.preload = 'metadata';
-    video.currentTime = 0;
-    video.pause();
-
-    // Prevent scrolling initially
-    document.body.style.overflow = 'hidden';
-
-    const handleScroll = (e) => {
-      // If video is complete, allow normal scrolling
-      if (isVideoComplete.current) {
+    // Wait a bit for the video to be available in the DOM
+    const timer = setTimeout(() => {
+      const video = document.querySelector('.hero-bg-video');
+      if (!video) {
+        console.log('Video element not found');
         return;
       }
 
-      // Prevent default scroll behavior
-      e.preventDefault();
-      e.stopPropagation();
+      console.log('Video element found:', video);
+      console.log('Video src:', video.src);
+      console.log('Video readyState:', video.readyState);
 
-      // Throttle scroll events for better performance
-      if (throttleTimeoutRef.current) {
-        return;
+      // Set video properties for continuous playback
+      video.muted = true;
+      video.preload = 'metadata';
+      video.currentTime = 0;
+      
+      // Ensure video plays
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log('Video started playing successfully');
+          })
+          .catch(error => {
+            console.log('Auto-play prevented:', error);
+            // Try to play on user interaction
+            const playOnInteraction = () => {
+              video.play().catch(e => console.log('Still cannot play:', e));
+              document.removeEventListener('click', playOnInteraction);
+              document.removeEventListener('touchstart', playOnInteraction);
+            };
+            document.addEventListener('click', playOnInteraction);
+            document.addEventListener('touchstart', playOnInteraction);
+          });
       }
 
-      throttleTimeoutRef.current = setTimeout(() => {
-        throttleTimeoutRef.current = null;
-      }, 16); // ~60fps
+      // Allow normal scrolling from the start
+      document.body.style.overflow = 'auto';
 
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-
-      animationFrameRef.current = requestAnimationFrame(() => {
-        // Get scroll delta
-        const delta = e.deltaY || e.detail || e.wheelDelta;
-        const scrollDirection = delta > 0 ? 1 : -1;
-
-        // Calculate current progress based on video time
+      // Handle video metadata load
+      const handleLoadedMetadata = () => {
+        console.log('Video metadata loaded');
         if (video.duration && !isNaN(video.duration)) {
-          const currentProgress = video.currentTime / video.duration;
-          const newProgress = Math.max(0, Math.min(1, currentProgress + (scrollDirection * 0.02)));
-
-          // Set video time based on new progress
-          const targetTime = newProgress * video.duration;
-
-          // Check if video has reached the end
-          if (newProgress >= 1) {
-            isVideoComplete.current = true;
-            setShowScrollIndicator(true);
-            // Allow scrolling to continue to next sections
-            document.body.style.overflow = 'auto';
-            // Dispatch custom event to notify header about video completion
-            window.dispatchEvent(new CustomEvent('videoComplete', { detail: { isComplete: true } }));
-            return;
-          }
-
-          // Update video time
-          if (Math.abs(video.currentTime - targetTime) > 0.01) {
-            video.currentTime = targetTime;
-          }
+          video.currentTime = 0;
+          setIsVideoLoaded(true);
+          // Dispatch custom event to notify header about video start
+          window.dispatchEvent(new CustomEvent('videoStart', { detail: { isStarted: true } }));
         }
-      });
-    };
+      };
 
-    // Handle video metadata load
-    const handleLoadedMetadata = () => {
-      if (video.duration && !isNaN(video.duration)) {
+      // Handle video error
+      const handleVideoError = () => {
+        console.error('Video error:', video.error);
+        setVideoError(true);
+        // Dispatch custom event to notify header about video completion (error case)
+        window.dispatchEvent(new CustomEvent('videoComplete', { detail: { isComplete: true } }));
+      };
+
+      // Handle video end - restart it for continuous loop
+      const handleVideoEnded = () => {
+        console.log('Video ended, restarting...');
         video.currentTime = 0;
+        video.play().catch(error => {
+          console.log('Auto-play prevented on loop:', error);
+        });
+      };
+
+      // Handle video load
+      const handleLoadedData = () => {
+        console.log('Video data loaded');
         setIsVideoLoaded(true);
-        // Dispatch custom event to notify header about video start
-        window.dispatchEvent(new CustomEvent('videoStart', { detail: { isStarted: true } }));
-      }
-    };
+      };
 
-    // Handle video error
-    const handleVideoError = () => {
-      setVideoError(true);
-      console.error('Error loading video');
-      // Allow scrolling if video fails to load
-      document.body.style.overflow = 'auto';
-      // Dispatch custom event to notify header about video completion (error case)
-      window.dispatchEvent(new CustomEvent('videoComplete', { detail: { isComplete: true } }));
-    };
+      video.addEventListener('loadedmetadata', handleLoadedMetadata);
+      video.addEventListener('loadeddata', handleLoadedData);
+      video.addEventListener('error', handleVideoError);
+      video.addEventListener('ended', handleVideoEnded);
 
-    video.addEventListener('loadedmetadata', handleLoadedMetadata);
-    video.addEventListener('error', handleVideoError);
-    window.addEventListener('scroll', handleScroll, { passive: false });
-    window.addEventListener('wheel', handleScroll, { passive: false });
-    window.addEventListener('touchmove', handleScroll, { passive: false });
+      return () => {
+        video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+        video.removeEventListener('loadeddata', handleLoadedData);
+        video.removeEventListener('error', handleVideoError);
+        video.removeEventListener('ended', handleVideoEnded);
+      };
+    }, 100);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('wheel', handleScroll);
-      window.removeEventListener('touchmove', handleScroll);
-      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      video.removeEventListener('error', handleVideoError);
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-      if (throttleTimeoutRef.current) {
-        clearTimeout(throttleTimeoutRef.current);
-      }
-      // Reset body overflow
-      document.body.style.overflow = 'auto';
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section className="hero-section" aria-label="Hero" role="region" ref={heroSectionRef}>
+    <section className="hero-section" aria-label="Hero" role="region">
       <div className="video-background-wrapper">
-        <video
-          ref={videoRef}
-          className="background-video"
-          playsInline
-          muted
-          preload="metadata"
-          disablePictureInPicture
-          controlsList="nodownload"
-          disableRemotePlayback
-          webkit-playsinline="true"
-        >
-          <source src="/videos/parallax.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-
+        {/* Video is now handled by App.jsx, so we don't need a duplicate video element here */}
+        
         {/* Overlay for better text readability */}
         <div className="video-overlay"></div>
-
-        {/* Scroll indicator */}
-        {/* {showScrollIndicator && (
-          <div className="scroll-indicator">
-            <div className="scroll-arrow"></div>
-            <p>Scroll to continue</p>
-          </div>
-        )} */}
 
         {!isVideoLoaded && !videoError && (
           <div className="video-loading">
@@ -164,6 +116,20 @@ const HeroSection = () => {
             <p>Error loading video. Please refresh the page.</p>
           </div>
         )}
+
+        {/* Hero content */}
+        {/* <div className="hero-content">
+          <div className="hero-text">
+            <h1 className="hero-title">
+              <span className="title-line">शिवसेना</span>
+            </h1>
+            <div className="hero-description">
+              <p>
+                <span className="description-line">जनतेच्या सेवेसाठी, राज्याच्या विकासासाठी</span>
+              </p>
+            </div>
+          </div>
+        </div> */}
       </div>
     </section>
   );

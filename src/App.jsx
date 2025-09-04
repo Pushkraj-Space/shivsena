@@ -129,7 +129,7 @@ function Layout() {
     };
 
     return (
-        <div className="App" style={{ overflowX: 'hidden', width: '100%' }}>
+        <div className="App" style={{ width: '100%' }}>
             {isHome ? (
                 <>
                     {getVideoSource() && (
@@ -145,6 +145,13 @@ function Layout() {
                             loading="lazy"
                             onLoadedData={handleVideoLoad}
                             onError={handleVideoError}
+                            onLoadStart={() => console.log('Video load started')}
+                            onCanPlay={() => console.log('Video can play')}
+                            onPlay={() => console.log('Video started playing')}
+                            onPause={() => console.log('Video paused')}
+                            onEnded={() => console.log('Video ended')}
+                            onWaiting={() => console.log('Video waiting for data')}
+                            onStalled={() => console.log('Video stalled')}
                             style={{
                                 position: 'absolute',
                                 top: 0,
