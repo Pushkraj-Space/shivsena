@@ -49,12 +49,9 @@ function Layout() {
     const isHome = location.pathname === "/";
     const [videoLoaded, setVideoLoaded] = useState(false);
     const [videoError, setVideoError] = useState(false);
-    const [showFallback, setShowFallback] = useState(false);
-    const [isSlowConnection, setIsSlowConnection] = useState(false);
     const [isMobileDevice, setIsMobileDevice] = useState(false);
     const [animationsDisabled, setAnimationsDisabled] = useState(false);
     const videoRef = useRef(null);
-    const homeRef = useRef(null);
 
     useEffect(() => {
         const mobile = isMobile();
@@ -62,52 +59,40 @@ function Layout() {
 
         setIsMobileDevice(mobile);
         setAnimationsDisabled(disableAnimations);
-
-        if (isHome) {
-            if ('connection' in navigator) {
-                const connection = navigator.connection;
-                if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g' || connection.effectiveType === '3g') {
-                    setIsSlowConnection(true);
-                    setShowFallback(true);
-                }
-            }
-
-            const fallbackTimer = setTimeout(() => {
-                if (!videoLoaded) {
-                    setShowFallback(true);
-                }
-            }, 2000);
-
-            const preloadVideo = () => {
-                if (videoRef.current && !isSlowConnection) {
-                    videoRef.current.load();
-                }
-            };
-
-            const loadTimer = setTimeout(preloadVideo, 200);
-
-            return () => {
-                clearTimeout(fallbackTimer);
-                clearTimeout(loadTimer);
-            };
-        }
-    }, [isHome, videoLoaded, isSlowConnection]);
+    }, []);
 
     const handleVideoLoad = () => {
         setVideoLoaded(true);
-        setShowFallback(false);
+        console.log('Video loaded successfully');
+        // Dispatch custom event to notify other components
+        window.dispatchEvent(new CustomEvent('videoStart', { detail: { isStarted: true } }));
     };
 
-    const handleVideoError = () => {
+    const handleVideoError = (e) => {
         setVideoError(true);
-        setShowFallback(true);
+        console.error('Video error:', e);
+        // Dispatch custom event to notify other components
+        window.dispatchEvent(new CustomEvent('videoComplete', { detail: { isComplete: true } }));
     };
 
-    const getVideoSource = () => {
-        if (isSlowConnection) {
-            return null;
+    const handleVideoCanPlay = () => {
+        console.log('Video can play');
+        setVideoLoaded(true);
+    };
+
+    const handleVideoPlay = () => {
+        console.log('Video started playing');
+        window.dispatchEvent(new CustomEvent('videoStart', { detail: { isStarted: true } }));
+    };
+
+    const handleVideoEnded = () => {
+        console.log('Video ended, restarting...');
+        if (videoRef.current) {
+            videoRef.current.currentTime = 0;
+            videoRef.current.play().catch(error => {
+                console.log('Auto-play prevented on loop:', error);
+            });
         }
-        return "/videos/Shiv Sena Song.mp4";
     };
 
     // Conditional animation wrapper for mobile optimization
@@ -132,43 +117,33 @@ function Layout() {
         <div className="App" style={{ width: '100%' }}>
             {isHome ? (
                 <>
-                    {getVideoSource() && (
-                        <video
-                            ref={videoRef}
-                            className="hero-bg-video"
-                            src={getVideoSource()}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            preload="metadata"
-                            loading="lazy"
-                            onLoadedData={handleVideoLoad}
-                            onError={handleVideoError}
-                            onLoadStart={() => console.log('Video load started')}
-                            onCanPlay={() => console.log('Video can play')}
-                            onPlay={() => console.log('Video started playing')}
-                            onPause={() => console.log('Video paused')}
-                            onEnded={() => console.log('Video ended')}
-                            onWaiting={() => console.log('Video waiting for data')}
-                            onStalled={() => console.log('Video stalled')}
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                width: '100%',
-                                height: '100vh',
-                                objectFit: 'cover',
-                                zIndex: videoLoaded ? 0 : -1,
-                                pointerEvents: 'none',
-                                maxWidth: '100vw',
-                                opacity: videoLoaded ? 1 : 0,
-                                transition: 'opacity 0.5s ease-in-out',
-                            }}
-                        />
-                    )}
+                    <video
+                        ref={videoRef}
+                        className="hero-bg-video"
+                        src="/videos/Shiv%20Sena%20Song.mp4"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="metadata"
+                        onLoadedData={handleVideoLoad}
+                        onCanPlay={handleVideoCanPlay}
+                        onPlay={handleVideoPlay}
+                        onError={handleVideoError}
+                        onEnded={handleVideoEnded}
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100vh',
+                            objectFit: 'cover',
+                            zIndex: 0,
+                            pointerEvents: 'none',
+                        }}
+                    />
 
-                    {!videoLoaded && !showFallback && !isSlowConnection && (
+                    {!videoLoaded && !videoError && (
                         <div
                             style={{
                                 position: 'absolute',
@@ -181,7 +156,7 @@ function Layout() {
                                 textAlign: 'center',
                             }}
                         >
-                            <div style={{ marginBottom: '10px' }}>Loading...</div>
+                            <div style={{ marginBottom: '10px' }}>Loading video...</div>
                             <div style={{
                                 width: '40px',
                                 height: '4px',
@@ -199,6 +174,26 @@ function Layout() {
                                     transform: 'translateX(-100%)'
                                 }}></div>
                             </div>
+                        </div>
+                    )}
+
+                    {videoError && (
+                        <div
+                            style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                zIndex: 1,
+                                color: 'white',
+                                fontSize: '1.2rem',
+                                textAlign: 'center',
+                                background: 'rgba(0,0,0,0.7)',
+                                padding: '20px',
+                                borderRadius: '10px',
+                            }}
+                        >
+                            Video loading failed. Please refresh the page.
                         </div>
                     )}
 
